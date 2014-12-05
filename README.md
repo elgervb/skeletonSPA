@@ -58,10 +58,10 @@ clean        | Cleans the `dist` folder
 default      | Build and copy all styles, scripts, images and fonts. Depends on: clean
 build        | Default task. Depends on: build
 copy-fonts   | Copies all fonts found in folder `src/fonts/**` to target folder `dist/assets/fonts`
-watch        | 
-live-reload  | 
-browser-sync | 
-express      | 
-express-lr   | 
+watch        | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, scripts or images.
+live-reload  | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. Depends on: watch
+browser-sync | browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen. Depends on: watch
+express      | Task to start a Express server on port 4000.
+express-lr   | Task to start a Express server on port 4000 and used the live reload functionality. Depends on: express, live-reload
 
 
