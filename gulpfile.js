@@ -15,6 +15,10 @@ var gulp = require('gulp'),
     del = require('del'),
     browserSync = require('browser-sync');
 
+/**
+ * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
+ * This will also auto prefix vendor specific rules.
+ */
 gulp.task('styles', function() {
   return gulp.src('src/styles/main.scss')
     .pipe(sass({ style: 'expanded' }))
@@ -26,6 +30,10 @@ gulp.task('styles', function() {
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
+/**
+ * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
+ * This will also generete sourcemaps for the minified version.
+ */
 gulp.task('scripts', function() {
   return gulp.src('src/js/**/*.js')
     .pipe(sourcemaps.init())
@@ -40,6 +48,9 @@ gulp.task('scripts', function() {
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
+/**
+ * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
+ */
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
@@ -47,21 +58,38 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
+/**
+ * Cleans the `dist` folder
+ */
 gulp.task('clean', function(cb) {
     del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img', 'dist/assets/fonts'], cb)
 });
 
+/**
+ * Build and copy all styles, scripts, images and fonts.
+ * Depends on: clean
+ */
 gulp.task('build', ['clean'], function() {
     gulp.start('styles', 'scripts', 'images', 'copy-fonts');
 });
 
+/**
+ * Default task.
+ * Depends on: build
+ */
 gulp.task('default', ['build']);
 
+/**
+ * Copies all fonts found in folder `src/fonts/**` to target folder `dist/assets/fonts`
+ */
 gulp.task('copy-fonts', function() {
-    return gulp.src(['src/fonts/*'])
+    return gulp.src(['src/fonts/**'])
         .pipe(gulp.dest('dist/assets/fonts'));
 });
 
+/**
+ * Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, scripts or images. 
+ */
 gulp.task('watch', function() {
 
   // Watch .scss files
@@ -75,6 +103,10 @@ gulp.task('watch', function() {
 
 });
 
+/**
+ * Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes.
+ * Depends on: watch
+ */
 gulp.task('live-reload', ['watch'], function() {
 
   // Create LiveReload server
@@ -86,7 +118,10 @@ gulp.task('live-reload', ['watch'], function() {
 
 });
 
-// browser-sync task for starting the server.
+/**
+ * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
+ * Depends on: watch
+ */
 gulp.task('browser-sync', ['watch'], function() {
 
   // Watch any files in dist/* & index.html, reload on change
@@ -110,10 +145,17 @@ gulp.task('browser-sync', ['watch'], function() {
     });
 });
 
+/**
+ * Task to start a Express server on port 4000.
+ */
 gulp.task('express', function(){
   var app = express();
   app.use(express.static(__dirname));
   app.listen(4000); 
 });
 
+/**
+ * Task to start a Express server on port 4000 and used the live reload functionality.
+ * Depends on: express, live-reload
+ */
 gulp.task('express-lr', ['express', 'live-reload'], function(){});
