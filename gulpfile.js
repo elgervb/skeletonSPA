@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
+    sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -27,12 +28,14 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
   return gulp.src('src/js/**/*.js')
+    .pipe(sourcemaps.init())
     // .pipe(jshint('.jshintrc'))
     // .pipe(jshint.reporter('default'))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
@@ -48,9 +51,11 @@ gulp.task('clean', function(cb) {
     del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img', 'dist/assets/fonts'], cb)
 });
 
-gulp.task('default', ['clean'], function() {
+gulp.task('build', ['clean'], function() {
     gulp.start('styles', 'scripts', 'images', 'copy-fonts');
 });
+
+gulp.task('default', ['build']);
 
 gulp.task('copy-fonts', function() {
     return gulp.src(['src/fonts/*'])
