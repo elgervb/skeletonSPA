@@ -45,7 +45,7 @@ This will open a browser for you. Point multiple browsers / devices to the same 
 Point your browser to [http://localhost:4000](http://localhost:4000)
 
 
-### Gulp ###
+### Gulp Tasks ###
 
 The `gulpfile.js` contains several targets to make development easier.
 
