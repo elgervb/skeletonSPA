@@ -1,0 +1,53 @@
+/* columns */
+[class*='col-']{
+  float: left;
+  padding-right: 1%;
+}
+[class*='col-']:last-child{
+  padding-right: 0;
+}
+.col-100{
+  width: 100%;
+}
+.col-90{
+  width: 90%;
+}
+.col-80{
+  width: 80%;
+}
+.col-75{
+  width: 75%;
+}
+.col-70{
+  width: 70%;
+}
+.col-60{
+  width: 60%;
+}
+.col-50{
+  width: 50%;
+}
+.col-40{
+ width: 40%;
+}
+.col-33{
+  width: 33.33333%;
+}
+.col-30{
+  width: 30%;
+}
+.col-25{
+  width: 25%;
+}
+.col-20{
+  width: 20%;
+}
+.col-10{
+  width: 10%;
+}
+
+@media only screen and (max-width : 320px) {
+  .col-100,.col-90,.col-80,.col-75,.col-70,.col-60,.col-50,.col-40,.col-33,.col-30,.col-25,.col-20,.col-10{
+    width: 100%;
+  }
+}

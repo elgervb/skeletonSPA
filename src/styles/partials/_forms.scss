@@ -1,0 +1,31 @@
+.field{
+	padding: 4px 0;
+
+	@extend .clearfix;
+
+  label{
+    cursor: pointer;
+    display: block;
+    float: left;
+    width: 220px;
+  }
+  input{
+  	margin: 0;
+  	width: 220px;
+  	&[type=radio], &[type=checkbox]{
+  		width: auto;
+  	}
+  }
+  .radio-group{
+  	float: left;
+  	width: 220px;
+
+  	label{ 
+  		display: inline;
+  		float: none;
+  		width: auto;
+  	}
+  }
+
+}
+

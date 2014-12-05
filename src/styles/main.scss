@@ -1,0 +1,95 @@
+
+@import 'partials/reset';
+@import 'partials/vars'; 
+@import 'partials/mixins';
+
+@import 'partials/defaults'; 
+
+@import 'partials/forms';
+@import 'partials/table';
+@import 'partials/buttons';
+
+@import 'partials/columns';
+@import 'partials/navigation';
+
+
+.responsive{
+	$height-phone: 480px;
+	$width-phone: 320px;
+	$height-small-tablet: 800px;
+	$width-small-tablet: 600px;
+	$height-tablet: 1024px;
+	$width-tablet: 768px;
+
+	height: 100%;
+	padding: 0 8px;
+	
+	h1{
+		font-weight: lighter;
+	}
+
+	.controls{
+		padding:8px 0;
+
+		.url{
+			border: none;
+			border-bottom: 3px dashed rgba(64, 130, 160, .5);
+			font-size: 1.4em;
+		    max-width: 800px;
+		    min-width: 250px;
+		    padding: 8px;
+		    width: 100%;
+		}
+	}
+
+	iframe{
+	  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+	  transition: all .3s ease-out 0s;
+	  
+	  &.phone{
+		width: $width-phone;
+		height: $height-phone;
+	  } 
+	  &.phone.landscape{
+		width: $height-phone;
+		height: $width-phone;
+	  }
+	  &.small-tablet{
+		width: $width-small-tablet;
+		height: $height-small-tablet;
+	  }
+	  &.small-tablet.landscape{
+		width: $height-small-tablet;
+		height: $width-small-tablet;
+	  }
+	  &.tablet{
+	  	width: $width-tablet;
+		height: $height-tablet;
+	  }
+	  &.tablet.landscape{
+		width: $height-tablet;
+		height: $width-tablet;
+	  }
+	}
+}
+
+
+@media only screen and (max-width : 1200px) {
+
+}
+
+@media only screen and (max-width : 979px) {
+
+}
+
+@media only screen and (max-width : 767px) {
+
+}
+
+@media only screen and (max-width : 480px) {
+
+}
+
+@media only screen and (max-width : 320px) {
+
+}
