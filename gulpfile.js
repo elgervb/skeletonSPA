@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish')
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
@@ -37,8 +38,8 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
   return gulp.src('src/js/**/*.js')
     .pipe(sourcemaps.init())
-    // .pipe(jshint('.jshintrc'))
-    // .pipe(jshint.reporter('default'))
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
@@ -114,7 +115,6 @@ gulp.task('live-reload', ['watch'], function() {
 
   // Watch any files in dist/* & index.html, reload on change
   gulp.watch(['dist/**', 'index.html']).on('change', livereload.changed);
-  
 
 });
 
