@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     express = require('express'),
     del = require('del'),
+    stripDebug = require('gulp-strip-debug'),
     browserSync = require('browser-sync');
 
 /**
@@ -42,16 +43,17 @@ gulp.task('scripts', function() {
     .pipe(jshint())
     .on('error', notify.onError(function (error) {
       return error.message;
-      }))
+     }))
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
     .on('error', handleError)
+    .pipe(stripDebug())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/assets/js'))
-   // .pipe(notify({ message: 'Scripts task complete' }));
+    .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 /**
