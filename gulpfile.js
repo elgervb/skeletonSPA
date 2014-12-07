@@ -24,6 +24,7 @@ gulp.task('styles', function() {
   return gulp.src('src/styles/main.scss')
     .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .on('error', handleError)
     .pipe(gulp.dest('dist/assets/css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
@@ -39,14 +40,18 @@ gulp.task('scripts', function() {
   return gulp.src('src/js/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(jshint())
+    .on('error', notify.onError(function (error) {
+      return error.message;
+      }))
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
+    .on('error', handleError)
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/assets/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+   // .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 /**
@@ -159,3 +164,11 @@ gulp.task('express', function(){
  * Depends on: express, live-reload
  */
 gulp.task('express-lr', ['express', 'live-reload'], function(){});
+
+function handleError (error) {
+
+    //If you want details of the error in the console
+    console.log(error.toString());
+
+    this.emit('end');
+}
