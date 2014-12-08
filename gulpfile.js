@@ -37,8 +37,10 @@ gulp.task('styles', function() {
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
  * This will also generete sourcemaps for the minified version.
  */
-gulp.task('scripts', function() {
-  return gulp.src('src/js/**/*.js')
+gulp.task('scripts', ['scripts-app','scripts-vendor']);
+
+gulp.task('scripts-app', function() {
+  return gulp.src('src/js/app/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(jshint())
     .on('error', notify.onError(function (error) {
@@ -53,7 +55,12 @@ gulp.task('scripts', function() {
     .pipe(stripDebug())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/assets/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+    .pipe(notify({ message: 'Scripts app task complete' }));
+});
+gulp.task('scripts-vendor', function() {
+  return gulp.src('src/js/vendor/**/*.js')
+    .pipe(gulp.dest('dist/assets/js/vendor'))
+    .pipe(notify({ message: 'Scripts vendor task complete' }));
 });
 
 /**
