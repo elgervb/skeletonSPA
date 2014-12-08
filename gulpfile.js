@@ -77,7 +77,7 @@ gulp.task('images', function() {
  * Cleans the `dist` folder
  */
 gulp.task('clean', function(cb) {
-    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img', 'dist/assets/fonts'], cb)
+    del('dist', cb);
 });
 
 /**
