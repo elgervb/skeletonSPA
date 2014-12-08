@@ -88,6 +88,10 @@ gulp.task('build', ['clean'], function() {
     gulp.start('styles', 'scripts', 'images', 'copy-fonts');
 });
 
+gulp.task('remove',['clean'], function(cb){
+  del('node_modules', cb);
+});
+
 /**
  * Default task.
  * Depends on: build
