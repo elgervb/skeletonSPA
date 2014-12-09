@@ -50,10 +50,10 @@ gulp.task('scripts-app', function() {
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
+    .pipe(stripDebug())
     .pipe(uglify())
     .on('error', handleError)
     .pipe(sourcemaps.write())
-    .pipe(stripDebug())
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(notify({ message: 'Scripts app task complete' }));
 });
