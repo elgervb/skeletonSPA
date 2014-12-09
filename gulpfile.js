@@ -138,10 +138,10 @@ gulp.task('watch', function() {
   gulp.watch('src/styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch('src/js/app/**/*.js', ['scripts-app']);
+  gulp.watch('src/js/app/**/*', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch('src/js/vendor/**/*.js', ['scripts-app']);
+  gulp.watch('src/js/vendor/**/*', ['scripts-vendor']);
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
