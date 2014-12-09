@@ -10,11 +10,31 @@
     width: 220px;
   }
   input{
+    border: 1px solid #cecece;
   	margin: 0;
   	width: 220px;
   	&[type=radio], &[type=checkbox]{
   		width: auto;
   	}
+    &[type=radio], &[type=checkbox],&[type=range]{
+      border:none;
+    }
+    &:empty{
+      border: 1px solid #cecece;
+      box-shadow: none;
+    }
+    &:invalid {
+      border: 1px solid #ce1e1e;
+      box-shadow: 0 0 1px #ce1e1e;
+    }
+    &:required{
+      &:invalid{
+        @extend &:empty;
+      }
+      &:after {
+        content: "!";
+      }
+    }
   }
   .radio-group{
   	float: left;
