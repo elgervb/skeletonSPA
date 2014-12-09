@@ -15,7 +15,9 @@ var gulp = require('gulp'),
     express = require('express'),
     del = require('del'),
     stripDebug = require('gulp-strip-debug'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    argv = require('yargs').argv,
+    gulpif = require('gulp-if');
 
 /**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
@@ -50,7 +52,7 @@ gulp.task('scripts-app', function() {
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(stripDebug())
+    .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(uglify())
     .on('error', handleError)
     .pipe(sourcemaps.write())
