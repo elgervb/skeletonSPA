@@ -23,7 +23,8 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
-    todo = require('gulp-todo');
+    todo = require('gulp-todo'),
+    ngannotate = require('gulp-ng-annotate');
 
 /**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
@@ -70,6 +71,7 @@ gulp.task('scripts-app', function() {
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
+    .pipe(ngannotate())
     .pipe(uglify())
     .on('error', handleError)
     .pipe(sourcemaps.write())
@@ -124,6 +126,9 @@ gulp.task('default', ['build']);
 gulp.task('copy', function() {
     gulp.src( 'src/fonts/**')
       .pipe(gulp.dest('dist/assets/fonts'));
+
+    gulp.src( 'src/js/app/**/*.html')
+      .pipe(gulp.dest('dist/assets/js/app'));
 
     return gulp.src('src/index.html')
         .pipe(gulp.dest('dist/'));
