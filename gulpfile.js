@@ -17,7 +17,8 @@ var gulp = require('gulp'),
     stripDebug = require('gulp-strip-debug'),
     browserSync = require('browser-sync'),
     argv = require('yargs').argv,
-    gulpif = require('gulp-if');
+    gulpif = require('gulp-if'),
+    todo = require('gulp-todo');
 
 /**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
@@ -33,6 +34,17 @@ gulp.task('styles', function() {
     .pipe(minifycss())
     .pipe(gulp.dest('dist/assets/css'))
     .pipe(notify({ message: 'Styles task complete' }));
+});
+
+/**
+ * output once in markdown and then output a json file as well
+ */
+gulp.task('todo', function() {
+    gulp.src('src/js/app/**/*.js')
+        .pipe(todo())
+        .pipe(gulp.dest('./')) //output todo.md as markdown
+        .pipe(todo.reporter('json', {fileName: 'todo.json'}))
+        .pipe(gulp.dest('./')) //output todo.json as json
 });
 
 /**
@@ -79,7 +91,7 @@ gulp.task('images', function() {
  * Cleans the `dist` folder
  */
 gulp.task('clean', function(cb) {
-    del('dist', cb);
+    del(['dist','todo.md', 'todo.json'], cb);
 });
 
 /**
@@ -87,7 +99,7 @@ gulp.task('clean', function(cb) {
  * Depends on: clean
  */
 gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy-fonts');
+    gulp.start('styles', 'scripts', 'images', 'copy-fonts', 'todo');
 });
 
 gulp.task('remove',['clean'], function(cb){

@@ -45,3 +45,5 @@ Temporary Items
 
 dist/*
 node_modules/*
+todo.json
+TODO.md
