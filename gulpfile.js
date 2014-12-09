@@ -76,6 +76,7 @@ gulp.task('scripts-app', function() {
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(notify({ message: 'Scripts app task complete' }));
 });
+
 gulp.task('scripts-vendor', function() {
   return gulp.src('src/js/vendor/**/*.js')
     .pipe(gulp.dest('dist/assets/js/vendor'))
@@ -104,7 +105,7 @@ gulp.task('clean', function(cb) {
  * Depends on: clean
  */
 gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy-fonts', 'todo');
+    gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
 gulp.task('remove',['clean'], function(cb){
@@ -118,11 +119,14 @@ gulp.task('remove',['clean'], function(cb){
 gulp.task('default', ['build']);
 
 /**
- * Copies all fonts found in folder `src/fonts/**` to target folder `dist/assets/fonts`
+ * Copies all to dist/
  */
-gulp.task('copy-fonts', function() {
-    return gulp.src(['src/fonts/**'])
-        .pipe(gulp.dest('dist/assets/fonts'));
+gulp.task('copy', function() {
+    gulp.src( 'src/fonts/**')
+      .pipe(gulp.dest('dist/assets/fonts'));
+
+    return gulp.src('src/index.html')
+        .pipe(gulp.dest('dist/'));
 });
 
 /**
@@ -168,7 +172,7 @@ gulp.task('browser-sync', ['watch'], function() {
 
   return browserSync({
       server: {
-          baseDir: "./"
+          baseDir: "./dist"
       },
       ghostMode: {
         clicks: true,
@@ -189,7 +193,7 @@ gulp.task('browser-sync', ['watch'], function() {
  */
 gulp.task('express', function(){
   var app = express(), port = 4000;
-  app.use(express.static(__dirname));
+  app.use(express.static(__dirname + "/dist"));
   app.listen(port); 
   console.log('started webserver on port ' + port);
 });
