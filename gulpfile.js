@@ -52,8 +52,8 @@ gulp.task('scripts-app', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
     .on('error', handleError)
-    .pipe(stripDebug())
     .pipe(sourcemaps.write())
+    .pipe(stripDebug())
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(notify({ message: 'Scripts app task complete' }));
 });
@@ -134,6 +134,8 @@ gulp.task('live-reload', ['watch'], function() {
   // Watch any files in dist/* & index.html, reload on change
   gulp.watch(['dist/**', 'index.html']).on('change', livereload.changed);
 
+  console.log('To enable live reload, you can place following script in your page or use the browser plugin')
+  console.log("<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>");
 });
 
 /**
@@ -167,9 +169,10 @@ gulp.task('browser-sync', ['watch'], function() {
  * Task to start a Express server on port 4000.
  */
 gulp.task('express', function(){
-  var app = express();
+  var app = express(), port = 4000;
   app.use(express.static(__dirname));
-  app.listen(4000); 
+  app.listen(port); 
+  console.log('started webserver on port ' + port);
 });
 
 /**
