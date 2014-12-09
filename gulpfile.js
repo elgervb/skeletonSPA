@@ -1,3 +1,8 @@
+/**
+ * Some nice examples:
+ * http://thewebistheplatform.com/magic-gulpfiles-part-1/
+ */
+
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
