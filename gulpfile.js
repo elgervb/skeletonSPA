@@ -140,7 +140,7 @@ gulp.task('copy', function() {
 gulp.task('watch', function() {
 
   // watch html files
-  gulp.watch('src/index.html', ['copy']);
+  gulp.watch('src/**/*.html', ['copy']);
 
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
