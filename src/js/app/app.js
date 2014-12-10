@@ -11,16 +11,12 @@ var app = angular.module('default', ['ngRoute'])
   $routeProvider
   	.when('', {
 	  controller: 'formController',
-	  templateUrl: '/assets/js/app/modules/form.html'
-	})
-	.when('/', {
-	  controller: 'formController',
-	  templateUrl: '/assets/js/app/modules/form.html'
+	  templateUrl: '/assets/js/app/modules/form/form.html'
 	})
 	.when('/form', {
-	  templateUrl: 'static/app/views/settingsView.html',
-	  controller: 'settingsController'
-	});
+	  controller: 'formController',
+	  templateUrl: '/assets/js/app/modules/form/form.html'
+	})
 
    $locationProvider.html5Mode('true');
 
