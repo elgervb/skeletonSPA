@@ -10,7 +10,7 @@
   </head>
   <body>
 
-    <header class="navbar clearfix" ng-controller="MenuController">
+    <header class="navbar clearfix">
       <div class="right hamburger">
         <label for="menu-toggle" class="icon">&#9776;</label>  
       </div>
@@ -22,7 +22,7 @@
         <a href="#form" ng-class="{active : active=='menu1'}" ng-click="active='menu1'">Menu 1</a>  
         <a href ng-class="{active : active=='menu2'}" ng-click="active='menu2'">Menu 2</a>   
         <div class="right">
-          <a href ng-class="{active : active=='about'}" ng-click="active='about'">About</a>
+          <a href="#about" ng-class="{active : active=='about'}" ng-click="active='about'">About</a>
         </div>
       </nav>
     </header>
