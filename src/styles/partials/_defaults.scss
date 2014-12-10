@@ -145,7 +145,6 @@ $OpenSansPath: "../fonts/opensans/" !default;
 
 /* END Extrabold Italic */
 
-
 html, body, .full-screen{
   height: 100%;
 }
@@ -159,15 +158,19 @@ body, input, textarea, select{
 }
 a{
   background:transparent;
+  border: 1px solid transparent;
+  color: #4082A0;
   cursor: pointer;
   text-decoration: none;
   vertical-align:baseline;
-  transition: color .2s ease;
+  transition: all .3s ease;
 }
 a:hover{
-  text-decoration: underline;
+  border-bottom: 1px solid #4082A0;
 }
-
+img{
+  max-width: 100%;
+}
 p{
   padding-bottom: 15px;
 }
