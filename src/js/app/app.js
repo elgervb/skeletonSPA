@@ -9,7 +9,7 @@ var app = angular.module('default', ['ngRoute'])
 .config(function($routeProvider, $locationProvider) {
  
   $routeProvider
-  	.when('', {
+  	.when('/', {
 	  controller: 'formController',
 	  templateUrl: '/assets/js/app/modules/form/form.html'
 	})
@@ -17,6 +17,10 @@ var app = angular.module('default', ['ngRoute'])
 	  controller: 'formController',
 	  templateUrl: '/assets/js/app/modules/form/form.html'
 	})
+	.when('/about', {
+	  controller: 'AboutController',
+	  templateUrl: '/assets/js/app/modules/about/about.html'
+	});
 
    $locationProvider.html5Mode('true');
 
