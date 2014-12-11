@@ -24,6 +24,7 @@ var gulp = require('gulp'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
     todo = require('gulp-todo'),
+    jsdoc = require("gulp-jsdoc")
     ngannotate = require('gulp-ng-annotate');
 
 /**
@@ -40,6 +41,11 @@ gulp.task('styles', function() {
     .pipe(minifycss())
     .pipe(gulp.dest('dist/assets/css'))
     .pipe(notify({ message: 'Styles task complete' }));
+});
+
+gulp.task('docs', function() {
+  gulp.src("./src/js/app/**/*.js")
+    .pipe(jsdoc('./docs'))
 });
 
 /**
