@@ -205,6 +205,7 @@ gulp.task('scripts-app', ['docs'], function() {
  * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', function() {
+    // script must be included in the right order. First include angular, then angular-route
   return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(concat('vendor.js'))
