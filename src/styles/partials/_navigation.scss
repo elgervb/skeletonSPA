@@ -76,7 +76,7 @@ header.navbar {
   }
 }
 
-@media only screen and (max-width : 1200px) {
+@include desktop{
   body {
     padding-top: 64px;
   }

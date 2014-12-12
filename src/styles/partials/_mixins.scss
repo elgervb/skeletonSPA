@@ -27,7 +27,7 @@ $bp-desktop : 1200px;
   }
 }
 
-@mixin small-tablet {
+@mixin tablet {
   @media (max-width: #{$bp-small-tablet}) {
     @content;
   }
