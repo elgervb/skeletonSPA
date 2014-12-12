@@ -121,15 +121,6 @@ gulp.task('express', function(){
  */
 gulp.task('express-lr', ['express', 'live-reload'], function(){});
 
-function handleError (error) {
-
-    //If you want details of the error in the console
-    console.log(error.toString());
-
-    this.emit('end');
-}
-
-
 /**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
  */
@@ -221,6 +212,7 @@ gulp.task('scripts-vendor', function() {
 gulp.task('styles', function() {
   return gulp.src('src/styles/main.scss')
     .pipe(sass({ style: 'expanded' }))
+    .on('error', handleError)
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .on('error', handleError)
     .pipe(gulp.dest('dist/assets/css'))
@@ -265,8 +257,10 @@ gulp.task('watch', function() {
 });
 
 
+function handleError (error) {
 
+    //If you want details of the error in the console
+    console.log(error.toString());
 
-
-
-
+    this.emit('end');
+}
