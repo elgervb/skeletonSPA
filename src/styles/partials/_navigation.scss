@@ -1,5 +1,5 @@
 body {
-    padding-top: 94px;
+    padding-top: 64px;
 }
 header.navbar {
   background: #4082A0;
@@ -37,71 +37,77 @@ header.navbar {
   }
 
   nav{
+    display: none;
     color: #fff;
     float: left;
     font-size: 1.1em;
     padding: 10px 25px;
     width: 100%;
+
+    a{
+      color: #fff;
+      display: block;
+      float: left;
+      font-size: 1.2em;
+      padding: 20px 25px;
+      transition: all .2s ease 0s;
+      width: 100%;
+
+      &.active{
+        background-color: #255977;
+        text-decoration: none;
+      }
+      &:hover{
+        background-color: #255977;
+        color: #FFF;
+        text-decoration: none;
+      }
+    }
+    .right{
+      float: none;
+    }
   }
   .hamburger .icon{
     color: #ffffff;
-    display: none;
+    cursor: pointer;
+    display: block;
     font-size: 2em;
     padding: 10px 22px;
+    right: 0;
     width: auto;
   }
   #menu-toggle {
     display: none; /* hide the checkbox */
   }
+  #menu-toggle:checked + nav{
+      display: block;
+    }
   .hamburger .icon:hover{
     text-decoration: none;
   }
-  nav a{
-    color: #fff;
-    display: block;
-    float: left;
-    font-size: 1.2em;
-    padding: 20px 25px;
-    transition: all .2s ease 0s;
-
-    &.active{
-      background-color: #255977;
-      text-decoration: none;
-    }
-    &:hover{
-      background-color: #255977;
-      color: #FFF;
-      text-decoration: none;
-    }
-  }
+  
 }
 
 @include desktop{
   body {
-    padding-top: 64px;
+    padding-top: 94px;
   }
   header.navbar{
 
     nav{
-      display: none;
-      width: 100%;
+      display: block;
 
       a{
-        width: 100%;
+        width: auto;
       }
 
       .right{
-        float : none;
+        float: right;
       }
+        
     }
     .hamburger .icon{
-      cursor: pointer;
-      display: block;
-      right: 0;
-    }
-    
-    #menu-toggle:checked + nav{
-      display: block;
+      display: none;
     }
   }
 }
