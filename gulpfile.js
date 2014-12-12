@@ -24,7 +24,7 @@ var gulp = require('gulp'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
     todo = require('gulp-todo'),
-    jsdoc = require("gulp-jsdoc")
+    jsdoc = require("gulp-jsdoc"),
     ngannotate = require('gulp-ng-annotate');
 
 /**
@@ -65,7 +65,7 @@ gulp.task('todo', function() {
  */
 gulp.task('scripts', ['scripts-app','scripts-vendor']);
 
-gulp.task('scripts-app', function() {
+gulp.task('scripts-app', ['docs'], function() {
   return gulp.src('src/js/app/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(jshint())
@@ -86,7 +86,9 @@ gulp.task('scripts-app', function() {
 });
 
 gulp.task('scripts-vendor', function() {
-  return gulp.src('src/js/vendor/**/*.js')
+  return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
+    .pipe(gulp.dest('dist/assets/js/vendor'))
+    .pipe(concat('vendor.js'))
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(notify({ message: 'Scripts vendor task complete' }));
 });
