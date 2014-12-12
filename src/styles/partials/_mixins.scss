@@ -27,20 +27,20 @@ $bp-desktop : 1200px;
   }
 }
 
-@mixin tablet {
-  @media (max-width: #{$bp-small-tablet}) {
+@mixin small-tablet {
+  @media (min-width: #{$bp-phone}) and (max-width: #{$bp-small-tablet}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (max-width: #{$bp-tablet}) {
+  @media (min-width: #{$bp-small-tablet}) and (max-width: #{$bp-tablet}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (max-width: #{$bp-desktop}) {
+  @media (min-width: #{$bp-desktop}) {
     @content;
   }
 }
