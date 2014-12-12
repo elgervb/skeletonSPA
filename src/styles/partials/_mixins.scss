@@ -14,3 +14,38 @@
 .right{
 	float: right;
 }
+
+/* BREAKPOINTS */
+$bp-phone : 320px;
+$bp-small-tablet : 768px;
+$bp-tablet : 992px;
+$bp-desktop : 1200px;
+
+@mixin phone {
+  @media (max-width: #{$bp-phone}) {
+    @content;
+  }
+}
+
+@mixin small-tablet {
+  @media (max-width: #{$bp-small-tablet}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+@mixin print {
+  @media print {
+    @content;
+  }
+}
