@@ -3,6 +3,7 @@
 @import 'partials/vars'; 
 @import 'partials/mixins';
 
+@import 'partials/fonts';
 @import 'partials/defaults'; 
 
 @import 'partials/forms';
@@ -17,6 +18,8 @@
  * Modules
  */
 @import 'modules/about';
+
+
 .responsive{
 	$height-phone: 480px;
 	$width-phone: 320px;
@@ -75,25 +78,4 @@
 		height: $width-tablet;
 	  }
 	}
-}
-
-
-@media only screen and (max-width : 1200px) {
-
-}
-
-@media only screen and (max-width : 979px) {
-
-}
-
-@media only screen and (max-width : 767px) {
-
-}
-
-@media only screen and (max-width : 480px) {
-
-}
-
-@media only screen and (max-width : 320px) {
-
 }

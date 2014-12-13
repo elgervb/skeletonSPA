@@ -47,3 +47,5 @@ dist/*
 node_modules/*
 todo.json
 TODO.md
+docs/*
+docs/index.html

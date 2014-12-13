@@ -1,8 +1,14 @@
 {
   "name": "gulpDemo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
   "main": "gulpfile.js",
+   "keywords": [
+      "gulp",
+      "angular",
+      "single page application",
+      "skeleton"
+    ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +16,15 @@
     "type": "git",
     "url": "https://github.com/elgervb/skeletonSPA/"
   },
-  "author": "",
+  "author": {
+    "name":   "Elger van Boxtel",
+    "email":  "elgervb@gmail.com",
+    "url":    "http://elgervanboxtel.nl"
+  },
+  "bugs": {
+    "url": "https://github.com/elgervb/skeletonSPA/issues",
+    "email" : "chupurnov@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^1.7.2",
@@ -22,6 +36,7 @@
     "gulp-concat": "^2.4.2",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.0.0",
+    "gulp-jsdoc": "^0.1.4",
     "gulp-jshint": "^1.9.0",
     "gulp-livereload": "^2.1.1",
     "gulp-minify-css": "^0.3.11",
