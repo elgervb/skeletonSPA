@@ -13,6 +13,10 @@
 @import 'partials/navigation';
 
 
+/*
+ * Modules
+ */
+@import 'modules/about';
 .responsive{
 	$height-phone: 480px;
 	$width-phone: 320px;
