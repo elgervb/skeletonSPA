@@ -184,7 +184,7 @@ gulp.task('scripts-app', ['docs'], function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(ngannotate())
-    .pipe(uglify())
+    .pipe(gulpif(!argv.dev, uglify()))
     .on('error', handleError)
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/assets/js'))
