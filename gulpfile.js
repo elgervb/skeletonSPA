@@ -25,6 +25,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     todo = require('gulp-todo'),
     jsdoc = require("gulp-jsdoc"),
+    plumber = require('gulp-plumber'),
     ngannotate = require('gulp-ng-annotate');
 
 
@@ -126,6 +127,7 @@ gulp.task('express-lr', ['express', 'live-reload'], function(){});
  */
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
+    .pipe(plumber())
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/assets/img'))
     .pipe(notify({ message: 'Images task complete' }));
@@ -173,6 +175,7 @@ gulp.task('remove',['clean'], function(cb){
  */
 gulp.task('scripts-app', ['docs'], function() {
   return gulp.src('src/js/app/**/*.js')
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(jshint())
     .on('error', notify.onError(function (error) {
@@ -211,6 +214,7 @@ gulp.task('scripts-vendor', function() {
  */
 gulp.task('styles', function() {
   return gulp.src('src/styles/main.scss')
+    .pipe(plumber())
     .pipe(sass({ style: 'expanded' }))
     .on('error', handleError)
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
@@ -228,10 +232,11 @@ gulp.task('styles', function() {
  */
 gulp.task('todo', function() {
     gulp.src('src/js/app/**/*.js')
-        .pipe(todo())
-        .pipe(gulp.dest('./')) //output todo.md as markdown
-        .pipe(todo.reporter('json', {fileName: 'todo.json'}))
-        .pipe(gulp.dest('./')) //output todo.json as json
+      .pipe(plumber())
+      .pipe(todo())
+      .pipe(gulp.dest('./')) //output todo.md as markdown
+      .pipe(todo.reporter('json', {fileName: 'todo.json'}))
+      .pipe(gulp.dest('./')) //output todo.json as json
 });
 
 
