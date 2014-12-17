@@ -1,4 +1,10 @@
-var gulp = require('gulp'),
+/**
+ * Some nice examples:
+ * http://thewebistheplatform.com/magic-gulpfiles-part-1/
+ */
+var underscore = require('underscore'),
+    fs = require('fs'),
+    gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
@@ -21,6 +27,7 @@ var gulp = require('gulp'),
     todo = require('gulp-todo'),
     jsdoc = require("gulp-jsdoc"),
     plumber = require('gulp-plumber'),
+    install = require("gulp-install"),
     ngannotate = require('gulp-ng-annotate'),
     replace = require('gulp-replace');
 
@@ -32,8 +39,8 @@ var options = {liveReload: false};
  */
 gulp.task('browser-sync', ['watch'], function() {
 
-  // Watch any files in dist/*, reload on change
-  gulp.watch(['dist/**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
+  // Watch any files in dist/* & index.html, reload on change
+  gulp.watch(['dist/**', 'index.html']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
 
   return browserSync({
       server: {
@@ -56,9 +63,9 @@ gulp.task('browser-sync', ['watch'], function() {
 
 /**
  * Build and copy all styles, scripts, images and fonts.
- * Depends on: clean
+ * Depends on: clean, deps
  */
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['deps', 'clean'], function() {
     gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
@@ -70,6 +77,13 @@ gulp.task('clean', function(cb) {
     del(['dist', 'docs','todo.md', 'todo.json'], cb);
 });
 
+/**
+ * Installs all dependend bower components.
+ */
+gulp.task('deps', function() {
+  gulp.src(['./bower.json'])
+    .pipe(install());
+});
 
 /**
  * Copies all to dist/
@@ -81,17 +95,17 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('dist/assets/img'));
 
   // copy all fonts
-  gulp.src( 'src/fonts/**')
-    .pipe(gulp.dest('dist/assets/fonts'));
+    gulp.src( 'src/fonts/**')
+      .pipe(gulp.dest('dist/assets/fonts'));
 
   // copy all html && json
   gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
-    .pipe(gulp.dest('dist/assets/js/app'));
+      .pipe(gulp.dest('dist/assets/js/app'));
 
   // copy the index.html
-   return gulp.src('src/index.html')
-    .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
-    .pipe(gulp.dest('dist/'));
+    return gulp.src('src/index.html')
+//    .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
+        .pipe(gulp.dest('dist/'));
 });
 
 
@@ -140,7 +154,7 @@ gulp.task('images', function() {
 
 
 /**
- * Start the live reload server. Live reload will be triggered when a file in the `dist` folder changes. This will add a live-reload script to the index.html page, which makes it all happen.
+ * Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes.
  * Depends on: watch
  */
 gulp.task('live-reload', ['watch'], function() {
@@ -151,14 +165,14 @@ gulp.task('live-reload', ['watch'], function() {
 
   // add livereload script to the index.html
   gulp.src(['src/index.html'])
-   .pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
    .pipe(gulp.dest('dist'));
    
   // Create LiveReload server
   livereload.listen();
 
-  // Watch any files in dist/*, reload on change
-  gulp.watch(['dist/**']).on('change', livereload.changed);
+  // Watch any files in dist/* & index.html, reload on change
+  gulp.watch(['dist/**', 'index.html']).on('change', livereload.changed);
+
 });
 
 
@@ -206,11 +220,33 @@ gulp.task('scripts-app', ['docs'], function() {
 
 
 /**
- * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory.
+ * Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ *
+ * Before running this task the bower dependencies need to be downloaded.
  */
 gulp.task('scripts-vendor', function() {
-    // script must be included in the right order. First include angular, then angular-route
-  return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
+  var bowerFile = require('./bower.json');
+  var bowerDir = './client/lib';
+  var bowerPackages = [];
+
+  // assume that all bower deps have to be included in the order they are listed in bower.json
+  underscore.each(bowerFile.dependencies, function(version, name){
+    var dir = bowerDir + '/' + name + '/';
+    var bowerDepFile = require(dir + 'bower.json');
+    var file = dir + bowerDepFile.main;
+    var minfile = file.substring(0, file.length - 3) + '.min.js';
+
+    if (fs.existsSync(minfile)) {
+      // use min version
+      bowerPackages.push(minfile);
+    } else {
+      // unminified
+      bowerPackages.push(file);
+    }
+  });
+
+  return gulp.src(bowerPackages)
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('dist/assets/js/vendor'));

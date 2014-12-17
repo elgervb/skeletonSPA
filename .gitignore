@@ -49,3 +49,7 @@ todo.json
 TODO.md
 docs/*
 docs/index.html
+<<<<<<< HEAD
+=======
+client
+>>>>>>> Bowerify the angular dependencies
