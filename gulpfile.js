@@ -26,6 +26,7 @@ var gulp = require('gulp'),
     todo = require('gulp-todo'),
     jsdoc = require("gulp-jsdoc"),
     plumber = require('gulp-plumber'),
+    install = require("gulp-install"),
     ngannotate = require('gulp-ng-annotate');
 
 
@@ -59,9 +60,9 @@ gulp.task('browser-sync', ['watch'], function() {
 
 /**
  * Build and copy all styles, scripts, images and fonts.
- * Depends on: clean
+ * Depends on: clean, deps
  */
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['deps', 'clean'], function() {
     gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
@@ -73,6 +74,13 @@ gulp.task('clean', function(cb) {
     del(['dist', 'docs','todo.md', 'todo.json'], cb);
 });
 
+/**
+ * Installs all dependend bower components.
+ */
+gulp.task('deps', function() {
+  gulp.src(['./bower.json'])
+    .pipe(install());
+});
 
 /**
  * Copies all to dist/
@@ -196,11 +204,17 @@ gulp.task('scripts-app', ['docs'], function() {
 
 
 /**
- * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory.
+ * Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ *
+ * Before running this task the bower dependencies need to be downloaded.
  */
 gulp.task('scripts-vendor', function() {
     // script must be included in the right order. First include angular, then angular-route
-  return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
+  return gulp.src([ 'client/lib/angular/angular.min.js',
+                    'client/lib/angular-route/angular-route.min.js',
+                    'client/lib/angular-resource/angular-resource.min.js',
+                    'src/js/vendor/**/*.js'])
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('dist/assets/js/vendor'))
