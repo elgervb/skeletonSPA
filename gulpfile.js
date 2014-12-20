@@ -2,8 +2,9 @@
  * Some nice examples:
  * http://thewebistheplatform.com/magic-gulpfiles-part-1/
  */
-
-var gulp = require('gulp'),
+var underscore = require('underscore'),
+    fs = require('fs'),
+    gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
@@ -210,11 +211,24 @@ gulp.task('scripts-app', ['docs'], function() {
  * Before running this task the bower dependencies need to be downloaded.
  */
 gulp.task('scripts-vendor', function() {
-    // script must be included in the right order. First include angular, then angular-route
-  return gulp.src([ 'client/lib/angular/angular.min.js',
-                    'client/lib/angular-route/angular-route.min.js',
-                    'client/lib/angular-resource/angular-resource.min.js',
-                    'src/js/vendor/**/*.js'])
+  var bowerFile = require('./bower.json');
+  var bowerDir = './client/lib';
+  var bowerPackages = [];
+
+  // assume that all bower deps have to be included in the order they are listed in bower.json
+  underscore.each(bowerFile.dependencies, function(version, name){
+    var file = bowerDir + '/' + name + '/' + name;
+    if (fs.existsSync(file + '.min.js')) {
+      // use min version
+      bowerPackages.push(file + '.min.js');
+    } else {
+      // unminified
+      bowerPackages.push(file + '.js');
+    }
+  });
+  bowerPackages.push('src/js/vendor/**/*.js');
+
+  return gulp.src(bowerPackages)
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('dist/assets/js/vendor'))
