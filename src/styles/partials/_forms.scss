@@ -8,11 +8,12 @@
     cursor: pointer;
     display: block;
     float: left;
+    padding: 4px 0;
     width: 220px;
   }
-  input{
+  input, textarea{
     border: 1px solid #cecece;
-  	margin: 0;
+  	padding: 4px;
   	width: 220px;
   	&[type=radio], &[type=checkbox]{
   		width: auto;
@@ -36,6 +37,9 @@
         content: "!";
       }
     }
+    &.full-width{
+      width: 100%;
+    }
   }
   .radio-group{
   	float: left;
@@ -46,6 +50,9 @@
   		float: none;
   		width: auto;
   	}
+  }
+  textarea{
+    height: 69px; // 3 lines
   }
 
 }
