@@ -217,16 +217,19 @@ gulp.task('scripts-vendor', function() {
 
   // assume that all bower deps have to be included in the order they are listed in bower.json
   underscore.each(bowerFile.dependencies, function(version, name){
-    var file = bowerDir + '/' + name + '/' + name;
-    if (fs.existsSync(file + '.min.js')) {
+    var dir = bowerDir + '/' + name + '/';
+    var bowerDepFile = require(dir + 'bower.json');
+    var file = dir + bowerDepFile.main;
+    var minfile = file.substring(0, file.length - 3) + '.min.js';
+
+    if (fs.existsSync(minfile)) {
       // use min version
-      bowerPackages.push(file + '.min.js');
+      bowerPackages.push(minfile);
     } else {
       // unminified
-      bowerPackages.push(file + '.js');
+      bowerPackages.push(file);
     }
   });
-  bowerPackages.push('src/js/vendor/**/*.js');
 
   return gulp.src(bowerPackages)
     .pipe(gulp.dest('dist/assets/js/vendor'))
