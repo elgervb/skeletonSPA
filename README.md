@@ -16,6 +16,11 @@ Open a console at the project root and install all node-modules :
 ```ShellSession
 	npm install
 ```
+Install Gulp globally
+```ShellSession
+	npm install -g gulp
+```
+
 Do a initial build
 
 ```ShellSession
