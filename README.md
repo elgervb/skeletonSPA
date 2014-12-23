@@ -9,7 +9,7 @@ This project supplies a basic setup for working with Gulp (http://gulpjs.com/) a
 ### installation ###
 
 install node (http://nodejs.org/) <br/>
-clone this repository
+clone or download this repository
   
 Open a console at the project root and install all node-modules :
 
