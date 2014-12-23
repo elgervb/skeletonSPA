@@ -148,9 +148,6 @@ gulp.task('live-reload', ['watch'], function() {
 
   // Watch any files in dist/* & index.html, reload on change
   gulp.watch(['dist/**', 'index.html']).on('change', livereload.changed);
-
-  console.log('To enable live reload, you can place following script in your page or use the browser plugin')
-  console.log("<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>");
 });
 
 
