@@ -15,6 +15,12 @@
 	float: right;
 }
 
+@mixin wrap-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* BREAKPOINTS */
 $bp-phone : 320px;
 $bp-small-tablet : 768px;
