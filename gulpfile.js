@@ -73,14 +73,22 @@ gulp.task('clean', function(cb) {
  * Copies all to dist/
  */
 gulp.task('copy', function() {
-    gulp.src( 'src/fonts/**')
-      .pipe(gulp.dest('dist/assets/fonts'));
 
-    gulp.src( 'src/js/app/**/*.html')
-      .pipe(gulp.dest('dist/assets/js/app'));
+  // copy all jpg's as they are not handled by the images task
+  gulp.src( 'src/img/**/*.jpg')
+    .pipe(gulp.dest('dist/assets/img'));
 
-    return gulp.src('src/index.html')
-        .pipe(gulp.dest('dist/'));
+  // copy all fonts
+  gulp.src( 'src/fonts/**')
+    .pipe(gulp.dest('dist/assets/fonts'));
+
+  // copy all html && json
+  gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
+    .pipe(gulp.dest('dist/assets/js/app'));
+
+  // copy the index.html
+  return gulp.src('src/index.html')
+    .pipe(gulp.dest('dist/'));
 });
 
 
