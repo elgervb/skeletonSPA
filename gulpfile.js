@@ -1,8 +1,3 @@
-/**
- * Some nice examples:
- * http://thewebistheplatform.com/magic-gulpfiles-part-1/
- */
-
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -26,8 +21,8 @@ var gulp = require('gulp'),
     todo = require('gulp-todo'),
     jsdoc = require("gulp-jsdoc"),
     plumber = require('gulp-plumber'),
-    ngannotate = require('gulp-ng-annotate');
-
+    ngannotate = require('gulp-ng-annotate'),
+    replace = require('gulp-replace');
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -140,6 +135,14 @@ gulp.task('images', function() {
  */
 gulp.task('live-reload', ['watch'], function() {
 
+  // first, delete the index.html from the dist folder as we will copy it later
+  del(['dist/index.html']);
+
+  // add livereload script to the index.html
+  gulp.src(['src/index.html'])
+   .pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
+   .pipe(gulp.dest('dist'));
+   
   // Create LiveReload server
   livereload.listen();
 
