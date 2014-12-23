@@ -77,7 +77,7 @@ docs           | Generate docs from all application javascript
 express        | Task to start a Express server on port 4000
 express-lr     | Task to start a Express server on port 4000 and used the live reload functionality. Depends on: express, live-reload
 images         | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
-live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. Depends on: watch
+live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts        | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
 scripts-app    | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs
 scripts-vendor | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js

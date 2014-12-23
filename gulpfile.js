@@ -130,7 +130,7 @@ gulp.task('images', function() {
 
 
 /**
- * Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes.
+ * Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen.
  * Depends on: watch
  */
 gulp.task('live-reload', ['watch'], function() {
