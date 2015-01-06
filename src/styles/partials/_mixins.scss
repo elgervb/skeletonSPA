@@ -12,7 +12,7 @@
   position: relative;
 }
 .right{
-	float: right;
+  float: right;
 }
 
 @mixin wrap-ellipsis{
@@ -23,7 +23,9 @@
 
 /* BREAKPOINTS */
 $bp-phone : 320px;
+$bp-phone-landscape : 480px;
 $bp-small-tablet : 768px;
+$bp-small-tablet-landscape : 1024px;
 $bp-tablet : 992px;
 $bp-desktop : 1200px;
 
@@ -32,15 +34,26 @@ $bp-desktop : 1200px;
     @content;
   }
 }
+@mixin phone-landscape {
+  @media (min-width: #{$bp-phone+1px}) and (max-width: #{$bp-phone-landscape}) {
+    @content;
+  }
+}
 
 @mixin small-tablet {
-  @media (min-width: #{$bp-phone}) and (max-width: #{$bp-small-tablet}) {
+  @media (min-width: #{$bp-phone+1px}) and (max-width: #{$bp-small-tablet}) {
+    @content;
+  }
+}
+
+@mixin small-tablet-landscape {
+  @media (min-width: #{$bp-small-tablet+1px}) and (max-width: #{$bp-small-tablet-landscape}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: #{$bp-small-tablet}) and (max-width: #{$bp-tablet}) {
+  @media (min-width: #{$bp-small-tablet+1px}) and (max-width: #{$bp-tablet}) {
     @content;
   }
 }
