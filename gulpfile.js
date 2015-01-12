@@ -24,14 +24,16 @@ var gulp = require('gulp'),
     ngannotate = require('gulp-ng-annotate'),
     replace = require('gulp-replace');
 
+var options = {liveReload: false};
+
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
  * Depends on: watch
  */
 gulp.task('browser-sync', ['watch'], function() {
 
-  // Watch any files in dist/* & index.html, reload on change
-  gulp.watch(['dist/**', 'index.html']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
+  // Watch any files in dist/*, reload on change
+  gulp.watch(['dist/**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
 
   return browserSync({
       server: {
@@ -87,8 +89,11 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('dist/assets/js/app'));
 
   // copy the index.html
-  return gulp.src('src/index.html')
-    .pipe(gulp.dest('dist/'));
+   gulp.src('src/index.html')
+    if (options.liveReload){
+      gulp.pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
+    }
+    return gulp.pipe(gulp.dest('dist/'));
 });
 
 
@@ -138,11 +143,12 @@ gulp.task('images', function() {
 
 
 /**
- * Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen.
+ * Start the live reload server. Live reload will be triggered when a file in the `dist` folder changes. This will add a live-reload script to the index.html page, which makes it all happen.
  * Depends on: watch
  */
 gulp.task('live-reload', ['watch'], function() {
 
+  options.liveReload = true;
   // first, delete the index.html from the dist folder as we will copy it later
   del(['dist/index.html']);
 
@@ -154,8 +160,8 @@ gulp.task('live-reload', ['watch'], function() {
   // Create LiveReload server
   livereload.listen();
 
-  // Watch any files in dist/* & index.html, reload on change
-  gulp.watch(['dist/**', 'index.html']).on('change', livereload.changed);
+  // Watch any files in dist/*, reload on change
+  gulp.watch(['dist/**']).on('change', livereload.changed);
 });
 
 
@@ -249,7 +255,7 @@ gulp.task('todo', function() {
 
 
 /**
- * Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, scripts or images. 
+ * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, scripts or images. 
  */
 gulp.task('watch', function() {
 
