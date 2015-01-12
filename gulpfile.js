@@ -137,8 +137,7 @@ gulp.task('images', function() {
   return gulp.src('src/img/**/*')
     .pipe(plumber())
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/assets/img'))
-    .pipe(notify({ message: 'Images task complete' }));
+    .pipe(gulp.dest('dist/assets/img'));
 });
 
 
@@ -204,8 +203,7 @@ gulp.task('scripts-app', ['docs'], function() {
     .pipe(gulpif(!argv.dev, uglify()))
     .on('error', handleError)
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/assets/js'))
-    .pipe(notify({ message: 'Scripts app task complete' }));
+    .pipe(gulp.dest('dist/assets/js'));
 });
 
 
@@ -217,8 +215,7 @@ gulp.task('scripts-vendor', function() {
   return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
     .pipe(gulp.dest('dist/assets/js/vendor'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('dist/assets/js/vendor'))
-    .pipe(notify({ message: 'Scripts vendor task complete' }));
+    .pipe(gulp.dest('dist/assets/js/vendor'));
 });
 
 
@@ -236,8 +233,7 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('dist/assets/css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/assets/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+    .pipe(gulp.dest('dist/assets/css'));
 });
 
 
