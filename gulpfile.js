@@ -89,11 +89,9 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('dist/assets/js/app'));
 
   // copy the index.html
-   gulp.src('src/index.html')
-    if (options.liveReload){
-      gulp.pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
-    }
-    return gulp.pipe(gulp.dest('dist/'));
+   return gulp.src('src/index.html')
+    .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
+    .pipe(gulp.dest('dist/'));
 });
 
 
@@ -108,7 +106,7 @@ gulp.task('default', ['build']);
  * Generate docs from all application javascript
  */
 gulp.task('docs', function() {
-  gulp.src("./src/js/app/**/*.js")
+  return gulp.src("./src/js/app/**/*.js")
     .pipe(jsdoc('./docs'))
 });
 
