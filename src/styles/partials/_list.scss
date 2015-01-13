@@ -53,8 +53,13 @@ ol{
       padding: 8px 14px;
       position: relative;
       
-      &.title:before {
-        content: none;
+      &.title{
+
+        padding-left: 0;
+
+        &:before {
+          content: none;
+        }
       }
 
       &:before {
