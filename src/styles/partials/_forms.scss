@@ -57,3 +57,35 @@
 
 }
 
+.divider {
+  display: block;
+  margin: 0 1%;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap; 
+
+  & > span {
+    position: relative;
+    display: inline-block;
+  }
+
+  & > span:before,
+  & > span:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 9999px;
+      height: 1px;
+      background: #999;
+  }
+
+  & > span:before {
+      right: 100%;
+      margin-right: 15px;
+  }
+
+  & > span:after {
+      left: 100%;
+      margin-left: 15px;
+  }
+} 
