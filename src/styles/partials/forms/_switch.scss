@@ -1,7 +1,10 @@
 $width: 60px;
 $height: 30px;
 $padding: 2px;
-$switch-color: #8CE196;
+$enabled-color: #8CE196;
+$disabled-color: #E08D8D;
+$selector-color: #ffffff;
+$animation-speed = .4s;
 
 /* ============================================================
   COMMON
@@ -20,6 +23,7 @@ $switch-color: #8CE196;
     padding: $padding;
     width: $width;
     height: $height;
+    transition: background $animation-speed;
   }
 }
   
@@ -28,7 +32,7 @@ $switch-color: #8CE196;
   SWITCH 1 - ROUND
 ============================================================ */
 input.cmn-toggle-round + label {
-  background-color: #dddddd;
+  background-color: $disabled-color;
   border-radius: $height;
 
   &:before, &:after {
@@ -42,22 +46,24 @@ input.cmn-toggle-round + label {
 
   &:before {
     right: 1px;
-    background-color: #f1f1f1;
+    background-color: $disabled-color;
     border-radius: $height;
-    transition: background 0.4s;
+    transition: background $animation-speed;
   }
   &:after {
     width: $height - $padding;
-    background-color: #fff;
+    background-color: $selector-color;
     border-radius: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: margin 0.4s;
+    transition: margin $animation-speed;
   }
 }
 
-  
+input.cmn-toggle-round:checked + label {
+  background-color: $enabled-color;
+} 
 input.cmn-toggle-round:checked + label:before {
-  background-color: $switch-color;
+  background-color: $enabled-color;
 }
 input.cmn-toggle-round:checked + label:after {
   margin-left: $width - $height;
@@ -67,9 +73,8 @@ input.cmn-toggle-round:checked + label:after {
   SWITCH 2 - ROUND FLAT
 ============================================================ */
 input.cmn-toggle-round-flat + label {
-  background-color: #dddddd;
+  background-color: $disabled-color;
   border-radius: $height;
-  transition: background 0.4s;
 }
 input.cmn-toggle-round-flat + label:before, input.cmn-toggle-round-flat + label:after {
   display: block;
@@ -81,25 +86,25 @@ input.cmn-toggle-round-flat + label:before {
   left: 2px;
   bottom: 2px;
   right: 2px;
-  background-color: #fff;
+  background-color: $selector-color;
   border-radius: $height;
-  transition: background 0.4s;
+  transition: background $animation-speed;
 }
 input.cmn-toggle-round-flat + label:after {
   top: 4px;
   left: 4px;
   bottom: 4px;
   width: $height - 8px; /* left + 2 x padding */
-  background-color: #dddddd;
+  background-color: $disabled-color;
   border-radius: 50%;
-  transition: margin 0.4s, background 0.4s;
+  transition: margin $animation-speed, background $animation-speed;
 }
 input.cmn-toggle-round-flat:checked + label {
-  background-color: $switch-color;
+  background-color: $enabled-color;
 }
 input.cmn-toggle-round-flat:checked + label:after {
   margin-left: $width - $height;
-  background-color: $switch-color;
+  background-color: $enabled-color;
 }
 
 /* ============================================================
@@ -112,22 +117,22 @@ input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
   left: 0;
   bottom: 0;
   right: 0;
-  color: #fff;
+  color: $selector-color;
   font-family: "Roboto Slab", serif;
   font-size: 20px;
   text-align: center;
   line-height: $height;
 }
 input.cmn-toggle-yes-no + label:before {
-  background-color: #dddddd;
+  background-color: $disabled-color;
   content: attr(data-off);
-  transition: transform 0.5s;
+  transition: transform $animation-speed;
   backface-visibility: hidden;
 }
 input.cmn-toggle-yes-no + label:after {
-  background-color: $switch-color;
+  background-color: $enabled-color;
   content: attr(data-on);
-  transition: transform 0.5s;
+  transition: transform $animation-speed;
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }

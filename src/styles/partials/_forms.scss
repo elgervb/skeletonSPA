@@ -1,8 +1,8 @@
 .field{
-	padding: 4px 0;
+  padding: 4px 0;
   position: relative;
 
-	@extend .clearfix;
+  @extend .clearfix;
 
   label{
     cursor: pointer;
@@ -13,15 +13,19 @@
   }
   input, textarea{
     border: 1px solid #cecece;
-  	margin: 0;
+    margin: 0;
     padding: 4px;
-  	width: 220px;
-    
-  	&[type=radio], &[type=checkbox]{
-  		width: auto;
-  	}
+    width: 220px;
+    &[type=radio], &[type=checkbox]{
+      width: auto;
+    }
+
     &[type=radio], &[type=checkbox],&[type=range]{
       border:none;
+    }
+
+    &[type=range].with-value:after{
+      display: attr(value) " ";
     }
     &:empty{
       border: 1px solid #cecece;
@@ -44,21 +48,22 @@
     }
   }
   .radio-group{
-  	float: left;
-  	width: 220px;
+    float: left;
+    width: 220px;
 
-  	label{ 
-  		display: inline;
-  		float: none;
-  		width: auto;
-  	}
+    label{ 
+      display: inline;
+      float: none;
+      width: auto;
+    }
   }
   textarea{
     height: 69px; // 3 lines
   }
-
-
   
+  .error{
+    margin-left: 220px;
+  }
 }
 
 .divider {
