@@ -2,9 +2,10 @@ $width: 60px;
 $height: 30px;
 $padding: 2px;
 $enabled-color: #8CE196;
-$disabled-color: #E08D8D;
+$disabled-color: #dddddd;
 $selector-color: #ffffff;
-$animation-speed = .4s;
+$animation-speed: .3s;
+$flip-animation-speed: $animation-speed;
 
 /* ============================================================
   COMMON
@@ -61,13 +62,15 @@ input.cmn-toggle-round + label {
 
 input.cmn-toggle-round:checked + label {
   background-color: $enabled-color;
+
+  &:before {
+    background-color: $enabled-color;
+  }
+  &:after {
+    margin-left: $width - $height;
+  }
 } 
-input.cmn-toggle-round:checked + label:before {
-  background-color: $enabled-color;
-}
-input.cmn-toggle-round:checked + label:after {
-  margin-left: $width - $height;
-}
+  
 
 /* ============================================================
   SWITCH 2 - ROUND FLAT
@@ -75,70 +78,83 @@ input.cmn-toggle-round:checked + label:after {
 input.cmn-toggle-round-flat + label {
   background-color: $disabled-color;
   border-radius: $height;
+
+  &:before, &:after {
+    display: block;
+    position: absolute;
+    content: "";
+  }
+  &:before {
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
+    background-color: $selector-color;
+    border-radius: $height;
+    transition: background $animation-speed;
+  }
+  &:after {
+    top: 4px;
+    left: 4px;
+    bottom: 4px;
+    width: $height - 8px; /* left + 2 x padding */
+    background-color: $disabled-color;
+    border-radius: 50%;
+    transition: margin $animation-speed, background $animation-speed;
+  }
 }
-input.cmn-toggle-round-flat + label:before, input.cmn-toggle-round-flat + label:after {
-  display: block;
-  position: absolute;
-  content: "";
-}
-input.cmn-toggle-round-flat + label:before {
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  right: 2px;
-  background-color: $selector-color;
-  border-radius: $height;
-  transition: background $animation-speed;
-}
-input.cmn-toggle-round-flat + label:after {
-  top: 4px;
-  left: 4px;
-  bottom: 4px;
-  width: $height - 8px; /* left + 2 x padding */
-  background-color: $disabled-color;
-  border-radius: 50%;
-  transition: margin $animation-speed, background $animation-speed;
-}
+  
 input.cmn-toggle-round-flat:checked + label {
   background-color: $enabled-color;
+  
+  &:after {
+    margin-left: $width - $height;
+    background-color: $enabled-color;
+  }
 }
-input.cmn-toggle-round-flat:checked + label:after {
-  margin-left: $width - $height;
-  background-color: $enabled-color;
-}
+  
 
 /* ============================================================
   SWITCH 3 - YES NO
 ============================================================ */
-input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  color: $selector-color;
-  font-family: "Roboto Slab", serif;
-  font-size: 20px;
-  text-align: center;
-  line-height: $height;
+input.cmn-toggle-yes-no + label{
+
+  &:before, &:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: $selector-color;
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    text-align: center;
+    line-height: $height;
+  }
+  &:before {
+    background-color: $disabled-color;
+    content: attr(data-off);
+    transition: transform $flip-animation-speed;
+    backface-visibility: hidden;
+  }
+  &:after {
+    background-color: $enabled-color;
+    content: attr(data-on);
+    transition: transform $flip-animation-speed;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+  }
 }
-input.cmn-toggle-yes-no + label:before {
-  background-color: $disabled-color;
-  content: attr(data-off);
-  transition: transform $animation-speed;
-  backface-visibility: hidden;
+
+input.cmn-toggle-yes-no:checked + label{
+
+  &:before {
+    transform: rotateY(180deg);
+  }
+  &:after {
+    transform: rotateY(0);
+  }
+  
 }
-input.cmn-toggle-yes-no + label:after {
-  background-color: $enabled-color;
-  content: attr(data-on);
-  transition: transform $animation-speed;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-}
-input.cmn-toggle-yes-no:checked + label:before {
-  transform: rotateY(180deg);
-}
-input.cmn-toggle-yes-no:checked + label:after {
-  transform: rotateY(0);
-}
+  

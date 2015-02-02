@@ -23,10 +23,6 @@
     &[type=radio], &[type=checkbox],&[type=range]{
       border:none;
     }
-
-    &[type=range].with-value:after{
-      display: attr(value) " ";
-    }
     &:empty{
       border: 1px solid #cecece;
       box-shadow: none;
