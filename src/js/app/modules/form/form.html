@@ -7,6 +7,10 @@
     <li>four</li>
     <li>five</li>
     <li>six</li>
+    <li>seven</li>
+    <li>eight</li>
+    <li>nine</li>
+    <li>ten</li>
   </ol>
 
   <ol class="extended">
@@ -70,7 +74,8 @@
       </div>
       <div class="field">
         <label for="range-field">Range field</label>
-        <input type="range" id="range-field" class="with-value" min=0 max=100 step=1 value=50 />
+        <input type="range" id="range-field" min=0 max=100 step=1 value=50 oninput="document.querySelector('#range-field ~ output').value = this.value" />
+        <output>50</output>
       </div>
       <div class="field">
         <label for="search-field">Search field</label>
@@ -104,7 +109,7 @@
       <div class="field">
         <label>Switch round flat</label>
         <div class="switch">
-          <input id="toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+          <input id="toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
           <label for="toggle-2"></label>
         </div>
       </div>
