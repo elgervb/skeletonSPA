@@ -94,3 +94,10 @@
       margin-left: 15px;
   }
 } 
+
+[contenteditable]{
+  border-bottom: 1px solid #cecece;
+  display: inline-block;
+  min-height: 1em;
+  min-width: 200px;
+}
