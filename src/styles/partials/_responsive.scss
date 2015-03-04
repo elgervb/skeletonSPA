@@ -6,6 +6,9 @@ $bp-small-tablet-landscape : 1024px;
 $bp-tablet : 992px;
 $bp-desktop : 1200px;
 
+/**
+ * Exclusive styles for phone, tablet or desktop
+ */
 @mixin phone {
   @media (max-width: #{$bp-phone}) {
     @content;
@@ -41,8 +44,58 @@ $bp-desktop : 1200px;
   }
 }
 
-@mixin responsive($width){
+
+/** 
+ * Mobile first. 
+ *
+ * Create default styling for mobile screen in your regular scss. 
+ * Override what you need to when screens get larger.
+ */
+@mixin min-small-tablet{
+  @media (min-width: #{$bp-small-tablet}) {
+    @content;
+  }
+}
+@mixin min-tablet{
+  @media (min-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+@mixin min-desktop{
+  @media (min-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+@mixin responsive-min($width){
   @media (min-width: $width){
+    @content;
+  }
+}
+
+
+/** 
+ * Desktop first
+ *
+ * Create default styling for desktop in your regulat scss.
+ * Override what you need to as the screen gets smaller
+ */
+@mixin max-phone{
+  @media (max-width: #{$bp-phone}) {
+    @content;
+  }
+}
+@mixin max-small-tablet{
+  @media (max-width: #{$bp-small-tablet}) {
+    @content;
+  }
+}
+@mixin max-tablet{
+  @media (max-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+@mixin responsive-max($width){
+  @media (max-width: $width){
     @content;
   }
 }
