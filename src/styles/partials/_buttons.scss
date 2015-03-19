@@ -17,7 +17,7 @@
   text-decoration: none;
   text-align: center;
   text-shadow: 0 1px 1px white;
-  transition: background .3s ease-out;
+  transition: background .3s ease-out, background-image .3s ease-out, background-color .3s ease-out;
   user-select: none;
   vertical-align: middle;
   *vertical-align: auto;
@@ -62,65 +62,65 @@ input[class*='btn-'], button[class*='btn-'] {
 
 
 .btn-flat-red{
-  color: #fff;
-  background: #e74c3c;
-  border-color: #c0392b;
+  color: $font-color-light;
+  background: $btn-red;
+  border-color: darken($btn-red, $btn-hover-darken);
   &:hover{
-    background: #c0392b;
+    background: darken($btn-red, $btn-hover-darken);
   }
 }
 
 .btn-flat-green{
-  color: #fff;
-  background: #2ecc71;
-  border-color: #27ae60;
+  color: $font-color-light;
+  background: $btn-green;
+  border-color: darken($btn-green, $btn-hover-darken);
   &:hover{
-    background: #27ae60;
+    background: darken($btn-green, $btn-hover-darken);
   }
 }
 
 .btn-flat-turquoise{
-  color: #fff;
-  background: #1abc9c;
-  border-color: #16a085;
+  color: $font-color-light;
+  background: $btn-turquoise;
+  border-color: darken($btn-turquoise, $btn-hover-darken);
   &:hover{
-    background: #16a085;
+    background: darken($btn-turquoise, $btn-hover-darken);
   }
 }
 
 .btn-flat-orange{
-  color: #fff;
-  background:#e67e22;
-  border-color: #d35400;
+  color: $font-color-light;
+  background:$btn-orange;
+  border-color: darken($btn-orange, $btn-hover-darken);
   &:hover{
-    background: #d35400;
+    background: darken($btn-orange, $btn-hover-darken);
   }
 }
 
 .btn-flat-purple{
-  color: #fff;
-  background: #9b59b6;
-  border-color: #8e44ad;
+  color: $font-color-light;
+  background: $btn-purple;
+  border-color: darken($btn-purple, $btn-hover-darken);
   &:hover{
-    background: #8e44ad;
+    background: darken($btn-purple, $btn-hover-darken);
   }
 }
 
 .btn-flat-blue{
-  color: #fff;
-  background: #3498db;
-  border-color: #2980b9;
+  color: $font-color-light;
+  background: $btn-blue;
+  border-color: darken($btn-blue, $btn-hover-darken);
   &:hover{
-    background: #2980b9;
+    background: darken($btn-blue, $btn-hover-darken);
   }
 }
 
 .btn-flat-yellow{
-  color: #fff;
-  background: #f1c40f;
-  border-color: #f39c12;
+  color: $font-color-light;
+  background: $btn-yellow;
+  border-color: darken($btn-yellow, $btn-hover-darken);
   &:hover{
-    background: #f39c12;
+    background: darken($btn-yellow, $btn-hover-darken);
   }
 }
 .btn-rounded {
@@ -186,15 +186,16 @@ a.btn-circle{
 }
 
 .btn-primary {
-  background-image: linear-gradient(to top, #00b5e5, #008db2);
-  background-color: #00a1cb;
-  border-color: #007998;
+  background: linear-gradient(to top, $btn-blue, darken($btn-blue, 10%));
+  background-color: $btn-blue;
+  border-color: $btn-blue;
   color: white;
   text-shadow: 0 -1px 1px rgba(0, 40, 50, 0.35);
-}
-.btn-primary:hover {
-  background-color: #00a1cb;
-  background: linear-gradient(to top, #00c9fe, #008db2);
+
+  &:hover {
+    background-color: darken($btn-blue, 10%);
+    background: linear-gradient(to top, darken($btn-blue, 5%), darken($btn-blue, 20%));
+  }
 }
 .btn-green {
   background: linear-gradient(to top, #8fcf00, #6b9c00);
@@ -202,10 +203,11 @@ a.btn-circle{
   border-color: #5a8200;
   color: white;
   text-shadow: 0 -1px 1px rgba(19, 28, 0, 0.35);
-}
-.btn-green:hover {
-  background-color: #7db500;
-  background: linear-gradient(to top, #a0e800, #6b9c00);
+
+  &:hover {
+    background-color: #7db500;
+    background: linear-gradient(to top, #a0e800, #6b9c00);
+  }
 }
 .btn-orange {
   background: linear-gradient(to top, #fa9915, #d87e04);
@@ -213,10 +215,11 @@ a.btn-circle{
   border-color: #bf7004;
   color: white;
   text-shadow: 0 -1px 1px rgba(91, 53, 2, 0.35);
-}
-.btn-orange:hover {
-  background-color: #f18d05;
-  background: linear-gradient(to top, #fba42e, #d87e04);
+  
+  &:hover {
+    background-color: #f18d05;
+    background: linear-gradient(to top, #fba42e, #d87e04);
+  }
 }
 .btn-red {
   background: linear-gradient(to top, #e8543f, #d9331a);
@@ -224,10 +227,11 @@ a.btn-circle{
   border-color: #c22d18;
   color: white;
   text-shadow: 0 -1px 1px rgba(103, 24, 13, 0.35);
-}
-.btn-red:hover {
-  background-color: #e54028;
-  background: linear-gradient(to top, #eb6855, #d9331a);
+  
+  &:hover {
+    background-color: #e54028;
+    background: linear-gradient(to top, #eb6855, #d9331a);
+  }
 }
 .badge{
   background-color:#d60000;
