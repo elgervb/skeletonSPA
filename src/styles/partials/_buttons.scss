@@ -279,3 +279,17 @@ a.btn-circle{
 .button-group{
   padding: 10px 0;
 }
+.btn-link{
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #4082a0;
+  padding: 9px 25px;
+  text-shadow: none;
+
+  &:hover{
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+  }
+}
