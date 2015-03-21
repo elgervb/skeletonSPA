@@ -2,35 +2,23 @@
  ********* BUTTONS *********
  **************************/
 .btn, [class*='btn-'] {
-  background-color: #eee;
-  background: linear-gradient(to top, #fbfbfb, #e1e1e1);
-  border: 1px solid #d4d4d4;
-  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.15);
-  color: #666666;
+  background-color: $btn-gray;
+  border: 1px solid darken($btn-gray, $btn-hover-darken);
+  color: $font-color;
+  cursor: pointer;
   display: inline-block;
-  *display: inline;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 14px;
+  font-size: 1em;
   font-weight: 300;
   margin: 0;
   padding: 8px 25.6px;
   text-decoration: none;
   text-align: center;
-  text-shadow: 0 1px 1px white;
-  transition: background .3s ease-out, background-image .3s ease-out, background-color .3s ease-out;
+  transition: background .3s ease-out;
   user-select: none;
   vertical-align: middle;
-  *vertical-align: auto;
-  zoom: 1;
-  
 
   &:hover{
-    background-color: #eeeeee;
-    background: linear-gradient(to top, #ffffff, #dcdcdc);
-    text-decoration: none;
-  }
-  &:active {
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4);
+    background-color: darken($btn-gray, $btn-hover-darken);
   }
   &:focus {
     outline: none;
@@ -47,19 +35,13 @@
   pointer-events: none;
 }
 
-input[class*='btn-'], button[class*='btn-'] {
-  cursor: pointer;
-}
 .btn-flat, [class*='btn-flat-'] {
-  background: #EEEEEE;
-  box-shadow: none;
-  text-shadow: none;
+  background: $btn-gray;
 
   &:hover{
-    background: #DDDDDD;
+    background: darken($btn-gray, $btn-hover-darken);
   }
 }
-
 
 .btn-flat-red{
   color: $font-color-light;
@@ -162,7 +144,7 @@ input[class*='btn-'], button[class*='btn-'] {
   }
   &.small .btn-circle{
     border-width: 2px;
-    font-size: 9px;
+    font-size: .6em;
     height: 60px;
     padding: 2px; // same as border-width
     width: 60px;
@@ -178,60 +160,11 @@ input[class*='btn-'], button[class*='btn-'] {
   height: 120px;
   padding: 4px; // same as border-width
   border-width: 4px;
-  font-size: 18px;
+  font-size: 1.125em;
 }
 a.btn-circle{
   line-height: 6.8;
   padding: 0;
-}
-
-.btn-primary {
-  background: linear-gradient(to top, $btn-blue, darken($btn-blue, 10%));
-  background-color: $btn-blue;
-  border-color: $btn-blue;
-  color: white;
-  text-shadow: 0 -1px 1px rgba(0, 40, 50, 0.35);
-
-  &:hover {
-    background-color: darken($btn-blue, 10%);
-    background: linear-gradient(to top, darken($btn-blue, 5%), darken($btn-blue, 20%));
-  }
-}
-.btn-green {
-  background: linear-gradient(to top, #8fcf00, #6b9c00);
-  background-color: #7db500;
-  border-color: #5a8200;
-  color: white;
-  text-shadow: 0 -1px 1px rgba(19, 28, 0, 0.35);
-
-  &:hover {
-    background-color: #7db500;
-    background: linear-gradient(to top, #a0e800, #6b9c00);
-  }
-}
-.btn-orange {
-  background: linear-gradient(to top, #fa9915, #d87e04);
-  background-color: #f18d05;
-  border-color: #bf7004;
-  color: white;
-  text-shadow: 0 -1px 1px rgba(91, 53, 2, 0.35);
-  
-  &:hover {
-    background-color: #f18d05;
-    background: linear-gradient(to top, #fba42e, #d87e04);
-  }
-}
-.btn-red {
-  background: linear-gradient(to top, #e8543f, #d9331a);
-  background-color: #e54028;
-  border-color: #c22d18;
-  color: white;
-  text-shadow: 0 -1px 1px rgba(103, 24, 13, 0.35);
-  
-  &:hover {
-    background-color: #e54028;
-    background: linear-gradient(to top, #eb6855, #d9331a);
-  }
 }
 .badge{
   background-color:#d60000;
