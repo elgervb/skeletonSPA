@@ -7,7 +7,7 @@
   color: $font-color;
   cursor: pointer;
   display: inline-block;
-  font-size: 1em;
+  font-size: 1em; 
   font-weight: 300;
   margin: 0;
   padding: 8px 25.6px;
@@ -23,10 +23,6 @@
   &:focus {
     outline: none;
   }
-  &.caret:after{
-    right: -12px;
-    top: 6px;
-  }
 }
 
 .btn[disabled], .btn.disabled, [class*='btn-'][disabled], .disabled[class*='btn-']{
@@ -35,15 +31,7 @@
   pointer-events: none;
 }
 
-.btn-flat, [class*='btn-flat-'] {
-  background: $btn-gray;
-
-  &:hover{
-    background: darken($btn-gray, $btn-hover-darken);
-  }
-}
-
-.btn-flat-red{
+.btn-red{
   color: $font-color-light;
   background: $btn-red;
   border-color: darken($btn-red, $btn-hover-darken);
@@ -52,7 +40,7 @@
   }
 }
 
-.btn-flat-green{
+.btn-green{
   color: $font-color-light;
   background: $btn-green;
   border-color: darken($btn-green, $btn-hover-darken);
@@ -61,7 +49,7 @@
   }
 }
 
-.btn-flat-turquoise{
+.btn-turquoise{
   color: $font-color-light;
   background: $btn-turquoise;
   border-color: darken($btn-turquoise, $btn-hover-darken);
@@ -70,7 +58,7 @@
   }
 }
 
-.btn-flat-orange{
+.btn-orange{
   color: $font-color-light;
   background:$btn-orange;
   border-color: darken($btn-orange, $btn-hover-darken);
@@ -79,7 +67,7 @@
   }
 }
 
-.btn-flat-purple{
+.btn-purple{
   color: $font-color-light;
   background: $btn-purple;
   border-color: darken($btn-purple, $btn-hover-darken);
@@ -88,7 +76,7 @@
   }
 }
 
-.btn-flat-blue{
+.btn-blue{
   color: $font-color-light;
   background: $btn-blue;
   border-color: darken($btn-blue, $btn-hover-darken);
@@ -97,7 +85,7 @@
   }
 }
 
-.btn-flat-yellow{
+.btn-yellow{
   color: $font-color-light;
   background: $btn-yellow;
   border-color: darken($btn-yellow, $btn-hover-darken);
@@ -114,22 +102,13 @@
 }
 
 .btn-large {
-  font-size: 19px;
-  height: 38.4px;
-  line-height: 38.4px;
-  padding: 0 30.72px;
+  font-size: 1.5em;
 }
 .btn-small {
-  font-size: 16px;
-  height: 25.6px;
-  line-height: 25.6px;
-  padding: 0 20.48px;
+  font-size: .8em;
 }
 .btn-tiny {
-  font-size: 12px;
-  height: 22.4px;
-  line-height: 22.4px;
-  padding: 0 17.92px;
+  font-size: .6em;
 }
 .wrap-btn {
   background: #e3e3e3;
@@ -168,20 +147,19 @@ a.btn-circle{
 }
 .badge{
   background-color:#d60000;
-  background-image:linear-gradient(to top, #fd7c7e,#d60000);
-  border:2px solid white;
+  border: 2px solid $font-color-light;
   border-radius:15px;
   box-shadow:0 2px 2px rgba(0,0,0,0.4);
-  color:white;
-  display:block;
-  font-size:.8em;
-  font-weight:600;
-  height:auto;
+  color: $font-color-light;
+  display: block;
+  font-size: .8em;
+  font-weight: 600;
+  height: auto;
   line-height:1;
-  min-width: 20px;
-  padding: 3px;
+  min-width: 2em;
+  padding: .2rem;
   position:absolute;
-  right:-10px;
+  right: -.8rem;
   text-align:center;
   text-shadow:0 -1px 0 rgba(0,0,0,0.2);
   top:-7px;
@@ -189,44 +167,51 @@ a.btn-circle{
   width:auto;
   z-index:2;
 }
-.btn-flat .badge, [class*='btn-flat-'] .badge{
-  background-image: none;
-}
-.btn-next:after{
-    content: "›";
-    right: 10px;
-}
-.btn-prev:before {
-    content: "‹";
-    left: 10px;
-}
-.btn-next:after, .btn-prev:before {
-    color: #D5D5D5;
-    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-size: 36px;
-    font-weight: 900;
-    position: absolute;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-    top: -8px;
-}
+
 .btn-next, .btn-prev {
     padding-right: 30px;
     position: relative;
+
+    &:after, &:before {
+      color: darken($btn-gray, 15%);
+      font-family: Arial,sans-serif;
+      font-size: 2em;
+      font-weight: 900;
+      position: absolute;
+      top: -2px;
+
+      &:hover{
+        color: darken($btn-gray, 25%);
+      }
+  }
+
 }
+.btn-next{
+  &:after{
+    content: "›";
+    right: 10px;
+  }
+}
+
+.btn-prev{
+  &:before {
+    content: "‹";
+    left: 10px;
+  }
+}
+
 .button-group{
   padding: 10px 0;
 }
 .btn-link{
   background: transparent;
-  border: none;
-  box-shadow: none;
+  border: 1px solid transparent;
   color: #4082a0;
-  padding: 9px 25px;
-  text-shadow: none;
+  margin: 7px 23px;
+  padding: 2px;
 
   &:hover{
     background: transparent;
-    border: none;
-    text-decoration: underline;
+    border-bottom: 1px solid #4082a0;
   }
 }
