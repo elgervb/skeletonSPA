@@ -209,6 +209,7 @@ a.btn-circle{
   color: #4082a0;
   margin: 7px 23px;
   padding: 2px;
+  transition: border .3s ease-out 0s;
 
   &:hover{
     background: transparent;
