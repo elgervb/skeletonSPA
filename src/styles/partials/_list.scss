@@ -37,7 +37,7 @@ ol{
     counter-reset: li;
     list-style: none;
     margin:0;
-    font-size: 17px;
+    font-size: 1em;
     padding-bottom: 0;
   
     &.block-links a {
@@ -78,7 +78,7 @@ ol{
         color: #999999;
         background: #f2f2f2;
         text-align: center;
-        font-size: 11px;
+        font-size: .725em;
         line-height: 37px;
       }
       &:last-child, &.last-child {
@@ -106,8 +106,5 @@ ol{
       padding: 5px 0;
       font-weight: 300;
     }
-
-    
-    
   }
 }
