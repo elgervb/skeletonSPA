@@ -99,7 +99,7 @@ $bp-desktop : 1200px;
     @content;
   }
 }
-@mixin responsive-max($width){
+@mixin max-responsive($width){
   @media (max-width: $width){
     @content;
   }
