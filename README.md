@@ -27,7 +27,7 @@ Do a initial build
 	gulp build
 ```
 
-This will do minification on all images, compile Sass, minify javascript and create sourcemaps and copy all (including fonts) to the dist directory
+This will do minification on all images, compile Sass, minify javascript and create sourcemaps and copy all (including fonts) to the dist directory. It will also run the 'deps' task that installs the Bower dependencies. These are needed for the 'scripts'.'scripts-vendor' task.
 
 ### Run ###
 There are actually 3 ways to run the skeleton
@@ -69,7 +69,7 @@ The `gulpfile.js` contains several targets to make development easier.
 Target         | Description
 ---------------|--------------------
 browser-sync   | browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.Depends on: watch
-build          | Build and copy all styles, scripts, images and fonts. Depends on: clean
+build          | Build and copy all styles, scripts, images and fonts. Depends on: clean, deps
 clean          | Cleans the `dist` folder and other generated files
 copy           | Copies all to dist/
 default        | Default task. Depends on: build
@@ -80,6 +80,7 @@ images         | Task to optimize and deploy all images found in folder `src/img
 live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts        | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
 scripts-app    | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs
+deps           | Runs the bower install command to dowload the client dependencies.
 scripts-vendor | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
 styles         | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 todo           | Output TODO's & FIXME's in markdown and json file as well
