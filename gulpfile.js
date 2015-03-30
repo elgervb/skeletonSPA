@@ -70,6 +70,14 @@ gulp.task('clean', function(cb) {
     del(['dist', 'docs','todo.md', 'todo.json'], cb);
 });
 
+/**
+ * Clears the cache used by gulp-cache
+ */
+gulp.task('clear-cache', function() {
+
+  // Or, just call this for everything
+  cache.clearAll();
+});
 
 /**
  * Copies all to dist/
