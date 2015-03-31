@@ -1,23 +1,10 @@
 @import 'variables';
 
 @import 'partials/reset';
-@import 'partials/mixins';
 @import 'partials/fonts';
 @import 'partials/defaults';
 @import 'partials/responsive';
-
-@import 'partials/forms';
-@import 'partials/forms/switch';
-@import 'partials/forms/radio-checkbox';
-@import 'partials/table';
-@import 'partials/buttons';
-@import 'partials/list';
-
 @import 'partials/columns';
-@import 'partials/navigation';
-@import 'partials/animations';
 
-/*
- * Modules
- */
-@import 'modules/about';
+
+@import 'modules\skeleton';

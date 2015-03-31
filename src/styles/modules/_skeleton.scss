@@ -1,0 +1,23 @@
+body{
+  text-align: center;
+}
+
+.skeleton-row{
+  margin: 2rem 10%;
+
+  &:after{
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+}
+
+.ng-plus-gulp{
+  color: #C4473A;
+  font-size: 5em;
+  padding-top: 10%;
+  text-align: center;
+}

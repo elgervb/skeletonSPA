@@ -9,26 +9,7 @@
     <link href="assets/css/main.min.css" rel="stylesheet">
   </head>
   <body>
-
-    <header class="navbar clearfix">
-      <div class="right hamburger">
-        <label for="menu-toggle" class="icon">&#9776;</label>  
-      </div>
-      <input type="checkbox" id="menu-toggle"/>  
-      <nav class="clearfix"> 
-        <h1 class="title">
-          <a href ng-class="{active : active=='home'}" ng-click="active='home'">Home</a>
-        </h1>
-        <a href="#form" ng-class="{active : active=='menu1'}" ng-click="active='menu1'">Menu 1</a>  
-        <a href ng-class="{active : active=='menu2'}" ng-click="active='menu2'">Menu 2</a>   
-        <div class="right">
-          <a href="#about" ng-class="{active : active=='about'}" ng-click="active='about'">About</a>
-        </div>
-      </nav>
-    </header>
-
     <section ng-view></section>
-
     <script src='assets/js/vendor/vendor.js'></script>
     <script src='assets/js/app.min.js'></script>
   </body>
