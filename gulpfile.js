@@ -205,7 +205,7 @@ gulp.task('scripts-app', ['docs'], function() {
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
-    .pipe(ngannotate())
+    .pipe(ngannotate({gulpWarnings: false}))
     .pipe(gulpif(!argv.dev, uglify()))
     .on('error', handleError)
     .pipe(sourcemaps.write())
