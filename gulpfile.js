@@ -247,7 +247,7 @@ gulp.task('styles', function() {
  * Output TODO's & FIXME's in markdown and json file as well
  */
 gulp.task('todo', function() {
-    gulp.src('src/js/app/**/*.js')
+    gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
       .pipe(plumber())
       .pipe(todo())
       .pipe(gulp.dest('./')) //output todo.md as markdown
