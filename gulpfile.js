@@ -66,7 +66,7 @@ gulp.task('build', ['clean'], function() {
 /**
  * Cleans the `dist` folder and other generated files
  */
-gulp.task('clean', function(cb) {
+gulp.task('clean', ['clear-cache'],  function(cb) {
     del(['dist', 'docs','todo.md', 'todo.json'], cb);
 });
 
