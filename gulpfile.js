@@ -84,10 +84,6 @@ gulp.task('clear-cache', function() {
  */
 gulp.task('copy', function() {
 
-  // copy all jpg's as they are not handled by the images task
-  gulp.src( 'src/img/**/*.jpg')
-    .pipe(gulp.dest('dist/assets/img'));
-
   // copy all fonts
   gulp.src( 'src/fonts/**')
     .pipe(gulp.dest('dist/assets/fonts'));
@@ -195,7 +191,7 @@ gulp.task('remove',['clean'], function(cb){
 gulp.task('scripts-app', ['docs'], function() {
   return gulp.src('src/js/app/**/*.js')
     .pipe(plumber())
-    .pipe(sourcemaps.init())
+    .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
     .on('error', notify.onError(function (error) {
       return error.message;
@@ -205,7 +201,7 @@ gulp.task('scripts-app', ['docs'], function() {
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
-    .pipe(ngannotate({gulpWarnings: false}))
+    .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
     .on('error', handleError)
     .pipe(sourcemaps.write())
