@@ -76,11 +76,11 @@ default        | Default task. Depends on: build
 docs           | Generate docs from all application javascript
 express        | Task to start a Express server on port 4000
 start          | Task to start a server on port 4000 and used the live reload functionality. Depends on: express, live-reload
-images         | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
+images         | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
 live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts        | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
 scripts-app    | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs
-scripts-vendor | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+scripts-vendor | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
 styles         | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 todo           | Output TODO's & FIXME's in markdown and json file as well
 watch          | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, scripts or images. 

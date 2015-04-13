@@ -86,11 +86,11 @@ gulp.task('copy', function() {
 
   // copy all fonts
   gulp.src( 'src/fonts/**')
-    .pipe(gulp.dest('dist/assets/fonts'));
+    .pipe(gulp.dest('dist/fonts'));
 
   // copy all html && json
   gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
-    .pipe(gulp.dest('dist/assets/js/app'));
+    .pipe(gulp.dest('dist/js/app'));
 
   // copy the index.html
    return gulp.src('src/index.html')
@@ -133,13 +133,13 @@ gulp.task('start', function(){
 gulp.task('express-lr', ['express', 'live-reload'], function(){});
 
 /**
- * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
+ * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
  */
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
     .pipe(plumber({errorHandler: onError}))
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/assets/img'));
+    .pipe(gulp.dest('dist/img'));
 });
 
 
@@ -195,25 +195,25 @@ gulp.task('scripts-app', ['docs'], function() {
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
-    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/assets/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 
 /**
- * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', function() {
     // script must be included in the right order. First include angular, then angular-route
   return gulp.src(['src/js/vendor/angularjs/**/angular.min.js','src/js/vendor/angularjs/**/angular-route.min.js','src/js/vendor/**/*.js'])
-    .pipe(gulp.dest('dist/assets/js/vendor'))
+    .pipe(gulp.dest('dist/js/vendor'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('dist/assets/js/vendor'));
+    .pipe(gulp.dest('dist/js/vendor'));
 });
 
 
@@ -226,10 +226,10 @@ gulp.task('styles', function() {
     .pipe(plumber({errorHandler: onError}))
     .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/assets/css'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 
