@@ -118,7 +118,7 @@ gulp.task('docs', function() {
 /**
  * Task to start a Express server on port 4000.
  */
-gulp.task('start', function(){
+gulp.task('express', function(){
   var app = express(), port = 4000;
   app.use(express.static(__dirname + "/dist"));
   app.listen(port); 
@@ -127,10 +127,10 @@ gulp.task('start', function(){
 
 
 /**
- * Task to start a Express server on port 4000 and used the live reload functionality.
+ * Task to start a server on port 4000 and used the live reload functionality.
  * Depends on: express, live-reload
  */
-gulp.task('express-lr', ['express', 'live-reload'], function(){});
+gulp.task('start', ['express', 'live-reload'], function(){});
 
 /**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
@@ -210,7 +210,7 @@ gulp.task('scripts-app', ['docs'], function() {
  */
 gulp.task('scripts-vendor', function() {
     // script must be included in the right order. First include angular, then angular-route
-  return gulp.src(['src/js/vendor/angularjs/**/angular.min.js','src/js/vendor/angularjs/**/angular-route.min.js','src/js/vendor/**/*.js'])
+  return gulp.src(['src/js/vendor/*/**/angular.min.js','src/js/vendor/*/**/angular-route.min.js'])
     .pipe(gulp.dest('dist/js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('dist/js/vendor'));
