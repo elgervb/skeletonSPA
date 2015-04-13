@@ -43,9 +43,9 @@ This will open a browser for you. Point multiple browsers / devices to the same 
 ```ShellSession
 	gulp express
 ```
-  optionally with Live-Reload (http://livereload.com/) 
+  Start with Live-Reload (http://livereload.com/) 
  ```ShellSession
-	gulp express-lr
+	gulp start
 ```
 Point your browser to [http://localhost:4000](http://localhost:4000)
 
@@ -75,7 +75,7 @@ copy           | Copies all to dist/
 default        | Default task. Depends on: build
 docs           | Generate docs from all application javascript
 express        | Task to start a Express server on port 4000
-express-lr     | Task to start a Express server on port 4000 and used the live reload functionality. Depends on: express, live-reload
+start          | Task to start a server on port 4000 and used the live reload functionality. Depends on: express, live-reload
 images         | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
 live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts        | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor

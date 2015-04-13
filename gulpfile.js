@@ -118,7 +118,7 @@ gulp.task('docs', function() {
 /**
  * Task to start a Express server on port 4000.
  */
-gulp.task('express', function(){
+gulp.task('start', function(){
   var app = express(), port = 4000;
   app.use(express.static(__dirname + "/dist"));
   app.listen(port); 
