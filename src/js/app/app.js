@@ -11,4 +11,4 @@ var app = angular.module('default', ['ngRoute'])
 
    $locationProvider.html5Mode('true');
 
-}) // end config
+}); // end config
