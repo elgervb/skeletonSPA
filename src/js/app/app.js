@@ -1,5 +1,5 @@
 
-var app = angular.module('default', ['ngRoute'])
+var app = angular.module('skeleton', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider) {
  
