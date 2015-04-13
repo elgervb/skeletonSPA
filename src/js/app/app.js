@@ -6,7 +6,7 @@ var app = angular.module('default', ['ngRoute'])
   $routeProvider
   .otherwise({
     controller: 'MainController',
-    templateUrl: '/assets/js/app/modules/main/main.html'
+    templateUrl: '/js/app/modules/main/main.html'
   });
 
    $locationProvider.html5Mode('true');
