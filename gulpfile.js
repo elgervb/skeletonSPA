@@ -1,31 +1,19 @@
 var gulp = require('gulp'),
     argv = require('yargs').argv,
-    autoprefixer = require('gulp-autoprefixer'),
-    browserSync = require('browser-sync'),
     cache = require('gulp-cache'),
     concat = require('gulp-concat'),
     del = require('del'),
-    express = require('express'),
     gulpif = require('gulp-if'),
-    imagemin = require('gulp-imagemin'),
-    jshint = require('gulp-jshint'),
-    livereload = require('gulp-livereload'),
-    minifycss = require('gulp-minify-css'),
-    ngannotate = require('gulp-ng-annotate'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     q = require('q'),
     rename = require('gulp-rename'),
-    replace = require('gulp-replace'),
-    sass = require('gulp-sass'),
-    stripDebug = require('gulp-strip-debug'),
-    stylish = require('jshint-stylish'),
-    sourcemaps = require('gulp-sourcemaps'),
-    todo = require('gulp-todo'),
-    uglify = require('gulp-uglify');
+    replace = require('gulp-replace');
 
 var options = {
    liveReload: false,
+   gulpdir: '../',
+   serverport: 4000,
    /**
      * Returns the config for plumber
      */
@@ -39,6 +27,7 @@ var options = {
  * Depends on: watch
  */
 gulp.task('browser-sync', ['watch'], function() {
+  var browserSync = require('browser-sync');
 
   // Watch any files in dist/*, reload on change
   gulp.watch(['dist/**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
@@ -129,26 +118,16 @@ gulp.task('default', ['build']);
 
 
 /**
- * Task to start a Express server on port 4000.
- */
-gulp.task('express', function(){
-  var app = express(), port = 4000;
-  app.use(express.static(__dirname + "/dist"));
-  app.listen(port); 
-  console.log('started webserver on port ' + port);
-});
-
-
-/**
  * Task to start a server on port 4000 and used the live reload functionality.
- * Depends on: express, live-reload
+ * Depends on: server, live-reload
  */
-gulp.task('start', ['express', 'live-reload'], function(){});
+gulp.task('start', ['server', 'live-reload'], function(){});
 
 /**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
  */
 gulp.task('images', function() {
+  var imagemin = require('gulp-imagemin');
   var deferred = q.defer();
 
   setTimeout(function() {
@@ -168,6 +147,7 @@ gulp.task('images', function() {
  * Depends on: watch
  */
 gulp.task('live-reload', ['watch'], function() {
+  var livereload = require('gulp-livereload');
 
   options.liveReload = true;
   // first, delete the index.html from the dist folder as we will copy it later
@@ -209,6 +189,13 @@ gulp.task('remove',['clean'], function(cb){
  * Depends on: docs
  */
 gulp.task('scripts-app', function() {
+  var jshint = require('gulp-jshint'),
+      ngannotate = require('gulp-ng-annotate'),
+      stripDebug = require('gulp-strip-debug'),
+      stylish = require('jshint-stylish'),
+      sourcemaps = require('gulp-sourcemaps'),
+      uglify = require('gulp-uglify');
+
   return gulp.src('src/js/app/**/*.js')
     .pipe(plumber(options.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
@@ -239,10 +226,26 @@ gulp.task('scripts-vendor', function() {
 
 
 /**
+ * Task to start a server on port 4000.
+ */
+gulp.task('server', function(){
+  var express = require('express');
+  var app = express(), port = options.serverport;
+  app.use(express.static(__dirname + "/dist"));
+  app.listen(port); 
+  console.log('started webserver on port ' + port);
+});
+
+
+/**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
  * This will also auto prefix vendor specific rules.
  */
 gulp.task('styles', function() {
+  var autoprefixer = require('gulp-autoprefixer'),
+      minifycss = require('gulp-minify-css'),
+      sass = require('gulp-sass');
+
   return gulp.src('src/styles/main.scss')
     .pipe(plumber(options.plumberConfig()))
     .pipe(sass({ style: 'expanded' }))
@@ -258,12 +261,13 @@ gulp.task('styles', function() {
  * Output TODO's & FIXME's in markdown and json file as well
  */
 gulp.task('todo', function() {
-    gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
-      .pipe(plumber(options.plumberConfig()))
-      .pipe(todo())
-      .pipe(gulp.dest('./')) //output todo.md as markdown
-      .pipe(todo.reporter('json', {fileName: 'todo.json'}))
-      .pipe(gulp.dest('./')) //output todo.json as json
+  var todo = require('gulp-todo');
+  gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
+    .pipe(plumber(options.plumberConfig()))
+    .pipe(todo())
+    .pipe(gulp.dest('./')) //output todo.md as markdown
+    .pipe(todo.reporter('json', {fileName: 'todo.json'}))
+    .pipe(gulp.dest('./')) //output todo.json as json
 });
 
 
