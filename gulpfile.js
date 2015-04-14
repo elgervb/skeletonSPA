@@ -8,7 +8,6 @@ var gulp = require('gulp'),
     express = require('express'),
     gulpif = require('gulp-if'),
     imagemin = require('gulp-imagemin'),
-    jsdoc = require("gulp-jsdoc"),
     jshint = require('gulp-jshint'),
     livereload = require('gulp-livereload'),
     minifycss = require('gulp-minify-css'),
@@ -68,7 +67,7 @@ gulp.task('browser-sync', ['watch'], function() {
  * Depends on: clean
  */
 gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy', 'todo'/*, 'docs'*/);
+    gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
 
@@ -76,7 +75,7 @@ gulp.task('build', ['clean'], function() {
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-    del(['dist', 'docs','todo.md', 'todo.json'], cb);
+    del(['dist', 'todo.md', 'todo.json'], cb);
 });
 
 /**
@@ -127,16 +126,6 @@ gulp.task('copy-index', function() {
  * Depends on: build
  */
 gulp.task('default', ['build']);
-
-
-/**
- * Generate docs from all application javascript
- */
-gulp.task('docs', function() {
-  return gulp.src("./src/js/app/**/*.js")
-   .pipe(plumber(options.plumberConfig()))
-   .pipe(jsdoc('./docs'))
-});
 
 
 /**
