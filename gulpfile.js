@@ -15,6 +15,7 @@ var gulp = require('gulp'),
     ngannotate = require('gulp-ng-annotate'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
+    q = require('q'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
     sass = require('gulp-sass'),
@@ -82,27 +83,36 @@ gulp.task('clean', ['clear-cache'],  function(cb) {
  * Clears the cache used by gulp-cache
  */
 gulp.task('clear-cache', function() {
-
   // Or, just call this for everything
   cache.clearAll();
 });
+
 
 /**
  * Copies all to dist/
  */
 gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
 
+
 gulp.task('copy-fonts', function() {
+  var deferred = q.defer();
    // copy all fonts
-  return gulp.src( 'src/fonts/**')
-    .pipe(cache(gulp.dest('dist/fonts')));
+   setTimeout(function() {
+    gulp.src( 'src/fonts/**')
+      .pipe(cache(gulp.dest('dist/fonts')));
+       deferred.resolve();
+  }, 1);
+
+  return deferred.promise;
 });
 
+
 gulp.task('copy-template', function() {
-  return // copy all html && json
-  gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
+  // copy all html && json
+  return gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
     .pipe(cache(gulp.dest('dist/js/app')));
 });
+
 
 gulp.task('copy-index', function() {
    // copy the index.html
@@ -150,10 +160,17 @@ gulp.task('start', ['express', 'live-reload'], function(){});
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
  */
 gulp.task('images', function() {
-  return gulp.src('src/img/**/*')
-    .pipe(plumber(options.plumberConfig()))
-    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/img'));
+  var deferred = q.defer();
+
+  setTimeout(function() {
+    gulp.src('src/img/**/*')
+      .pipe(plumber(options.plumberConfig()))
+      .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+      .pipe(gulp.dest('dist/img'));
+    deferred.resolve();
+  }, 1);
+
+  return deferred.promise;
 });
 
 
