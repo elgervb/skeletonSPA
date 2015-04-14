@@ -32,7 +32,7 @@ var options = {
     plumberConfig: function(){
       return {'errorHandler': onError};
     }
-};
+}; 
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -90,17 +90,22 @@ gulp.task('clear-cache', function() {
 /**
  * Copies all to dist/
  */
-gulp.task('copy', function() {
+gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
 
-  // copy all fonts
-  gulp.src( 'src/fonts/**')
+gulp.task('copy-fonts', function() {
+   // copy all fonts
+  return gulp.src( 'src/fonts/**')
     .pipe(cache(gulp.dest('dist/fonts')));
+});
 
-  // copy all html && json
+gulp.task('copy-template', function() {
+  return // copy all html && json
   gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
     .pipe(cache(gulp.dest('dist/js/app')));
+});
 
-  // copy the index.html
+gulp.task('copy-index', function() {
+   // copy the index.html
    return gulp.src('src/index.html')
     .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
     .pipe(cache(gulp.dest('dist/')));
@@ -260,17 +265,23 @@ gulp.task('todo', function() {
  */
 gulp.task('watch', function() {
 
+  // watch index.html
+  gulp.watch('src/index.html', ['copy-index']);
+
   // watch html files
-  gulp.watch('src/**/*.html', ['copy']);
+  gulp.watch('src/**/*.html', ['copy-template']);
+
+  // watch fonts 
+  gulp.watch('src/fonts/**', ['copy-fonts']);
 
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch('src/js/app/**/*', ['scripts-app']);
+  gulp.watch('src/js/app/**/*.js', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch('src/js/vendor/**/*', ['scripts-vendor']);
+  gulp.watch('src/js/vendor/**/*.js', ['scripts-vendor']);
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
