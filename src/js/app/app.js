@@ -1,7 +1,7 @@
 
 var app = angular.module('skeleton', ['ngRoute'])
 
-.config(function($routeProvider, $locationProvider) {
+.config(function($routeProvider, $locationProvider) 
  
   $routeProvider
     .otherwise({
