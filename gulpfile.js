@@ -227,6 +227,7 @@ gulp.task('scripts-app', function() {
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/js'))
+    // make minified 
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(sourcemaps.init())
