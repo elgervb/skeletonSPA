@@ -24,7 +24,15 @@ var gulp = require('gulp'),
     todo = require('gulp-todo'),
     uglify = require('gulp-uglify');
 
-var options = {liveReload: false};
+var options = {
+   liveReload: false,
+   /**
+     * Returns the config for plumber
+     */
+    plumberConfig: function(){
+      return {'errorHandler': onError};
+    }
+};
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -59,7 +67,7 @@ gulp.task('browser-sync', ['watch'], function() {
  * Depends on: clean
  */
 gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
+    gulp.start('styles', 'scripts', 'images', 'copy', 'todo'/*, 'docs'*/);
 });
 
 
@@ -111,7 +119,8 @@ gulp.task('default', ['build']);
  */
 gulp.task('docs', function() {
   return gulp.src("./src/js/app/**/*.js")
-    .pipe(jsdoc('./docs'))
+   .pipe(plumber(options.plumberConfig()))
+   .pipe(jsdoc('./docs'))
 });
 
 
@@ -137,7 +146,7 @@ gulp.task('start', ['express', 'live-reload'], function(){});
  */
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
-    .pipe(plumber({errorHandler: onError}))
+    .pipe(plumber(options.plumberConfig()))
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/img'));
 });
@@ -188,9 +197,9 @@ gulp.task('remove',['clean'], function(cb){
  *
  * Depends on: docs
  */
-gulp.task('scripts-app', ['docs'], function() {
+gulp.task('scripts-app', function() {
   return gulp.src('src/js/app/**/*.js')
-    .pipe(plumber({errorHandler: onError}))
+    .pipe(plumber(options.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
@@ -223,7 +232,7 @@ gulp.task('scripts-vendor', function() {
  */
 gulp.task('styles', function() {
   return gulp.src('src/styles/main.scss')
-    .pipe(plumber({errorHandler: onError}))
+    .pipe(plumber(options.plumberConfig()))
     .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest('dist/css'))
@@ -238,7 +247,7 @@ gulp.task('styles', function() {
  */
 gulp.task('todo', function() {
     gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
-      .pipe(plumber({errorHandler: onError}))
+      .pipe(plumber(options.plumberConfig()))
       .pipe(todo())
       .pipe(gulp.dest('./')) //output todo.md as markdown
       .pipe(todo.reporter('json', {fileName: 'todo.json'}))
