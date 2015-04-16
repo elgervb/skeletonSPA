@@ -221,12 +221,14 @@ gulp.task('scripts-vendor', function() {
 
 
 /**
- * Task to start a server on port 4000.
+ * Task to start a server default = port 4000.
  */
 gulp.task('server', function(){
   var express = require('express');
-  var app = express(), port = options.serverport;
+  var app = express(), 
+  port = argv.port||options.serverport;
   app.use(express.static(__dirname + "/" + options.dist));
+
   app.listen(port); 
   console.log('started webserver on port ' + port + " baseDir: " + __dirname + "/" + options.dist);
 });
