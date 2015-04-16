@@ -74,8 +74,8 @@ clean          | Cleans the `dist` folder and other generated files
 copy           | Copies all to dist/
 default        | Default task. Depends on: build
 docs           | Generate docs from all application javascript
-express        | Task to start a Express server on port 4000
-start          | Task to start a server on port 4000 and used the live reload functionality. Depends on: express, live-reload
+server         | Task to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used
+start          | Task to start a server and used the live reload functionality. Depends on: express, live-reload
 images         | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
 live-reload    | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts        | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
