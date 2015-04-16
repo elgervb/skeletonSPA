@@ -17,7 +17,6 @@ var options = config.options;
     options.plumberConfig=function(){
       return {'errorHandler': onError};
     };
-    
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -52,16 +51,23 @@ gulp.task('browser-sync', ['watch'], function() {
  * Build and copy all styles, scripts, images and fonts.
  * Depends on: clean
  */
-gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
+gulp.task('build', ['info', 'clean'], function() {
+  
+  gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
-
+/**
+ * log some info
+ */
+gulp.task('info',function(){
+  // log info
+  gutil.log("If you have an enhancement or encounter bugs, please report them on", gutil.colors.magenta(config.bugs.url));
+});
 /**
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-    del([options.dist, 'todo.md', 'todo.json'], cb);
+  del([options.dist, 'todo.md', 'todo.json'], cb);
 });
 
 /**
