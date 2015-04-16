@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     del = require('del'),
     gulpif = require('gulp-if'),
+    gutil = require('gulp-util')
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     q = require('q'),
@@ -230,7 +231,7 @@ gulp.task('server', function(){
   app.use(express.static(__dirname + "/" + options.dist));
 
   app.listen(port); 
-  console.log('started webserver on port ' + port + " baseDir: " + __dirname + "/" + options.dist);
+  gutil.log('Server started. Port', port,"baseDir",__dirname,"/",options.dist);
 });
 
 
