@@ -11,18 +11,13 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace');
 
-var options = {
-   liveReload: false,
-   src: 'src/',
-   dist: 'dist/',
-   serverport: 4000,
-   /**
-     * Returns the config for plumber
-     */
-    plumberConfig: function(){
+var config = require('./package.json');
+var options = config.options;
+    options.liveReload=false;
+    options.plumberConfig=function(){
       return {'errorHandler': onError};
-    }
-}; 
+    };
+    
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -231,7 +226,7 @@ gulp.task('server', function(){
   app.use(express.static(__dirname + "/" + options.dist));
 
   app.listen(port); 
-  gutil.log('Server started. Port', port,"baseDir",__dirname,"/",options.dist);
+  gutil.log('Server started. Port', port,"baseDir",__dirname+"/"+options.dist);
 });
 
 

@@ -25,6 +25,11 @@
     "url": "https://github.com/elgervb/skeletonSPA/issues",
     "email": "elgervb@gmail.com"
   },
+  "options":{
+    "src": "src/",
+   "dist": "dist/",
+   "serverport": 4000
+  },
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^1.9.1",
