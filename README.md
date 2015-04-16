@@ -84,3 +84,12 @@ scripts-vendor | Task to handle all vendor specific javasript. All vendor javasc
 styles         | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 todo           | Output TODO's & FIXME's in markdown and json file as well
 watch          | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, scripts or images. 
+
+### Options ###
+
+Optionally run gulp with the following arguments
+
+Name           | Description
+---------------|--------------------
+--dev          | start the app in dev-mode. This way console logging will not be stripped and javascripts will not be minified to make debugging easier
+--port={{int}} | start the server on port {{port}}
