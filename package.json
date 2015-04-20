@@ -1,5 +1,5 @@
 {
-  "name": "gulpDemo",
+  "name": "skeletonSPA",
   "version": "1.0.0",
   "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
   "main": "gulpfile.js",
