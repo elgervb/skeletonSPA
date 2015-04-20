@@ -60,8 +60,13 @@ gulp.task('build', ['info', 'clean'], function() {
  * log some info
  */
 gulp.task('info',function(){
+  // log project details
+  gutil.log( gutil.colors.cyan("Running gulp on project "+config.name+" v"+ config.version) );
+  gutil.log( gutil.colors.cyan("Author: " + config.author.name) );
+  gutil.log( gutil.colors.cyan("Email : " + config.author.email) );
+  gutil.log( gutil.colors.cyan("Site  : " + config.author.url) );
   // log info
-  gutil.log("If you have an enhancement or encounter bugs, please report them on", gutil.colors.magenta(config.bugs.url));
+  gutil.log("If you have an enhancement or encounter a bug, please report them on", gutil.colors.magenta(config.bugs.url));
 });
 /**
  * Cleans the `dist` folder and other generated files
