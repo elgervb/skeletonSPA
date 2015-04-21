@@ -52,7 +52,6 @@ gulp.task('browser-sync', ['watch'], function() {
  * Depends on: clean
  */
 gulp.task('build', ['info', 'clean'], function() {
-  
   gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
@@ -68,6 +67,7 @@ gulp.task('info',function(){
   // log info
   gutil.log("If you have an enhancement or encounter a bug, please report them on", gutil.colors.magenta(config.bugs.url));
 });
+
 /**
  * Cleans the `dist` folder and other generated files
  */
@@ -89,7 +89,9 @@ gulp.task('clear-cache', function() {
  */
 gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
 
-
+/**
+ * Task for copying fonts only
+ */
 gulp.task('copy-fonts', function() {
   var deferred = q.defer();
    // copy all fonts
@@ -102,14 +104,18 @@ gulp.task('copy-fonts', function() {
   return deferred.promise;
 });
 
-
+/**
+ * task for copying templates only
+ */
 gulp.task('copy-template', function() {
   // copy all html && json
   return gulp.src( [options.src + 'js/app/**/*.html', options.src + 'js/app/**/*.json'])
     .pipe(cache(gulp.dest('dist/js/app')));
 });
 
-
+/**
+ * Task for copying index page only. Optionally add live reload script to it
+ */
 gulp.task('copy-index', function() {
    // copy the index.html
    return gulp.src(options.src + 'index.html')
@@ -123,6 +129,13 @@ gulp.task('copy-index', function() {
  * Depends on: build
  */
 gulp.task('default', ['build']);
+
+
+/**
+ * Task to start a server on port 4000 and used the live reload functionality.
+ * Depends on: server, live-reload
+ */
+gulp.task('start', ['server', 'live-reload'], function(){});
 
 
 /**
@@ -231,8 +244,8 @@ gulp.task('scripts-vendor', function() {
  * Task to start a server default = port 4000.
  */
 gulp.task('server', function(){
-  var express = require('express');
-  var app = express(), 
+  var express = require('express'),
+  app = express(), 
   port = argv.port||options.serverport;
   app.use(express.static(__dirname + "/" + options.dist));
 
