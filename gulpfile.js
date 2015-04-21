@@ -301,25 +301,25 @@ gulp.task('todo', function() {
 gulp.task('watch', function() {
 
   // watch index.html
-  gulp.watch(options.dist + 'index.html', ['copy-index']);
+  gulp.watch(options.src + 'index.html', ['copy-index']);
 
   // watch html files
-  gulp.watch(options.dist + '**/*.html', ['copy-template']);
+  gulp.watch(options.src + '**/*.html', ['copy-template']);
 
   // watch fonts 
-  gulp.watch(options.dist + 'fonts/**', ['copy-fonts']);
+  gulp.watch(options.src + 'fonts/**', ['copy-fonts']);
 
   // Watch .scss files
-  gulp.watch(options.dist + 'styles/**/*.scss', ['styles']);
+  gulp.watch(options.src + 'styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch(options.dist + 'js/app/**/*.js', ['scripts-app']);
+  gulp.watch(options.src + 'js/app/**/*.js', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch(options.dist + 'js/vendor/**/*.js', ['scripts-vendor']);
+  gulp.watch(options.src + 'js/vendor/**/*.js', ['scripts-vendor']);
 
   // Watch image files
-  gulp.watch(options.dist + 'img/**/*', ['images']);
+  gulp.watch(options.src + 'img/**/*', ['images']);
 });
 
 function onError(error){
