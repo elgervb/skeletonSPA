@@ -231,12 +231,24 @@ gulp.task('scripts-app', function() {
 /**
  * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
-gulp.task('scripts-vendor', function() {
-    // script must be included in the right order. First include angular, then angular-route
+gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
+  // script must be included in the right order. First include angular, then angular-route
   return gulp.src([options.src + 'js/vendor/*/**/angular.min.js',options.src + 'js/vendor/*/**/angular-route.min.js', options.src + 'js/vendor/**/*.js'])
     .pipe(gulp.dest(options.dist + 'js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(options.dist + 'js/vendor'));
+});
+
+
+/**
+ * Copy all vendor .js.map files to the vendor location
+ */
+gulp.task('scripts-vendor-maps', function(){
+  var flatten = require('gulp-flatten');
+
+  return gulp.src(options.src + 'js/vendor/**/*.js.map')
+  .pipe(flatten())
+  .pipe(gulp.dest(options.dist + 'js/vendor'));
 });
 
 
