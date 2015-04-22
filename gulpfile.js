@@ -276,6 +276,8 @@ gulp.task('start', ['live-reload', 'server'], function(){});
 /**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
  * This will also auto prefix vendor specific rules.
+ *
+ * @see https://github.com/sass/node-sass for configuration
  */
 gulp.task('styles', function() {
   var autoprefixer = require('gulp-autoprefixer'),
@@ -284,7 +286,11 @@ gulp.task('styles', function() {
 
   return gulp.src(options.src + 'styles/main.scss')
     .pipe(plumber(options.plumberConfig()))
-    .pipe(sass({ style: 'expanded' }))
+    .pipe(sass({ 
+      style: 'nested',
+      precision: 5,
+      sourceComments: argv.dev ? true : false
+    }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(options.dist + 'css'))
     .pipe(rename({suffix: '.min'}))
