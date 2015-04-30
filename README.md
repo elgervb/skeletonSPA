@@ -91,7 +91,7 @@ styles              | Compile Sass into Css and minify it. Minified and non-mini
 todo                | Output TODO's & FIXME's in markdown and json file as well
 watch               | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, templates, scripts or images. 
 
-### Argumants ###
+### Arguments ###
 
 Optionally run gulp with the following arguments
 
@@ -99,3 +99,14 @@ Name                | Description
 --------------------|--------------------
 --dev               | start the app in dev-mode. This way console logging will not be stripped and javascripts will not be minified to make debugging easier
 --port={{int}}      | start the server on port {{port}}
+
+
+### Settings ###
+
+The *package.json* file contains an object *settings* in which you can specify basic settings for the gulpfile.
+
+Setting             | Description
+--------------------|-------------------
+scr                 | The directory where all sources are located. Defaults to ./src/
+dist                | The directory where all gulp results are written to. Defaults to ./dist/
+serverport          | The port number to start the server on. Defaults to 4000
