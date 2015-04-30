@@ -122,10 +122,10 @@ gulp.task('default', ['build']);
 /**
  * Create Javascript documentation
  */
-gulp.task('docs-js', ['todo'],function(){
+gulp.task('docs-js', ['todo'], function(){
   var gulpDoxx = require('gulp-doxx');
 
-  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + 'TODO.md'])
+  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md'])
     .pipe(gulpDoxx({
       title: config.name,
       urlPrefix: "file:///"+__dirname+settings.reports
@@ -312,11 +312,11 @@ gulp.task('styles', function() {
 gulp.task('todo', function() {
   var todo = require('gulp-todo');
   gulp.src([settings.src + 'js/app/**/*.js',settings.src + 'styles/app/**/*.scss'])
-    .pipe(plumber(settings.plumberConfig()))
-    .pipe(todo())
-    .pipe(gulp.dest('./')) //output todo.md as markdown
-    .pipe(todo.reporter('json', {fileName: 'todo.json'}))
-    .pipe(gulp.dest('./')) //output todo.json as json
+    .pipe( plumber( settings.plumberConfig() ) )
+    .pipe( todo() )
+    .pipe( gulp.dest( settings.reports ) ) // output todo.md as markdown
+    .pipe( todo.reporter('json', {fileName: 'todo.json'} ) )
+    .pipe( gulp.dest( settings.reports ) ) // output todo.json as json
 });
 
 
