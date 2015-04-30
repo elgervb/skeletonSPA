@@ -12,9 +12,9 @@ var gulp = require('gulp'),
     replace = require('gulp-replace');
 
 var config = require('./package.json');
-var options = config.options;
-    options.liveReload=false;
-    options.plumberConfig=function(){
+var settings = config.settings;
+    settings.liveReload=false;
+    settings.plumberConfig=function(){
       return {'errorHandler': onError};
     };
 
@@ -26,11 +26,11 @@ gulp.task('browser-sync', ['watch'], function() {
   var browserSync = require('browser-sync');
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([options.dist + '**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
+  gulp.watch([settings.dist + '**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
 
   return browserSync({
       server: {
-          baseDir: options.dist
+          baseDir: settings.dist
       },
       ghostMode: {
         clicks: true,
@@ -60,7 +60,7 @@ gulp.task('build', ['info', 'clean'], function() {
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-  del([options.dist, 'todo.md', 'todo.json'], cb);
+  del([settings.dist, 'todo.md', 'todo.json'], cb);
 });
 
 /**
@@ -85,8 +85,8 @@ gulp.task('copy-fonts', function() {
   var deferred = q.defer();
    // copy all fonts
    setTimeout(function() {
-    gulp.src( options.src + 'fonts/**')
-      .pipe(gulp.dest(options.dist + 'fonts'));
+    gulp.src( settings.src + 'fonts/**')
+      .pipe(gulp.dest(settings.dist + 'fonts'));
        deferred.resolve();
   }, 1);
 
@@ -98,7 +98,7 @@ gulp.task('copy-fonts', function() {
  */
 gulp.task('copy-template', function() {
   // copy all html && json
-  return gulp.src( [options.src + 'js/app/**/*.html', options.src + 'js/app/**/*.json'])
+  return gulp.src( [settings.src + 'js/app/**/*.html', settings.src + 'js/app/**/*.json'])
     .pipe(cache(gulp.dest('dist/js/app')));
 });
 
@@ -107,9 +107,9 @@ gulp.task('copy-template', function() {
  */
 gulp.task('copy-index', function() {
    // copy the index.html
-   return gulp.src(options.src + 'index.html')
-    .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
-    .pipe(cache(gulp.dest(options.dist)));
+   return gulp.src(settings.src + 'index.html')
+    .pipe(gulpif(settings.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
+    .pipe(cache(gulp.dest(settings.dist)));
 });
 
 
@@ -128,10 +128,10 @@ gulp.task('images', function() {
   var deferred = q.defer();
 
   setTimeout(function() {
-    gulp.src(options.src + 'img/**/*')
-      .pipe(plumber(options.plumberConfig()))
+    gulp.src(settings.src + 'img/**/*')
+      .pipe(plumber(settings.plumberConfig()))
       .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-      .pipe(gulp.dest(options.dist + 'img'));
+      .pipe(gulp.dest(settings.dist + 'img'));
     deferred.resolve();
   }, 1);
 
@@ -159,20 +159,20 @@ gulp.task('info',function(){
 gulp.task('live-reload', ['watch'], function() {
   var livereload = require('gulp-livereload');
 
-  options.liveReload = true;
+  settings.liveReload = true;
   // first, delete the index.html from the dist folder as we will copy it later
-  del([options.dist + 'index.html']);
+  del([settings.dist + 'index.html']);
 
   // add livereload script to the index.html
-  gulp.src([options.src + 'index.html'])
+  gulp.src([settings.src + 'index.html'])
    .pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
-   .pipe(gulp.dest(options.dist));
+   .pipe(gulp.dest(settings.dist));
    
   // Create LiveReload server
   livereload.listen();
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([options.dist + '**']).on('change', livereload.changed);
+  gulp.watch([settings.dist + '**']).on('change', livereload.changed);
 });
 
 
@@ -204,20 +204,20 @@ gulp.task('scripts-app', function() {
       sourcemaps = require('gulp-sourcemaps'),
       uglify = require('gulp-uglify');
 
-  return gulp.src(options.src + 'js/app/**/*.js')
-    .pipe(plumber(options.plumberConfig()))
+  return gulp.src(settings.src + 'js/app/**/*.js')
+    .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
-    .pipe(gulp.dest(options.dist + 'js'))
+    .pipe(gulp.dest(settings.dist + 'js'))
     // make minified 
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(options.dist + 'js'));
+    .pipe(gulp.dest(settings.dist + 'js'));
 });
 
 
@@ -226,10 +226,10 @@ gulp.task('scripts-app', function() {
  */
 gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
   // script must be included in the right order. First include angular, then angular-route
-  return gulp.src([options.src + 'js/vendor/*/**/angular.min.js',options.src + 'js/vendor/*/**/angular-route.min.js', options.src + 'js/vendor/**/*.js'])
-    .pipe(gulp.dest(options.dist + 'js/vendor'))
+  return gulp.src([settings.src + 'js/vendor/*/**/angular.min.js',settings.src + 'js/vendor/*/**/angular-route.min.js', settings.src + 'js/vendor/**/*.js'])
+    .pipe(gulp.dest(settings.dist + 'js/vendor'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(options.dist + 'js/vendor'));
+    .pipe(gulp.dest(settings.dist + 'js/vendor'));
 });
 
 
@@ -239,9 +239,9 @@ gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
 gulp.task('scripts-vendor-maps', function(){
   var flatten = require('gulp-flatten');
 
-  return gulp.src(options.src + 'js/vendor/**/*.js.map')
+  return gulp.src(settings.src + 'js/vendor/**/*.js.map')
   .pipe(flatten())
-  .pipe(gulp.dest(options.dist + 'js/vendor'));
+  .pipe(gulp.dest(settings.dist + 'js/vendor'));
 });
 
 
@@ -251,11 +251,11 @@ gulp.task('scripts-vendor-maps', function(){
 gulp.task('server', function(){
   var express = require('express'),
   app = express(), 
-  port = argv.port||options.serverport;
-  app.use(express.static(__dirname + "/" + options.dist));
+  port = argv.port||settings.serverport;
+  app.use(express.static(__dirname + "/" + settings.dist));
 
   app.listen(port); 
-  gutil.log('Server started. Port', port,"baseDir",__dirname+"/"+options.dist);
+  gutil.log('Server started. Port', port,"baseDir",__dirname+"/"+settings.dist);
 });
 
 
@@ -277,18 +277,18 @@ gulp.task('styles', function() {
       minifycss = require('gulp-minify-css'),
       sass = require('gulp-sass');
 
-  return gulp.src(options.src + 'styles/main.scss')
-    .pipe(plumber(options.plumberConfig()))
+  return gulp.src(settings.src + 'styles/main.scss')
+    .pipe(plumber(settings.plumberConfig()))
     .pipe(sass({ 
       style: 'nested',
       precision: 5,
       sourceComments: argv.dev ? true : false
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest(options.dist + 'css'))
+    .pipe(gulp.dest(settings.dist + 'css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest(options.dist + 'css'));
+    .pipe(gulp.dest(settings.dist + 'css'));
 });
 
 
@@ -297,8 +297,8 @@ gulp.task('styles', function() {
  */
 gulp.task('todo', function() {
   var todo = require('gulp-todo');
-  gulp.src([options.src + 'js/app/**/*.js',options.src + 'styles/app/**/*.scss'])
-    .pipe(plumber(options.plumberConfig()))
+  gulp.src([settings.src + 'js/app/**/*.js',settings.src + 'styles/app/**/*.scss'])
+    .pipe(plumber(settings.plumberConfig()))
     .pipe(todo())
     .pipe(gulp.dest('./')) //output todo.md as markdown
     .pipe(todo.reporter('json', {fileName: 'todo.json'}))
@@ -312,25 +312,25 @@ gulp.task('todo', function() {
 gulp.task('watch', function() {
 
   // watch index.html
-  gulp.watch(options.src + 'index.html', ['copy-index']);
+  gulp.watch(settings.src + 'index.html', ['copy-index']);
 
   // watch html files
-  gulp.watch(options.src + '**/*.html', ['copy-template']);
+  gulp.watch(settings.src + '**/*.html', ['copy-template']);
 
   // watch fonts 
-  gulp.watch(options.src + 'fonts/**', ['copy-fonts']);
+  gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
 
   // Watch .scss files
-  gulp.watch(options.src + 'styles/**/*.scss', ['styles']);
+  gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch(options.src + 'js/app/**/*.js', ['scripts-app']);
+  gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch(options.src + 'js/vendor/**/*.js', ['scripts-vendor']);
+  gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
 
   // Watch image files
-  gulp.watch(options.src + 'img/**/*', ['images']);
+  gulp.watch(settings.src + 'img/**/*', ['images']);
 });
 
 function onError(error){
