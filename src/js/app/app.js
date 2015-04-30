@@ -1,6 +1,11 @@
-
+/**
+ * Declaration of the main skeleton app
+ */
 var app = angular.module('skeleton', ['ngRoute'])
 
+/**
+ * configuration: state your routes and other configuration items here
+ */
 .config(function($routeProvider, $locationProvider) {
  
   $routeProvider
@@ -11,4 +16,4 @@ var app = angular.module('skeleton', ['ngRoute'])
 
    $locationProvider.html5Mode('true');
 
-}); // end config
+});
