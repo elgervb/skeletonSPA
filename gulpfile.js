@@ -277,7 +277,7 @@ gulp.task('styles', function() {
       minifycss = require('gulp-minify-css'),
       sass = require('gulp-sass');
 
-  return gulp.src(settings.src + 'styles/main.scss')
+  return gulp.src([settings.src + 'styles/**/*.scss'])
     .pipe(plumber(settings.plumberConfig()))
     .pipe(sass({ 
       style: 'nested',
