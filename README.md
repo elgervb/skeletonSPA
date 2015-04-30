@@ -78,11 +78,12 @@ copy-fonts          | Task for copying fonts only
 copy-template       | task for copying templates only
 copy-index          | Task for copying index page only. Optionally add live reload script to it
 default             | Default task. Depends on: build
+docs-js             | Create Javascript documentation in the settings.reports directory
 images              | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
 info                | log some info about this app
 live-reload         | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 scripts             | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
-scripts-app         | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version.
+scripts-app         | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs-js
 scripts-vendor      | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js. Depends on: scripts-vendor-maps
 scripts-vendor-maps | Copy all vendor .js.map files to the vendor location
 server              | Task to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used

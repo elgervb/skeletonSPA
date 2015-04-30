@@ -119,6 +119,20 @@ gulp.task('copy-index', function() {
  */
 gulp.task('default', ['build']);
 
+/**
+ * Create Javascript documentation
+ */
+gulp.task('docs-js',function(){
+  var gulpDoxx = require('gulp-doxx');
+
+  gulp.src([settings.src + '/js/**/*.js', 'README.md'])
+    .pipe(gulpDoxx({
+      title: config.name,
+      urlPrefix: "file:///"+__dirname+settings.reports
+    }))
+    .pipe(gulp.dest(settings.reports));
+
+});
 
 /**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
@@ -194,9 +208,9 @@ gulp.task('remove',['clean'], function(cb){
 
 /**
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
- * This will also generete sourcemaps for the minified version.
+ * This will also generete sourcemaps for the minified version. Depends on: docs-js
  */
-gulp.task('scripts-app', function() {
+gulp.task('scripts-app', ['docs-js'], function() {
   var jshint = require('gulp-jshint'),
       ngannotate = require('gulp-ng-annotate'),
       stripDebug = require('gulp-strip-debug'),
