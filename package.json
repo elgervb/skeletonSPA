@@ -26,8 +26,8 @@
     "email": "elgervb@gmail.com"
   },
   "settings": {
-    "src": "src/",
-    "dist": "dist/",
+    "src": "./src/",
+    "dist": "./dist/",
     "serverport": 4000
   },
   "license": "ISC",
