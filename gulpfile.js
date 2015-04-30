@@ -49,24 +49,12 @@ gulp.task('browser-sync', ['watch'], function() {
 
 /**
  * Build and copy all styles, scripts, images and fonts.
- * Depends on: clean
+ * Depends on: info, clean
  */
 gulp.task('build', ['info', 'clean'], function() {
   gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
-/**
- * log some info
- */
-gulp.task('info',function(){
-  // log project details
-  gutil.log( gutil.colors.cyan("Running gulp on project "+config.name+" v"+ config.version) );
-  gutil.log( gutil.colors.cyan("Author: " + config.author.name) );
-  gutil.log( gutil.colors.cyan("Email : " + config.author.email) );
-  gutil.log( gutil.colors.cyan("Site  : " + config.author.url) );
-  // log info
-  gutil.log("If you have an enhancement or encounter a bug, please report them on", gutil.colors.magenta(config.bugs.url));
-});
 
 /**
  * Cleans the `dist` folder and other generated files
@@ -88,6 +76,7 @@ gulp.task('clear-cache', function() {
  * Copies all to dist/
  */
 gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
+
 
 /**
  * Task for copying fonts only
@@ -132,13 +121,6 @@ gulp.task('default', ['build']);
 
 
 /**
- * Task to start a server on port 4000 and used the live reload functionality.
- * Depends on: server, live-reload
- */
-gulp.task('start', ['server', 'live-reload'], function(){});
-
-
-/**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
  */
 gulp.task('images', function() {
@@ -154,6 +136,19 @@ gulp.task('images', function() {
   }, 1);
 
   return deferred.promise;
+});
+
+/**
+ * log some info about this app
+ */
+gulp.task('info',function(){
+  // log project details
+  gutil.log( gutil.colors.cyan("Running gulp on project "+config.name+" v"+ config.version) );
+  gutil.log( gutil.colors.cyan("Author: " + config.author.name) );
+  gutil.log( gutil.colors.cyan("Email : " + config.author.email) );
+  gutil.log( gutil.colors.cyan("Site  : " + config.author.url) );
+  // log info
+  gutil.log("If you have an enhancement or encounter a bug, please report them on", gutil.colors.magenta(config.bugs.url));
 });
 
 
@@ -200,8 +195,6 @@ gulp.task('remove',['clean'], function(cb){
 /**
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
  * This will also generete sourcemaps for the minified version.
- *
- * Depends on: docs
  */
 gulp.task('scripts-app', function() {
   var jshint = require('gulp-jshint'),
@@ -253,7 +246,7 @@ gulp.task('scripts-vendor-maps', function(){
 
 
 /**
- * Task to start a server default = port 4000.
+ * TTask to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used (4000)
  */
 gulp.task('server', function(){
   var express = require('express'),
@@ -314,7 +307,7 @@ gulp.task('todo', function() {
 
 
 /**
- * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, scripts or images. 
+ * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, templates, scripts or images. 
  */
 gulp.task('watch', function() {
 
