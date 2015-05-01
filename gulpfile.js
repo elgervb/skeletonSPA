@@ -166,6 +166,23 @@ gulp.task('info',function(){
 });
 
 
+gulp.task('karma', function(done) {
+  var karma = require('karma').server;
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+
+gulp.task('karma:watch', function(done) {
+  var karma = require('karma').server;
+  karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  }, done);
+});
+
+
 /**
  * Start the live reload server. Live reload will be triggered when a file in the `dist` folder changes. This will add a live-reload script to the index.html page, which makes it all happen.
  * Depends on: watch
