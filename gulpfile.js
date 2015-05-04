@@ -261,10 +261,11 @@ gulp.task('scripts-app', ['docs-js'], function() {
       "validateLineBreaks": "CRLF",
       "disallowTrailingWhitespace": null
     })) 
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('fail'))
     .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
     .pipe(gulp.dest(settings.dist + 'js'))
     // make minified 
