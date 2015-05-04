@@ -245,6 +245,7 @@ gulp.task('remove',['clean'], function(cb){
  */
 gulp.task('scripts-app', ['docs-js'], function() {
   var jshint = require('gulp-jshint'),
+      jscs = require('gulp-jscs'),
       ngannotate = require('gulp-ng-annotate'),
       stripDebug = require('gulp-strip-debug'),
       stylish = require('jshint-stylish'),
@@ -252,6 +253,15 @@ gulp.task('scripts-app', ['docs-js'], function() {
       uglify = require('gulp-uglify');
 
   return gulp.src(settings.src + 'js/app/**/*.js')
+    .pipe(jscs({
+      preset: "node-style-guide", 
+      verbose: true,
+      // disable or change rules
+      "requireTrailingComma": null,
+      "validateLineBreaks": "CRLF",
+      "disallowTrailingWhitespace": null
+    })) 
+    .pipe(gulp.dest(settings.src + 'js/app/'))
     .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
