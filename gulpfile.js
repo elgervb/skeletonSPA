@@ -87,7 +87,7 @@ gulp.task('copy-fonts', function() {
    // copy all fonts
    setTimeout(function() {
     gulp.src( settings.src + 'fonts/**')
-      .pipe(gulp.dest(settings.dist + 'fonts'));
+      .pipe(cache(gulp.dest(settings.dist + 'fonts')));
        deferred.resolve();
   }, 1);
 
@@ -148,7 +148,6 @@ gulp.task('docs-js', ['todo'], function(){
       urlPrefix: "file:///"+__dirname+settings.reports
     }))
     .pipe(gulp.dest(settings.reports));
-
 });
 
 /**
@@ -261,7 +260,8 @@ gulp.task('scripts-app', ['docs-js'], function() {
       // disable or change rules
       "requireTrailingComma": null,
       "validateLineBreaks": "CRLF",
-      "disallowTrailingWhitespace": null
+      "disallowTrailingWhitespace": null,
+      "maximumLineLength": 120
     })) 
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
@@ -398,6 +398,7 @@ gulp.task('watch', function() {
 function onError(error){
   // TODO log error with gutil
   notify.onError(function (error) {
+    gutil.log(error);
     return error.message;
   });
   this.emit('end');
