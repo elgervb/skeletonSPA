@@ -1,7 +1,7 @@
 /**
  * Main controller
  */
-app.controller('MainController', ['$scope', function($scope){
+app.controller('MainController', ['$scope', function($scope) {
 
 		
 
