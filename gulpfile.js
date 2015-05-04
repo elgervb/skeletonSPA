@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     q = require('q'),
     rename = require('gulp-rename'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    size = require('gulp-size');
 
 var config = require('./package.json');
 var settings = config.settings;
@@ -161,6 +162,7 @@ gulp.task('images', function() {
     gulp.src(settings.src + 'img/**/*')
       .pipe(plumber(settings.plumberConfig()))
       .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+      .pipe(size({title:"images"}))
       .pipe(gulp.dest(settings.dist + 'img'));
     deferred.resolve();
   }, 1);
@@ -274,6 +276,7 @@ gulp.task('scripts-app', ['docs-js'], function() {
     .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
     .pipe(sourcemaps.write())
+    .pipe(size({"showFiles":true}))
     .pipe(gulp.dest(settings.dist + 'js'));
 });
 
@@ -343,8 +346,10 @@ gulp.task('styles', function() {
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(settings.dist + 'css'))
+    .pipe(size({"showFiles":true}))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
+    .pipe(size({"showFiles":true}))
     .pipe(gulp.dest(settings.dist + 'css'));
 });
 
