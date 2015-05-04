@@ -42,6 +42,7 @@
     "gulp-concat": "^2.4.2",
     "gulp-doxx": "0.0.4",
     "gulp-flatten": "0.0.4",
+    "gulp-htmlhint": "^0.1.1",
     "gulp-htmlmin": "^1.1.1",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.0.0",

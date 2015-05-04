@@ -75,7 +75,7 @@ clean               | Cleans the `dist` folder and other generated files. Depend
 clear-cache         | Clears the cache used by gulp-cache
 copy                | Copies all to dist/. Depends on: copy-fonts, copy-template, copy-index
 copy-fonts          | Task for copying fonts only
-copy-template       | task for copying templates only
+copy-template       | Task for copying templates. This will lint the HTML and remove comments
 copy-index          | Task for copying index page only. Optionally add live reload script to it
 default             | Default task. Depends on: build
 docs-js             | Create Javascript documentation in the settings.reports directory

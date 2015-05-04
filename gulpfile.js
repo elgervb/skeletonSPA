@@ -94,12 +94,18 @@ gulp.task('copy-fonts', function() {
 });
 
 /**
- * task for copying templates only
+ * Task for copying templates. This will lint the HTML and remove comments
  */
 gulp.task('copy-template', function() {
-  var htmlmin = require('gulp-htmlmin');
+  var htmlmin = require('gulp-htmlmin'),
+      htmlhint = require("gulp-htmlhint");
   // copy all html && json
   return gulp.src( [settings.src + 'js/app/**/*.html', settings.src + 'js/app/**/*.json'])
+    .pipe(htmlhint({
+      htmlhintrc: '.htmlhintrc',
+    }))
+    .pipe(htmlhint.reporter())
+    // html min MUST come after the html hinter
     .pipe(htmlmin({
       collapseWhitespace: false, 
       removeComments: true,
