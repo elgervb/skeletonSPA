@@ -261,7 +261,6 @@ gulp.task('scripts-app', ['docs-js'], function() {
       "validateLineBreaks": "CRLF",
       "disallowTrailingWhitespace": null
     })) 
-    .pipe(gulp.dest(settings.src + 'js/app/'))
     .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
