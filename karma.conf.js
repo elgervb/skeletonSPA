@@ -22,7 +22,7 @@ module.exports = function(config) {
     reporters: [ 'progress', 'html' ],
     colors: true,
     autoWatch: false,
-    browsers: [ 'Firefox','Chrome', 'IE', 'PhantomJS' ], // Chrome, Firefox, IE, PhantomJS
+    browsers: [ 'PhantomJS' ], // Chrome, Crome_without_security, Firefox, IE, Opera, PhantomJS
     customLaunchers: {
       Crome_without_security: {
         base: 'Chrome',
@@ -36,11 +36,11 @@ module.exports = function(config) {
     singleRun: true,
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-htmlfile-reporter',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-ie-launcher',
       'karma-jasmine',
+      'karma-htmlfile-reporter',
       'karma-ng-html2js-preprocessor'
     ]
   });
