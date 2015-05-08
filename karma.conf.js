@@ -7,13 +7,29 @@
  * http://karma-runner.github.io/0.8/config/configuration-file.html
  */
 module.exports = function(config) {
+
+  function getIdentifier(){
+    var d = new Date(),
+    day = d.getDate(),
+    month = d.getMonth()+1,
+    year = d.getFullYear(),
+    hours = d.getHours(),
+    minutes = d.getMinutes(),
+    seconds = d.getSeconds(),
+    ms = d.getMilliseconds();
+    return ""+year+(month<9?"0"+month:month)+(day<9?"0"+day:day)+"-"+(hours<9?"0"+hours:hours)+(minutes<9?"0"+minutes:minutes)+"-"+(seconds<9?"0"+seconds:seconds)+ms;
+  }
+  var identifier = getIdentifier();
+
+  
   config.set({
     basePath: './',
     frameworks: [ 'jasmine' ],
     files: [
       'dist/js/vendor/vendor.js',
+      'dist/js/vendor/angular-mocks.js',
       'dist/js/app.min.js',
-      'dist/**/*html',
+      'dist/**/*.html',
       'tests/**/*.js',
     ],
     preprocessors: {
@@ -51,18 +67,4 @@ module.exports = function(config) {
       'karma-coverage'
     ]
   });
-
-  function getIdentifier(){
-    var d = new Date(),
-    day = d.getDate(),
-    month = d.getMonth()+1,
-    year = d.getFullYear(),
-    hours = d.getHours(),
-    minutes = d.getMinutes(),
-    seconds = d.getSeconds(),
-    ms = d.getMilliseconds();
-    return ""+year+(month<9?"0"+month:month)+(day<9?"0"+day:day)+"-"+(hours<9?"0"+hours:hours)+(minutes<9?"0"+minutes:minutes)+"-"+(seconds<9?"0"+seconds:seconds)+ms;
-  }
-  var identifier = getIdentifier();
-
 };

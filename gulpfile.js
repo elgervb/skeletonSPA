@@ -254,6 +254,7 @@ gulp.task('scripts-app', ['docs-js'], function() {
       uglify = require('gulp-uglify');
 
   return gulp.src(settings.src + 'js/app/**/*.js')
+    .pipe(plumber())
     .pipe(jscs({
       preset: "node-style-guide", 
       verbose: true,
@@ -267,7 +268,6 @@ gulp.task('scripts-app', ['docs-js'], function() {
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'))
-    .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(concat('app.js'))
     .pipe(gulp.dest(settings.dist + 'js'))
@@ -286,8 +286,14 @@ gulp.task('scripts-app', ['docs-js'], function() {
  * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
+  var flatten = require('gulp-flatten');
+  // mocks should be a separate file
+  gulp.src(settings.src + 'js/vendor/*/**/angular-mocks.js')
+    .pipe(flatten())
+    .pipe(gulp.dest(settings.dist + 'js/vendor'));
+
   // script must be included in the right order. First include angular, then angular-route
-  return gulp.src([settings.src + 'js/vendor/*/**/angular.min.js',settings.src + 'js/vendor/*/**/angular-route.min.js', settings.src + 'js/vendor/**/*.js'])
+  return gulp.src([settings.src + 'js/vendor/*/**/angular.min.js',settings.src + 'js/vendor/*/**/angular-route.min.js', "!"+settings.src + 'js/vendor/*/**/angular-mocks.js', settings.src + 'js/vendor/**/*.js'])
     .pipe(gulp.dest(settings.dist + 'js/vendor'))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(settings.dist + 'js/vendor'));

@@ -4,8 +4,18 @@
 
 describe("Main Controller", function(){
 
-  it('Succeeds always', function() {
-    expect(true);
-  });
+  var $controller;
 
+  beforeEach(inject(function(_$controller_){
+    $controller = _$controller_;
+  }));
+
+  describe('$scope.divider', function() {
+    it('sets the scope divider', function() {
+      var $scope = {};
+      var controller = $controller('MainController', { '$scope': $scope });
+      $scope.divider = '++';
+      expect($scope.divider).toEqual('++');
+    });
+  });
 });
