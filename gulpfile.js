@@ -254,15 +254,16 @@ gulp.task('scripts-app', ['docs-js'], function() {
       uglify = require('gulp-uglify');
 
   return gulp.src(settings.src + 'js/app/**/*.js')
-    // .pipe(jscs({
-    //   preset: "node-style-guide", 
-    //   verbose: true,
-    //   // disable or change rules
-    //   "requireTrailingComma": null,
-    //   "validateLineBreaks": "CRLF",
-    //   "disallowTrailingWhitespace": null,
-    //   "maximumLineLength": 120
-    // })) 
+    .pipe(jscs({
+      preset: "node-style-guide", 
+      verbose: true,
+      // disable or change rules
+      "requireTrailingComma": null,
+      "validateLineBreaks": "CRLF",
+      "disallowTrailingWhitespace": null,
+      "maximumLineLength": 120,
+      "disallowMultipleVarDecl": null
+    })) 
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'))
