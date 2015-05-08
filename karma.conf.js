@@ -17,35 +17,42 @@ module.exports = function(config) {
       'tests/**/*.js',
     ],
     preprocessors: {
-      'app/templates/*.html': 'ng-html2js'
+      'app/templates/*.html': 'ng-html2js',
+      'dist/js/app.min.js': ['coverage']
     },
-    reporters: [ 'progress', 'html' ],
+    reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
     autoWatch: false,
+    singleRun: true,
     browsers: [ 'PhantomJS' ], // Chrome, Crome_without_security, Firefox, IE, Opera, PhantomJS
+    htmlReporter: {
+        outputFile: 'reports/'+identifier+'units.html',
+        suite: 'unit'
+    },
+    coverageReporter: {
+      type : 'html',
+      dir : 'reports/'+identifier+'coverage'
+    },
     customLaunchers: {
       Crome_without_security: {
         base: 'Chrome',
         flags: ['--disable-web-security']
       }
     },
-    htmlReporter: {
-        outputFile: 'reports/unit-'+getDateString()+'.html',
-        suite: 'unit'
-    },
-    singleRun: true,
     plugins: [
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-ie-launcher',
+      'karma-opera-launcher',
       'karma-jasmine',
       'karma-htmlfile-reporter',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-coverage'
     ]
   });
 
-  function getDateString(){
+  function getIdentifier(){
     var d = new Date(),
     day = d.getDate(),
     month = d.getMonth()+1,
@@ -56,5 +63,6 @@ module.exports = function(config) {
     ms = d.getMilliseconds();
     return ""+year+(month<9?"0"+month:month)+(day<9?"0"+day:day)+"-"+(hours<9?"0"+hours:hours)+(minutes<9?"0"+minutes:minutes)+"-"+(seconds<9?"0"+seconds:seconds)+ms;
   }
+  var identifier = getIdentifier();
 
 };
