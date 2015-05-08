@@ -254,15 +254,15 @@ gulp.task('scripts-app', ['docs-js'], function() {
       uglify = require('gulp-uglify');
 
   return gulp.src(settings.src + 'js/app/**/*.js')
-    .pipe(jscs({
-      preset: "node-style-guide", 
-      verbose: true,
-      // disable or change rules
-      "requireTrailingComma": null,
-      "validateLineBreaks": "CRLF",
-      "disallowTrailingWhitespace": null,
-      "maximumLineLength": 120
-    })) 
+    // .pipe(jscs({
+    //   preset: "node-style-guide", 
+    //   verbose: true,
+    //   // disable or change rules
+    //   "requireTrailingComma": null,
+    //   "validateLineBreaks": "CRLF",
+    //   "disallowTrailingWhitespace": null,
+    //   "maximumLineLength": 120
+    // })) 
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'))
@@ -334,6 +334,7 @@ gulp.task('start', ['live-reload', 'server'], function(){});
  */
 gulp.task('styles', function() {
   var autoprefixer = require('gulp-autoprefixer'),
+      cmq = require('gulp-combine-media-queries'),
       minifycss = require('gulp-minify-css'),
       sass = require('gulp-sass');
 
@@ -345,10 +346,13 @@ gulp.task('styles', function() {
       sourceComments: argv.dev ? true : false
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(cmq({log: true}))
     .pipe(gulp.dest(settings.dist + 'css'))
+
     .pipe(size({"showFiles":true}))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
+    .pipe(cmq())
     .pipe(size({"showFiles":true}))
     .pipe(gulp.dest(settings.dist + 'css'));
 });
