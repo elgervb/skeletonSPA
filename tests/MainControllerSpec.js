@@ -4,18 +4,20 @@
 
 describe("Main Controller", function(){
 
-  var $controller;
+  var $scope, controller;
 
-  beforeEach(inject(function(_$controller_){
-    $controller = _$controller_;
+  // Get the module
+  beforeEach(function () {
+        module('skeleton');
+    });
+
+  // inject what we need
+  beforeEach(inject(function($controller, $rootScope){
+    $scope = $rootScope.$new();
+    controller = $controller('MainController', { '$scope': $scope });
   }));
 
-  describe('$scope.divider', function() {
-    it('sets the scope divider', function() {
-      var $scope = {};
-      var controller = $controller('MainController', { '$scope': $scope });
-      $scope.divider = '++';
-      expect($scope.divider).toEqual('++');
-    });
+  it('check the default scope', function() {
+    expect($scope.divider).toEqual('+');
   });
 });

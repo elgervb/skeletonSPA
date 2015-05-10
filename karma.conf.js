@@ -26,21 +26,20 @@ module.exports = function(config) {
     basePath: './',
     frameworks: [ 'jasmine' ],
     files: [
-      'dist/js/vendor/vendor.js',
-      'dist/js/vendor/angular-mocks.js',
-      'dist/js/app.min.js',
-      'dist/**/*.html',
-      'tests/**/*.js',
+      './dist/js/vendor/vendor.js',
+      './dist/js/vendor/angular-mocks.js',
+      './dist/js/app.min.js',
+      './dist/**/*.html',
+      './tests/**/*.js',
     ],
     preprocessors: {
-      'app/templates/*.html': 'ng-html2js',
-      'dist/js/app.min.js': ['coverage']
+      './app/templates/*.html': 'ng-html2js',
+      './dist/js/app.min.js': ['coverage']
     },
     reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
-    autoWatch: false,
-    singleRun: true,
-    browsers: [ 'PhantomJS' ], // Chrome, Crome_without_security, Firefox, IE, Opera, PhantomJS
+    autoWatch: true,
+    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
         outputFile: 'reports/'+identifier+'units.html',
         suite: 'unit'
