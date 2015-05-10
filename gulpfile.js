@@ -183,23 +183,6 @@ gulp.task('info',function(){
 });
 
 
-gulp.task('karma', function(done) {
-  var karma = require('karma').server;
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
-});
-
-
-gulp.task('karma:watch', function(done) {
-  var karma = require('karma').server;
-  karma.start({
-    configFile: __dirname + '/karma.conf.js'
-  }, done);
-});
-
-
 /**
  * Start the live reload server. Live reload will be triggered when a file in the `dist` folder changes. This will add a live-reload script to the index.html page, which makes it all happen.
  * Depends on: watch
@@ -366,6 +349,17 @@ gulp.task('styles', function() {
 
 
 /**
+ * Run rests and keep watching changes for files
+ */
+gulp.task('test', function(done) {
+  var karma = require('karma').server;
+  karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  }, done);
+});
+
+
+/**
  * Output TODO's & FIXME's in markdown and json file as well
  */
 gulp.task('todo', function() {
@@ -384,26 +378,33 @@ gulp.task('todo', function() {
  */
 gulp.task('watch', function() {
 
-  // watch index.html
-  gulp.watch(settings.src + 'index.html', ['copy-index']);
+  // run both tasks in a separate thread, as both are blocking the main thread
+  setTimeout(function() {
+    gulp.start(['test']);
+  }, 100);
 
-  // watch html files
-  gulp.watch(settings.src + '**/*.html', ['copy-template']);
+  setTimeout(function() {
+    // watch index.html
+    gulp.watch(settings.src + 'index.html', ['copy-index']);
 
-  // watch fonts 
-  gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
+    // watch html files
+    gulp.watch(settings.src + '**/*.html', ['copy-template']);
 
-  // Watch .scss files
-  gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
+    // watch fonts 
+    gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
 
-  // Watch app .js files
-  gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
+    // Watch .scss files
+    gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
 
-  // Watch vendor .js files
-  gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
+    // Watch app .js files
+    gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
 
-  // Watch image files
-  gulp.watch(settings.src + 'img/**/*', ['images']);
+    // Watch vendor .js files
+    gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
+
+    // Watch image files
+    gulp.watch(settings.src + 'img/**/*', ['images']);
+  });
 });
 
 function onError(error){
