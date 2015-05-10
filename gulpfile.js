@@ -208,6 +208,21 @@ gulp.task('live-reload', ['watch'], function() {
 
 
 /**
+ * Packaging all compiled resources. Due to the async nature of other tasks, this task cannot depend on build... do a build first and then package it.
+ */
+gulp.task('package', function(cb) {
+  var zip = require('gulp-zip'),
+  fileName = config.name + '-' + config.version + '.zip'
+
+  del(settings.dist+fileName);
+
+  return gulp.src([settings.dist+'**'], { base: './dist' })
+  .pipe(zip(fileName))
+  .pipe(gulp.dest('dist'));
+});
+
+
+/**
  * Task to handle and deploy all javascript, application & vendor
  *
  * Depends on: scripts-app, scripts-vendor
