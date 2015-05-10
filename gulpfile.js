@@ -354,6 +354,17 @@ gulp.task('styles', function() {
 gulp.task('test', function(done) {
   var karma = require('karma').server;
   karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+/**
+ * Run rests and keep watching changes for files
+ */
+gulp.task('test:watch', function(done) {
+  var karma = require('karma').server;
+  karma.start({
     configFile: __dirname + '/karma.conf.js'
   }, done);
 });
@@ -380,7 +391,7 @@ gulp.task('watch', function() {
 
   // run both tasks in a separate thread, as both are blocking the main thread
   setTimeout(function() {
-    gulp.start(['test']);
+    gulp.start(['test:watch']);
   }, 100);
 
   setTimeout(function() {
