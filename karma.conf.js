@@ -38,12 +38,15 @@ module.exports = function(config) {
     },
     reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
-    autoWatch: true,
     browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
         outputFile: 'reports/'+identifier+'units.html',
         suite: 'unit'
     },
+    exclude: [],
+    autoWatch: true,
+    autoWatchBatchDelay: 250,
+    usePolling: false,
     coverageReporter: {
       type : 'html',
       dir : 'reports/'+identifier+'coverage'
