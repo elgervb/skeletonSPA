@@ -53,7 +53,7 @@ gulp.task('browser-sync', ['watch'], function() {
  * Depends on: info, clean
  */
 gulp.task('build', ['info', 'clean'], function() {
-  gulp.start('styles', 'scripts', 'test', 'images', 'copy', 'todo');
+  gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
 
@@ -253,9 +253,10 @@ gulp.task('scripts-app', ['docs-js'], function() {
       uglify = require('gulp-uglify'),
       exitOnJshintError = map(function (file, cb) {
         if (!file.jshint.success) {
-          console.error('jshint failed');
+          gutil.error('jshint failed');
           process.exit(1);
         }
+        cb();
       });
 
   return gulp.src(settings.src + 'js/app/**/*.js')
@@ -273,7 +274,7 @@ gulp.task('scripts-app', ['docs-js'], function() {
 
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(exitOnJshintError)
+    // .pipe(exitOnJshintError)
 
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(concat('app.js'))

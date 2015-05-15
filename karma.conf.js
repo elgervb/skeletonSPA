@@ -26,11 +26,12 @@ module.exports = function(config) {
     basePath: './',
     frameworks: [ 'jasmine' ],
     files: [
-      './dist/js/vendor/vendor.js',
-      './dist/js/vendor/angular-mocks.js',
-      './dist/js/app.min.js',
-      './dist/**/*.html',
-      './tests/**/*.js',
+      'dist/js/vendor/vendor.js',
+      'dist/js/vendor/angular-mocks.js',
+      'dist/js/app.min.js',
+      'dist/**/*.html',
+      'tests/**/*.js',
+      'dist/**/*.css'
     ],
     preprocessors: {
       './app/templates/*.html': 'ng-html2js',
