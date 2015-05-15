@@ -53,7 +53,7 @@ gulp.task('browser-sync', ['watch'], function() {
  * Depends on: info, clean
  */
 gulp.task('build', ['info', 'clean'], function() {
-  gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
+  gulp.start('styles', 'scripts', 'test', 'images', 'copy', 'todo');
 });
 
 
@@ -245,14 +245,21 @@ gulp.task('remove',['clean'], function(cb){
 gulp.task('scripts-app', ['docs-js'], function() {
   var jshint = require('gulp-jshint'),
       jscs = require('gulp-jscs'),
+      map = require('map-stream'),
       ngannotate = require('gulp-ng-annotate'),
       stripDebug = require('gulp-strip-debug'),
       stylish = require('jshint-stylish'),
       sourcemaps = require('gulp-sourcemaps'),
-      uglify = require('gulp-uglify');
+      uglify = require('gulp-uglify'),
+      exitOnJshintError = map(function (file, cb) {
+        if (!file.jshint.success) {
+          console.error('jshint failed');
+          process.exit(1);
+        }
+      });
 
   return gulp.src(settings.src + 'js/app/**/*.js')
-    .pipe(plumber())
+    // .pipe(plumber())
     .pipe(jscs({
       preset: "node-style-guide", 
       verbose: true,
@@ -262,13 +269,16 @@ gulp.task('scripts-app', ['docs-js'], function() {
       "disallowTrailingWhitespace": null,
       "maximumLineLength": 120,
       "disallowMultipleVarDecl": null
-    })) 
+    }))
+
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'))
+    .pipe(exitOnJshintError)
+
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(concat('app.js'))
     .pipe(gulp.dest(settings.dist + 'js'))
+    
     // make minified 
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
