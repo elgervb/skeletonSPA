@@ -87,7 +87,7 @@ gulp.task('copy-fonts', function() {
    // copy all fonts
    setTimeout(function() {
     gulp.src( settings.src + 'fonts/**')
-      .pipe(cache(gulp.dest(settings.dist + 'fonts')));
+      .pipe(gulp.dest(settings.dist + 'fonts'));
        deferred.resolve();
   }, 1);
 
