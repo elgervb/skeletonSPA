@@ -160,8 +160,9 @@ gulp.task('images', function() {
   setTimeout(function() {
     gulp.src(settings.src + 'img/**/*')
       .pipe(plumber(settings.plumberConfig()))
+      .pipe(size({title:"images before"}))
       .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-      .pipe(size({title:"images"}))
+      .pipe(size({title:"images after "}))
       .pipe(gulp.dest(settings.dist + 'img'));
     deferred.resolve();
   }, 1);
