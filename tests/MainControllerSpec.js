@@ -1,9 +1,9 @@
-/*jslint node: true */
-/*global angular, describe, it, jasmine, expect, beforeEach, compile, browserTrigger */
+/* jslint node: true */
+/* global angular, describe, it, jasmine, expect, beforeEach, compile, browserTrigger */
 "use strict";
 
 /**
- * Tests for MainController
+ * <h1>Tests for MainController</h1>
  */
 describe("Main Controller", function(){
 
@@ -20,10 +20,16 @@ describe("Main Controller", function(){
     controller = $controller('MainController', { '$scope': $scope });
   }));
 
+  /**
+   * Test the initial scope values
+   */
   it('check the default scope', function() {
     expect($scope.divider).toEqual('+');
   });
 
+  /**
+   * Test default scope changes
+   */
   it('Change the default scope', function() {
     $scope.changeDivider('-');
     expect($scope.divider).toEqual('-');

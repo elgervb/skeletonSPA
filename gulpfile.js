@@ -142,7 +142,7 @@ gulp.task('default', ['build']);
 gulp.task('docs-js', ['todo'], function(){
   var gulpDoxx = require('gulp-doxx');
 
-  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md'])
+  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md', settings.tests + "/**" ])
     .pipe(gulpDoxx({
       title: config.name,
       urlPrefix: "file:///"+__dirname+settings.reports
@@ -161,7 +161,7 @@ gulp.task('images', function() {
     gulp.src(settings.src + 'img/**/*')
       .pipe(plumber(settings.plumberConfig()))
       .pipe(size({title:"images before"}))
-      .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+      .pipe(cache(imagemin({ optimizationLevel: 5, progressivee: true, interlaced: true })))
       .pipe(size({title:"images after "}))
       .pipe(gulp.dest(settings.dist + 'img'));
     deferred.resolve();
