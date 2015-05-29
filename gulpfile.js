@@ -144,7 +144,7 @@ gulp.task('docs-js', ['todo'], function(){
 
   gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md', settings.tests + "/**" ])
     .pipe(gulpDoxx({
-      title: config.name,
+      title: config.name + " docs",
       urlPrefix: "file:///"+__dirname+settings.reports
     }))
     .pipe(gulp.dest(settings.reports));
