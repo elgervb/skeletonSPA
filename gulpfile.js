@@ -386,15 +386,6 @@ gulp.task('test', function(done) {
   }, done);
 });
 
-/**
- * Run rests and keep watching changes for files
- */
-gulp.task('test:watch', function(done) {
-  var karma = require('karma').server;
-  karma.start({
-    configFile: __dirname + '/karma.conf.js'
-  }, done);
-});
 
 
 /**
@@ -411,39 +402,70 @@ gulp.task('todo', function() {
 });
 
 
+gulp.task('watch', function() {
+
+  if(argv.watchall){
+    gulp.start(['watch']);
+  }
+  else{
+    gulp.start(['watch:all']);
+  }
+
+});
+
 /**
  * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, templates, scripts or images. 
  */
-gulp.task('watch', function() {
+gulp.task('watch:sources', function() {
 
-  // run both tasks in a separate thread, as both are blocking the main thread
-  setTimeout(function() {
+  // watch index.html
+  gulp.watch(settings.src + 'index.html', ['copy-index']);
+
+  // watch html files
+  gulp.watch(settings.src + '**/*.html', ['copy-template']);
+
+  // watch fonts 
+  gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
+
+  // Watch .scss files
+  gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
+
+  // Watch app .js files
+  gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
+
+  // Watch vendor .js files
+  gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
+
+  // Watch image files
+  gulp.watch(settings.src + 'img/**/*', ['images']);
+});
+
+/**
+ * Watch task for building and tests combined
+ */
+gulp.task('watch:all', function() {
+
+ // run both tasks in a separate thread, as both are blocking the main thread
+ setTimeout(function() {
+    gulp.start(['watch']);
+  }, 100);
+
+ setTimeout(function() {
     gulp.start(['test:watch']);
   }, 100);
 
-  setTimeout(function() {
-    // watch index.html
-    gulp.watch(settings.src + 'index.html', ['copy-index']);
-
-    // watch html files
-    gulp.watch(settings.src + '**/*.html', ['copy-template']);
-
-    // watch fonts 
-    gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
-
-    // Watch .scss files
-    gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
-
-    // Watch app .js files
-    gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
-
-    // Watch vendor .js files
-    gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
-
-    // Watch image files
-    gulp.watch(settings.src + 'img/**/*', ['images']);
-  });
 });
+
+/**
+ * Run rests and keep watching changes for files
+ */
+gulp.task('watch:test', function(done) {
+  var karma = require('karma').server;
+  karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  }, done);
+});
+
 
 function onError(error){
   // TODO log error with gutil
