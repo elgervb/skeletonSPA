@@ -1,6 +1,8 @@
 skeletonSPA
 ===========
 
+[![Join the chat at https://gitter.im/elgervb/skeletonSPA](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/elgervb/skeletonSPA?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Skeleton for a Single Page Application using Angular &amp; Gulp
 
 This project supplies a basic setup for working with Gulp (http://gulpjs.com/) and AngularJS (https://angularjs.org/).
