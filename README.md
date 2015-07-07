@@ -91,9 +91,9 @@ server              | Task to start a server, use --port={{port}} to set the por
 start               | Task to start a server and used the live reload functionality. Depends on: live-reload, server
 styles              | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 test                | run all tests using Karma
-test:watch          | watch file changes and run tests
 todo                | Output TODO's & FIXME's in markdown and json file as well
-watch               | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, templates, scripts or images. 
+watch               | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, templates, scripts or images.
+watch:test          | watch file changes and run tests 
 
 ### Arguments ###
 

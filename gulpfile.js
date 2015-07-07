@@ -170,6 +170,31 @@ gulp.task('images', function() {
   return deferred.promise;
 });
 
+gulp.task('list', function() {
+  var max = function(){
+    var max = 0;
+    for (var key in gulp.tasks) {
+      if(max < key.length){max = key.length;}
+    }
+    return max;
+  },
+  print = function(key, max){
+    while (key.length < max){
+      key += " ";
+    }
+    return key;
+  }
+
+  for (var key in gulp.tasks) {
+    var out = print(key, max()), task = gulp.tasks[key];
+    if (task.hasOwnProperty('dep') && task.dep.length > 0){
+      out += '  dep: ' + task.dep;
+    }
+
+    console.log(out);
+  }
+});
+
 /**
  * log some info about this app
  */
@@ -251,17 +276,10 @@ gulp.task('scripts-app', ['docs-js'], function() {
       stripDebug = require('gulp-strip-debug'),
       stylish = require('jshint-stylish'),
       sourcemaps = require('gulp-sourcemaps'),
-      uglify = require('gulp-uglify'),
-      exitOnJshintError = map(function (file, cb) {
-        if (!file.jshint.success) {
-          gutil.error('jshint failed');
-          process.exit(1);
-        }
-        cb();
-      });
+      uglify = require('gulp-uglify');
 
   return gulp.src(settings.src + 'js/app/**/*.js')
-    // .pipe(plumber())
+    .pipe(plumber())
     .pipe(jscs({
       preset: "node-style-guide", 
       verbose: true,
@@ -275,7 +293,6 @@ gulp.task('scripts-app', ['docs-js'], function() {
 
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    // .pipe(exitOnJshintError)
 
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(concat('app.js'))
@@ -401,22 +418,10 @@ gulp.task('todo', function() {
     .pipe( gulp.dest( settings.reports ) ) // output todo.json as json
 });
 
-
-gulp.task('watch', function() {
-
-  if(argv.watchall){
-    gulp.start(['watch']);
-  }
-  else{
-    gulp.start(['watch:all']);
-  }
-
-});
-
 /**
  * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, templates, scripts or images. 
  */
-gulp.task('watch:sources', function() {
+gulp.task('watch', function() {
 
   // watch index.html
   gulp.watch(settings.src + 'index.html', ['copy-index']);
@@ -438,22 +443,6 @@ gulp.task('watch:sources', function() {
 
   // Watch image files
   gulp.watch(settings.src + 'img/**/*', ['images']);
-});
-
-/**
- * Watch task for building and tests combined
- */
-gulp.task('watch:all', function() {
-
- // run both tasks in a separate thread, as both are blocking the main thread
- setTimeout(function() {
-    gulp.start(['watch']);
-  }, 100);
-
- setTimeout(function() {
-    gulp.start(['test:watch']);
-  }, 100);
-
 });
 
 /**
