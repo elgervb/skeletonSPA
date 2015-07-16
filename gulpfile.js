@@ -24,26 +24,35 @@ var settings = config.settings;
  * Depends on: watch
  */
 gulp.task('browser-sync', ['watch'], function() {
-  var browserSync = require('browser-sync');
+  var browserSync = require('browser-sync'),
+  port = argv.port||settings.serverport;
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([settings.dist + '**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
+  gulp.watch([settings.dist + '**']).on('change', function(){browserSync.reload({});});
 
   return browserSync({
-      server: {
-          baseDir: settings.dist
-      },
+      browser: ["google chrome"],
       ghostMode: {
         clicks: true,
         location: true,
         forms: true,
         scroll: true
       },
-      open: "external",
       injectChanges: true, // inject CSS changes (false force a reload) 
-      browser: ["google chrome"],
+      logLevel: "info",
+      open: false, // "local", "external", "ui"
+      port: port,
       scrollProportionally: true, // Sync viewports to TOP position
       scrollThrottle: 50,
+      server: {
+          baseDir: settings.dist
+      },
+      ui: {
+        port: port+1,
+        weinre: {
+            port: port+2
+        }
+      }
     });
 });
 
