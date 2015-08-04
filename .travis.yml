@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - npm install -g gulp
+  - npm install
+  - gulp 
+
+script:
+  - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
