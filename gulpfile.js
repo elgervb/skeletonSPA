@@ -312,7 +312,7 @@ gulp.task('scripts-app', ['docs-js'], function() {
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('./'))
     .pipe(size({"showFiles":true}))
     .pipe(gulp.dest(settings.dist + 'js'));
 });
