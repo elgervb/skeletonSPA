@@ -61,9 +61,7 @@ gulp.task('browser-sync', ['watch'], function() {
  * Build and copy all styles, scripts, images and fonts.
  * Depends on: info, clean
  */
-gulp.task('build', ['info', 'clean'], function() {
-  gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
-});
+gulp.task('build', ['info', 'clean', 'styles', 'scripts', 'images', 'copy', 'todo'], function(){});
 
 
 /**
