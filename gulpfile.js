@@ -61,14 +61,19 @@ gulp.task('browser-sync', ['watch'], function() {
  * Build and copy all styles, scripts, images and fonts.
  * Depends on: info, clean
  */
-gulp.task('build', ['info', 'clean', 'styles', 'scripts', 'images', 'copy', 'todo'], function(){});
+gulp.task('build', function(cb){
+  var runSequence = require('run-sequence');
+
+  runSequence('clean', ['info', 'styles', 'scripts', 'images', 'copy'], 'todo', cb);
+});
 
 
 /**
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-  del([settings.dist, 'todo.md', 'todo.json'], cb);
+  var clean = require('gulp-clean');
+  return gulp.src([settings.dist, 'todo.md', 'todo.json']).pipe(clean())
 });
 
 /**
