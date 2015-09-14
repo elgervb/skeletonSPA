@@ -384,6 +384,19 @@ gulp.task('test', function(done) {
 });
 
 
+gulp.task('test:e2e', ['start'], function() {
+  var angularProtractor = require('gulp-angular-protractor');
+ 
+  gulp.src(['./tests/e2e/*.js'])
+  .pipe(angularProtractor({
+    configFile: './protractor.config.js',
+    args: ['--baseUrl', 'http://localhost:' + settings.serverport],
+    autoStartStopServer: true,
+    debug: true
+  }))
+  .on('error', function(e) { throw e })
+});
+
 /**
  * Output TODO's & FIXME's in markdown and json file as well
  */
