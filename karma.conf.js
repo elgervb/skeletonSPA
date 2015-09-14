@@ -30,7 +30,7 @@ module.exports = function(config) {
       'dist/js/vendor/angular-mocks.js',
       'dist/js/app.min.js',
       'dist/**/*.html',
-      'tests/**/*.js',
+      'tests/units/**/*.js',
       'dist/**/*.css'
     ],
     preprocessors: {
