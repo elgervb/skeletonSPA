@@ -294,7 +294,6 @@ gulp.task('remove', ['clean'], function (cb) {
 gulp.task('scripts-app', ['docs-js'], function () {
     var jshint = require('gulp-jshint'),
         jscs = require('gulp-jscs'),
-        map = require('map-stream'),
         ngannotate = require('gulp-ng-annotate'),
         stripDebug = require('gulp-strip-debug'),
         stylish = require('jshint-stylish'),
@@ -330,7 +329,6 @@ gulp.task('scripts-app', ['docs-js'], function () {
         .pipe(size({"showFiles": true}))
         .pipe(gulp.dest(settings.dist + 'js'));
 });
-
 
 /**
  * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js

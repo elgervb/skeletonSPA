@@ -1,0 +1,10 @@
+{
+  "requireTrailingComma": null,
+  "validateLineBreaks": "CRLF",
+  "disallowTrailingWhitespace": null,
+  "maximumLineLength": 200,
+  "disallowMultipleVarDecl": null,
+  "requireCapitalizedComments": null,
+  "preset": "node-style-guide", 
+  "verbose": true
+}
