@@ -80,6 +80,7 @@
     "karma-phantomjs-launcher": "^0.2.0",
     "map-stream": "*",
     "phantomjs": "^1.9.17",
+    "proxy-middleware": "^0.14.0",
     "q": "^2.0.3",
     "run-sequence": "^1.1.2",
     "yargs": "^3.16.1"
