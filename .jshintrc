@@ -9,7 +9,9 @@
     
     "globals"   : {  // Custom globals.
         "angular": true,
-        "app": true
+        "app": true,
+        "require": true,
+        "__dirname": true
     },
 
     // Development.
