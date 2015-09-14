@@ -14,16 +14,14 @@ size = require('gulp-size');
 
 var config = require('./package.json');
 var settings = config.settings;
-settings.liveReload = false;
 settings.plumberConfig = function() {
   return {errorHandler: function(error) {
-  // TODO log error with gutil
-  notify.onError(function(error) {
-    gutil.log(error);
-    return error.message;
-  });
-  this.emit('end');
-}};
+    notify.onError(function(error) {
+      gutil.log(error);
+      return error.message;
+    });
+    this.emit('end');
+  }};
 };
 
 
@@ -41,8 +39,8 @@ gulp.task('browser-sync', ['watch'], function() {
   gulp.watch([settings.dist + '**']).on('change', function() {
     browserSync.reload({});
   });
-  var proxyOptions = url.parse('http://localhost:18070/sdk/JSONrpc');
-  proxyOptions.route = '/sdk/JSONrpc';
+  var proxyOptions = url.parse('http://localhost:18070/redirect');
+  proxyOptions.route = '/redirect';
 
   return browserSync({
     browser: ['google chrome'],
@@ -145,8 +143,6 @@ gulp.task('copy-index', function() {
     collapseWhitespace: false,
     removeComments: true,
   }))
-  .pipe(gulpif(settings.liveReload, replace(/(\<\/body\>)/g, '\<script>document.write(\'\<script src=\'http://\' + (location.host || \'localhost\').split(\':\')[0] ' + 
-  '+ \':35729/livereload.js?snipver=1\'>\</\' + \'script>\')\</script>$1')))
   .pipe(cache(gulp.dest(settings.dist)));
 });
 
@@ -163,7 +159,7 @@ gulp.task('default', ['build']);
 gulp.task('docs-js', ['todo'], function() {
   var gulpDoxx = require('gulp-doxx');
 
-  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md', settings.tests + '/**' ])
+  gulp.src([settings.src + '/js/**/*.js', 'gulpfile.js', 'README.md', settings.reports + '/TODO.md', settings.tests + '/**' ])
   .pipe(gulpDoxx({
     title: config.name + ' docs',
     urlPrefix: 'file:///' + __dirname + settings.reports
@@ -224,32 +220,6 @@ gulp.task('info', function() {
   // log info
   gutil.log('If you have an enhancement or encounter a bug, please report them on', gutil.colors.magenta(config.bugs.url));
 });
-
-
-/**
- * Start the live reload server. Live reload will be triggered when a file in the `dist` folder changes. This will add a live-reload script to the index.html page, which makes it all happen.
- * Depends on: watch
- */
-gulp.task('live-reload', ['watch'], function() {
-  var livereload = require('gulp-livereload');
-
-  settings.liveReload = true;
-  // first, delete the index.html from the dist folder as we will copy it later
-  del([settings.dist + 'index.html']);
-
-  // add livereload script to the index.html
-  gulp.src([settings.src + 'index.html'])
-  .pipe(replace(/(\<\/body\>)/g, '<script>document.write(\'<script src=\'http://\' + (location.host || \'localhost\').split(\':\')[0] ' +
-  '+ \':35729/livereload.js?snipver=1\'></\' + \'script>\')</script>$1'))
-  .pipe(gulp.dest(settings.dist));
-
-  // Create LiveReload server
-  livereload.listen();
-
-  // Watch any files in dist/*, reload on change
-  gulp.watch([settings.dist + '**']).on('change', livereload.changed);
-});
-
 
 /**
  * Packaging all compiled resources. Due to the async nature of other tasks, this task cannot depend on build... do a build first and then package it.
@@ -375,24 +345,10 @@ gulp.task('scripts-vendor-maps', function() {
 
 
 /**
- * TTask to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used (4000)
- */
-gulp.task('server', function() {
-  var express = require('express'),
-    app = express(),
-    port = argv.port || settings.serverport;
-  app.use(express.static(__dirname + '/' + settings.dist));
-
-  app.listen(port);
-  gutil.log('Server started. Port', port, 'baseDir', __dirname + '/' + settings.dist);
-});
-
-
-/**
  * Task to start a server on port 4000 and used the live reload functionality.
- * Depends on: server, live-reload
+ * Depends on: server
  */
-gulp.task('start', ['live-reload', 'server'], function() {});
+gulp.task('start', ['browser-sync'], function() {});
 
 
 /**

@@ -35,23 +35,19 @@ Do a initial build
 This will do minification on all images, compile Sass, minify javascript and create sourcemaps and copy all (including fonts) to the dist directory
 
 ### Run ###
-There are actually 3 ways to run the skeleton
+There are actually 2 ways to run the skeleton
 
 * copy it to a existing webserver
 * run with browser-sync (http://www.browsersync.io/)
 ```ShellSession
-	gulp browser-sync
+	gulp start
 ```
-This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
+Open a browser at the location where the browser-sync server has been started. Point multiple browsers / devices to the same url and watch the magic happen.
 
 * run it against a webserver provided by this project with live reload functionality.  
 ```ShellSession
 	gulp start
 ```
-
-The webserver I use here is Express (http://expressjs.com), more documentation on live reload can be found on: http://livereload.com/
-
-Point your browser to [http://localhost:4000](http://localhost:4000), and tadah!
 
 
 ### Workflow ###
@@ -84,14 +80,12 @@ default             | Default task. Depends on: build
 docs-js             | Create Javascript documentation in the settings.reports directory
 images              | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
 info                | log some info about this app
-live-reload         | Start the live reload server. Live reload will be triggered when a file in the `dist` folder or the index.html changes. This will add a live-reload script to the page, which makes it all happen. Depends on: watch
 package             | Packaging all compiled resources. Due to the async nature of other tasks, this task cannot depend on build... do a build first and then package it.
 scripts             | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
 scripts-app         | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs-js
 scripts-vendor      | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js. Depends on: scripts-vendor-maps
 scripts-vendor-maps | Copy all vendor .js.map files to the vendor location
-server              | Task to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used
-start               | Task to start a server and used the live reload functionality. Depends on: live-reload, server
+start               | Task to start a server and used the live reload functionality. Depends on: server
 styles              | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 test                | run all tests using Karma
 todo                | Output TODO's & FIXME's in markdown and json file as well
