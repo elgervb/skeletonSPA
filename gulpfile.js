@@ -384,14 +384,14 @@ gulp.task('test', function(done) {
 });
 
 
-gulp.task('test:e2e', ['start'], function() {
+gulp.task('test:e2e', function() {
   var angularProtractor = require('gulp-angular-protractor');
  
   gulp.src(['./tests/e2e/*.js'])
   .pipe(angularProtractor({
     configFile: './protractor.config.js',
     args: ['--baseUrl', 'http://localhost:' + settings.serverport],
-    autoStartStopServer: true,
+    autoStartStopServer: false,
     debug: true
   }))
   .on('error', function(e) { throw e })
