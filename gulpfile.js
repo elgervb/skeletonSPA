@@ -2,7 +2,6 @@ var gulp = require('gulp'),
 argv = require('yargs').argv,
 cache = require('gulp-cache'),
 concat = require('gulp-concat'),
-del = require('del'),
 gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
 notify = require('gulp-notify'),
@@ -228,8 +227,6 @@ gulp.task('package', function(cb) {
   var zip = require('gulp-zip'),
   fileName = config.name + '-' + config.version + '.zip'
 
-  del(settings.dist + fileName);
-
   return gulp.src([settings.dist + '**'], { base: './dist' })
     .pipe(zip(fileName))
     .pipe(gulp.dest('dist'));
@@ -242,14 +239,6 @@ gulp.task('package', function(cb) {
  * Depends on: scripts-app, scripts-vendor
  */
 gulp.task('scripts', ['scripts-app', 'scripts-vendor']);
-
-
-/**
- * Removes the node_modules
- */
-gulp.task('remove', ['clean'], function(cb) {
-  del('node_modules', cb);
-});
 
 
 /**
