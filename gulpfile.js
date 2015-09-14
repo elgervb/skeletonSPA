@@ -391,10 +391,16 @@ gulp.task('test:e2e', function() {
   .pipe(angularProtractor({
     configFile: './protractor.config.js',
     args: ['--baseUrl', 'http://localhost:' + settings.serverport],
-    autoStartStopServer: false,
-    debug: true
+    autoStartStopServer: true,
+    debug: false
   }))
-  .on('error', function(e) { throw e })
+  .on('error', function(e) { 
+     gulp.src(['./tests/e2e/*.js'])
+    .pipe(
+      notify('E2E tests failed!') 
+    );
+    throw new Error('E2E tests failed', e);
+    })
 });
 
 /**
