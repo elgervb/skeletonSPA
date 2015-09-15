@@ -85,8 +85,11 @@ gulp.task('build', function(cb) {
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-  var clean = require('gulp-clean');
-  return gulp.src([settings.dist, 'todo.md', 'todo.json']).pipe(clean())
+  var del = require('del'),
+  vinylPaths = require('vinyl-paths');
+  
+  return gulp.src([settings.dist, settings.reports])
+  .pipe(vinylPaths(del))
 });
 
 /**
