@@ -7,15 +7,15 @@ describe('main page', function() {
     expect(images.count()).toEqual(2);
   });
   
-  it ('should contain a divider', function(){
+  it ('should contain a divider', function() {
     var divider = element.all(by.css('.ng-plus-gulp'));
     
     /* 
      * Pause the browser here. 
      * Type c in Protractors terminal to goto the next command.
-     * Type repl i in Protractors terminal to enter interactive mode and send commands manually
+     * Type repl in Protractors terminal to enter interactive mode and send commands manually
      */
-    //browser.pause();
+    // browser.pause();
     
     /*
      * Debug the test script here.
@@ -25,7 +25,7 @@ describe('main page', function() {
      * window.clientSideScripts.findInputs('username'); 
      * in the console, will find the username input
      */
-    browser.debugger();
+    // browser.debugger();
     
     expect(divider.count()).toEqual(1);
     expect(divider.get(0).getText()).toEqual('+');

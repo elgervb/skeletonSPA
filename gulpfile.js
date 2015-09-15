@@ -242,7 +242,7 @@ gulp.task('package', function(cb) {
  *
  * Depends on: scripts-app, scripts-vendor
  */
-gulp.task('scripts', ['scripts-app', 'scripts-vendor']);
+gulp.task('scripts', ['scripts-app', 'scripts-vendor', 'scripts-internal', 'scripts-tests']);
 
 
 /**
@@ -310,7 +310,7 @@ gulp.task('scripts-internal', function() {
   stylish = require('jshint-stylish');
         
   return gulp.src('gulpfile.js')
-  .pipe(size({showFiles: true}))
+  
   .pipe(plumber())
   .pipe(jscs({
     configPath: '.jscsrc'
@@ -319,9 +319,31 @@ gulp.task('scripts-internal', function() {
   .pipe(jshint('.jshintrc'))
   .pipe(jshint.reporter(stylish))
 
-  .pipe(size({showFiles: true}))
+  .pipe(size({title: 'Size of gulpfile', showFiles: false}))
   
-  .pipe(gulp.dest(settings.dist + 'js/vendor/copy'));
+  .pipe(gulp.dest(settings.reports + 'tmp'));
+});
+
+/**
+ * Checks all test scripts on code style and quality
+ */
+gulp.task('scripts-tests', function() {
+  var jshint = require('gulp-jshint'),
+  jscs = require('gulp-jscs'),
+  stylish = require('jshint-stylish');
+
+  return gulp.src(settings.tests + '**/*.js')
+  .pipe(plumber())
+  .pipe(jscs({
+    configPath: '.jscsrc'
+  }))
+
+  .pipe(jshint('.jshintrc'))
+  .pipe(jshint.reporter(stylish))
+
+  .pipe(size({title: 'Size of tests', showFiles: false}))
+  
+  .pipe(gulp.dest(settings.reports + 'tmp'));
 });
 
 
@@ -400,13 +422,13 @@ gulp.task('test:e2e', function() {
     autoStartStopServer: true,
     debug: false
   }))
-  .on('error', function(e) { 
-     gulp.src(['./tests/e2e/*.js'])
+  .on('error', function(e) {
+    gulp.src(['./tests/e2e/*.js'])
     .pipe(
       notify('E2E tests failed!') 
     );
     throw new Error('E2E tests failed', e);
-    })
+  })
 });
 
 /**
@@ -459,5 +481,8 @@ gulp.task('watch', function() {
   gulp.watch(settings.src + 'img/**/*', ['images']);
   
   // Watch internal files
-  gulp.watch('gulpfile.js', ['scripts-internal'])
+  gulp.watch('gulpfile.js', ['scripts-internal']);
+  
+  // Watch test files
+  gulp.watch(settings.tests + '**/*.js', ['scripts-tests']);
 });
