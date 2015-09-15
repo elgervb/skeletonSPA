@@ -88,9 +88,11 @@ scripts-vendor-maps | Copy all vendor .js.map files to the vendor location
 start               | Task to start a server and used the live reload functionality. Depends on: server
 styles              | Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder. This will also auto prefix vendor specific rules.
 test                | run all tests using Karma
+test:e2e            | Run End to End (e2e) tests with Protractor
+test:watch          | watch file changes and run tests 
 todo                | Output TODO's & FIXME's in markdown and json file as well
 watch               | Watches changes to Sass, javascript and images. On change this will run the appropriate task, either: styles, templates, scripts or images.
-watch:test          | watch file changes and run tests 
+
 
 ### Arguments ###
 

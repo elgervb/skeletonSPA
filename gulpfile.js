@@ -377,11 +377,11 @@ gulp.task('styles', function() {
  * Run rests and keep watching changes for files
  */
 gulp.task('test', function(done) {
-  var karma = require('karma').server;
-  karma.start({
+  var Server = require('karma').Server;
+  new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
-  }, done);
+  }, done).start();
 });
 
 /**
@@ -404,6 +404,16 @@ gulp.task('test:e2e', function() {
     );
     throw new Error('E2E tests failed', e);
     })
+});
+
+/**
+ * Run rests and keep watching changes for files
+ */
+gulp.task('test:watch', function(done) {
+  var Server = require('karma').Server;
+  new Server({
+    configFile: __dirname + '/karma.conf.js'
+  }, done).start();
 });
 
 /**
@@ -447,14 +457,4 @@ gulp.task('watch', function() {
   
   // Watch internal files
   gulp.watch('gulpfile.js', ['scripts-internal'])
-});
-
-/**
- * Run rests and keep watching changes for files
- */
-gulp.task('watch:test', function(done) {
-  var karma = require('karma').server;
-  karma.start({
-    configFile: __dirname + '/karma.conf.js'
-  }, done);
 });
