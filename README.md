@@ -117,4 +117,55 @@ serverport          | The port number to start the server on. Defaults to 4000
 
 # Testing
 
+Skeleton SPA comes with testing capabilities.
+
 ## Unit tests
+
+To run all unit test, simply run:
+
+  gulp test
+
+To watch file changes and run tests accordingly:
+
+  gulp test:watch
+  
+(`gulp watch` must be enabled, as all tests are ran agains the `dist` directory).
+
+## End to end tests (E2E)
+
+Run the following command to run the end to end tests:
+
+  gulp test:e2e
+  
+(Server must be started in a separate command window, with `gulp start`)
+  
+The default behaviour can be modified in the `protractor.config.js`. For example, you can change the browser in which tests are being ran.
+
+# Project structure
+
+The following project structure is required:
+
+```ShellSession
+ - src
+   - fonts
+   - img
+   - js
+     - app
+     - vendor
+   - styles
+ - tests
+   - e2e
+   - units
+```
+
+## Generated structure
+```ShellSession
+ - dist
+   - css
+   - fonts
+   - img
+   - js
+     - app
+     - vendor
+ - reports
+```
