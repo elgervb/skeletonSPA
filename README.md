@@ -123,11 +123,11 @@ Skeleton SPA comes with testing capabilities.
 
 To run all unit test, simply run:
 
-  gulp test
+    gulp test
 
 To watch file changes and run tests accordingly:
 
-  gulp test:watch
+    gulp test:watch
   
 (`gulp watch` must be enabled, as all tests are ran agains the `dist` directory).
 
@@ -135,7 +135,7 @@ To watch file changes and run tests accordingly:
 
 Run the following command to run the end to end tests:
 
-  gulp test:e2e
+    gulp test:e2e
   
 (Server must be started in a separate command window, with `gulp start`)
   
