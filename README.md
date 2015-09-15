@@ -111,3 +111,8 @@ Setting             | Description
 scr                 | The directory where all sources are located. Defaults to ./src/
 dist                | The directory where all gulp results are written to. Defaults to ./dist/
 serverport          | The port number to start the server on. Defaults to 4000
+
+
+# Testing
+
+## Unit tests

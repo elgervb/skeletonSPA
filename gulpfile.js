@@ -1,3 +1,4 @@
+/* global __dirname */
 var gulp = require('gulp'),
 argv = require('yargs').argv,
 cache = require('gulp-cache'),
@@ -383,7 +384,9 @@ gulp.task('test', function(done) {
   }, done);
 });
 
-
+/**
+ * Run End to End (e2e) tests with Protractor
+ */
 gulp.task('test:e2e', function() {
   var angularProtractor = require('gulp-angular-protractor');
  

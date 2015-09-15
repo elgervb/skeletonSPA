@@ -1,3 +1,4 @@
+/* global app */
 /**
  * Main controller
  */
