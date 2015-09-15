@@ -11,7 +11,13 @@
         "angular": true,
         "app": true,
         "require": true,
-        "__dirname": true
+        "__dirname": true,
+        "browser": true,
+        "it": true,
+        "element": true,
+        "by": true,
+        "describe": true,
+        "expect": true
     },
 
     // Development.
