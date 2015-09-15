@@ -62,6 +62,18 @@ A basic workflow would be
   gulp start
 ```
 
+In a separate command window, watch all unit test:
+
+```ShellSession
+    gulp test:watch
+```
+
+In another separate command window, run all end to end tests:
+
+```ShellSession
+    gulp test:e2e
+```
+
 ### Gulp Tasks ###
 
 The `gulpfile.js` contains several targets to make development easier.
