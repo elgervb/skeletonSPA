@@ -1,3 +1,4 @@
+/* global __dirname */
 var gulp = require('gulp'),
 argv = require('yargs').argv,
 cache = require('gulp-cache'),
@@ -383,6 +384,27 @@ gulp.task('test', function(done) {
   }, done);
 });
 
+/**
+ * Run End to End (e2e) tests with Protractor
+ */
+gulp.task('test:e2e', function() {
+  var angularProtractor = require('gulp-angular-protractor');
+ 
+  gulp.src(['./tests/e2e/*.js'])
+  .pipe(angularProtractor({
+    configFile: './protractor.config.js',
+    args: ['--baseUrl', 'http://localhost:' + settings.serverport],
+    autoStartStopServer: true,
+    debug: false
+  }))
+  .on('error', function(e) { 
+     gulp.src(['./tests/e2e/*.js'])
+    .pipe(
+      notify('E2E tests failed!') 
+    );
+    throw new Error('E2E tests failed', e);
+    })
+});
 
 /**
  * Output TODO's & FIXME's in markdown and json file as well

@@ -52,3 +52,5 @@ docs/index.html
 reports/*
 .sublime-gulp.cache
 npm-debug.log
+.vscode/launch.json
+*.log
