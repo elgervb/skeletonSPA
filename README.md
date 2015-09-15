@@ -44,11 +44,6 @@ There are actually 2 ways to run the skeleton
 ```
 Open a browser at the location where the browser-sync server has been started. Point multiple browsers / devices to the same url and watch the magic happen.
 
-* run it against a webserver provided by this project with live reload functionality.  
-```ShellSession
-	gulp start
-```
-
 
 ### Workflow ###
 
