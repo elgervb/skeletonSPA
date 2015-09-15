@@ -34,7 +34,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "*",
+    "browser-sync": "^2.9.3",
     "gulp": "^3.9.0",
     "gulp-angular-protractor": "0.0.2",
     "gulp-autoprefixer": "^2.3.1",
@@ -62,7 +62,7 @@
     "gulp-sourcemaps": "*",
     "gulp-strip-debug": "^1.0.2",
     "gulp-todo": "^3.1.1",
-    "gulp-uglify": "^1.2.0",
+    "gulp-uglify": "^1.4.1",
     "gulp-util": "^3.0.6",
     "gulp-zip": "^3.0.2",
     "jasmine-core": "^2.3.4",
@@ -77,11 +77,11 @@
     "karma-ng-html2js-preprocessor": "*",
     "karma-opera-launcher": "^0.3.0",
     "karma-phantomjs-launcher": "^0.2.0",
-    "map-stream": "*",
+    "map-stream": "^0.1.0",
     "phantomjs": "^1.9.17",
     "proxy-middleware": "^0.14.0",
     "q": "^2.0.3",
     "run-sequence": "^1.1.2",
-    "yargs": "^3.16.1"
+    "yargs": "^3.25.0"
   }
 }
