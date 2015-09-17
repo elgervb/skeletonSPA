@@ -41,7 +41,7 @@ module.exports = function(config) {
     colors: true,
     browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
-        outputFile: 'reports/'+identifier+'units.html',
+        outputFile: 'reports/'+identifier+'/units.html',
         suite: 'unit'
     },
     exclude: [],
@@ -49,8 +49,23 @@ module.exports = function(config) {
     autoWatchBatchDelay: 250,
     usePolling: false,
     coverageReporter: {
-      type : 'html',
-      dir : 'reports/'+identifier+'coverage'
+      dir: 'reports/'+identifier+'/coverage',
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' },
+        // reporters supporting the `file` property, use `subdir` to directly 
+        // output them in the `dir` directory 
+        { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+        { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+        { type: 'text', subdir: '.', file: 'text.txt' },
+        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+        { type: 'text'},
+        { type: 'text-summary'},
+      ],
+      instrumenterOptions: {
+        istanbul: { noCompact: true }
+      }
     },
     customLaunchers: {
       Crome_without_security: {
