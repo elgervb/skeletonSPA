@@ -1,5 +1,6 @@
 {
   "requireTrailingComma": null,
+  "validateLineBreaks": null,
   "disallowTrailingWhitespace": null,
   "maximumLineLength": 200,
   "disallowMultipleVarDecl": null,
