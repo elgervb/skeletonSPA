@@ -1,3 +1,8 @@
+/* global expect */
+/* global browser */
+/* global it */
+/* global describe */
+/* global element */
 describe('main page', function() {
   
   it('should contain 2 images', function() {
