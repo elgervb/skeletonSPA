@@ -48,6 +48,7 @@ module.exports = function(config) {
     autoWatch: true,
     autoWatchBatchDelay: 250,
     usePolling: false,
+    reportSlowerThan: 250, // report all tests that are slower than...
     coverageReporter: {
       dir: 'reports/'+identifier+'/coverage',
       reporters: [
