@@ -70,7 +70,7 @@
     "jshint-stylish": "*",
     "karma": "0.13.9",
     "karma-chrome-launcher": "0.2.0",
-    "karma-coverage": "0.4.2",
+    "karma-coverage": "^0.5.2",
     "karma-firefox-launcher": "0.1.6",
     "karma-htmlfile-reporter": "0.2.2",
     "karma-ie-launcher": "0.2.0",
