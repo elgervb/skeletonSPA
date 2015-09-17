@@ -3,6 +3,10 @@ skeletonSPA
 
 [![Join the chat at https://gitter.im/elgervb/skeletonSPA](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/elgervb/skeletonSPA?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/elgervb/skeletonSPA.svg?branch=master)](https://travis-ci.org/elgervb/skeletonSPA)
+[![Build Status](https://david-dm.org/elgervb/skeletonSPA.svg)](httpshttps://david-dm.org/elgervb/skeletonSPA)
+
+
+
 
 Skeleton for a Single Page Application using Angular &amp; Gulp
 
