@@ -162,7 +162,7 @@ gulp.task('default', ['build']);
 gulp.task('docs-js', ['todo'], function() {
   var gulpDoxx = require('gulp-doxx'),
   path = (settings.reports.substr(0,2) === './' ? settings.reports.substr(1) : settings.reports) + 'docs';
-gutil.log('*************************************' + path);
+  
   gulp.src([settings.src + '/js/**/*.js', 'gulpfile.js', 'README.md', settings.reports + '/TODO.md', settings.tests + '/**' ])
   .pipe(gulpDoxx({
     title: config.name + ' docs',
