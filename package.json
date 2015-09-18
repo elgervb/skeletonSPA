@@ -78,7 +78,6 @@
     "karma-ng-html2js-preprocessor": "*",
     "karma-opera-launcher": "0.3.0",
     "karma-phantomjs-launcher": "0.2.0",
-    "map-stream": "0.1.0",
     "phantomjs": "^1.9.17",
     "proxy-middleware": "0.14.0",
     "q": "2.0.3",
