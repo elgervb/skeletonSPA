@@ -486,4 +486,7 @@ gulp.task('watch', function() {
   
   // Watch test files
   gulp.watch(settings.tests + '**/*.js', ['scripts-tests']);
+  
+   // Update docs
+  gulp.watch('README.md', ['docs-js']);
 });
