@@ -375,7 +375,7 @@ gulp.task('start', ['browser-sync'], function() {});
  */
 gulp.task('styles', function() {
   var autoprefixer = require('gulp-autoprefixer'),
-  cmq = require('gulp-combine-media-queries'),
+  cmq = require('gulp-group-css-media-queries'),
   minifycss = require('gulp-minify-css'),
   sass = require('gulp-sass');
 
