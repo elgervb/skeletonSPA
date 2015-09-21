@@ -283,7 +283,7 @@ gulp.task('scripts-app', ['docs-js'], function() {
 });
 
 /**
- * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
+ * Task to handle all vendor specific javascript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
   var flatten = require('gulp-flatten');
@@ -299,7 +299,7 @@ gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
   settings.src + 'js/vendor/**/*.js'])
   .pipe(gulp.dest(settings.dist + 'js/vendor'))
   .pipe(concat('vendor.js'))
-  .pipe(gulp.dest(settings.dist + 'js/vendor'));
+  .pipe(gulp.dest(settings.dist + 'js'));
 });
 
 /**
@@ -373,7 +373,7 @@ gulp.task('start', ['browser-sync'], function() {});
  *
  * @see https://github.com/sass/node-sass for configuration
  */
-gulp.task('styles', function() {
+gulp.task('styles', ['styles-vendor'], function() {
   var autoprefixer = require('gulp-autoprefixer'),
   cmq = require('gulp-group-css-media-queries'),
   minifycss = require('gulp-minify-css'),
@@ -400,7 +400,18 @@ gulp.task('styles', function() {
 
 
 /**
- * Run rests and keep watching changes for files
+ * Task to handle all vendor specific styles. All vendor styles will be copied to the dist/css directory. Also a concatinated version will be made, available in /dis/\css/vendor/vendor.js
+ */
+gulp.task('styles-vendor', function() {
+  return gulp.src([settings.src + 'js/vendor/**/*.css'])
+  .pipe(gulp.dest(settings.dist + 'css/vendor'))
+  .pipe(concat('vendor.css'))
+  .pipe(gulp.dest(settings.dist + 'css/vendor'));
+});
+
+
+/**
+ * Run tests and keep watching changes for files
  */
 gulp.task('test', function(done) {
   var Server = require('karma').Server;
@@ -487,6 +498,6 @@ gulp.task('watch', function() {
   // Watch test files
   gulp.watch(settings.tests + '**/*.js', ['scripts-tests']);
   
-   // Update docs
+  // Update docs
   gulp.watch('README.md', ['docs-js']);
 });
