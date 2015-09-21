@@ -2,7 +2,7 @@
 /**
  * Main controller
  */
-app.controller('MainController', ['$scope', function($scope) {
+angular.module('skeleton').controller('MainController', ['$scope', function($scope) {
 
   $scope.divider = '+';
   
