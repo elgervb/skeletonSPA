@@ -9,15 +9,11 @@ before_script:
   - npm install
   - npm install -g bower
   - bower install
+  - npm install -g gulp-codecov.io
   - gulp 
-  - npm install -g codecov.io
-  - npm install -g istanbul
-  - npm install -g cover 
-  - npm install -g jasmine-node
   - gulp start &
-after_success:
-  - istanbul cover jasmine-node --captureExceptions tests/units && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
 
 script:
   - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=PhantomJS
   - gulp test:e2e 
+  - gulp codecov.io

@@ -5,7 +5,7 @@ skeletonSPA
 [![Build Status](https://travis-ci.org/elgervb/skeletonSPA.svg?branch=master)](https://travis-ci.org/elgervb/skeletonSPA)
 [![Dependency Status](https://david-dm.org/elgervb/skeletonSPA.svg)](https://david-dm.org/elgervb/skeletonSPA)
 [![devDependency Status](https://david-dm.org/elgervb/skeletonSPA/dev-status.svg)](https://david-dm.org/elgervb/skeletonSPA#info=devDependencies)
-
+[![codecov.io](http://codecov.io/github/elgervb/skeletonSPA/coverage.svg?branch=master)](http://codecov.io/github/elgervb/skeletonSPA?branch=master)
 
 
 Skeleton for a Single Page Application using Angular &amp; Gulp
@@ -30,8 +30,17 @@ Install Gulp globally
 	npm install -g gulp
 ```
 
-Do a initial build
+Install bower globally
+```ShellSession
+  npm install -g bower
+```
 
+Install third party dependencies with bower
+```ShellSession
+	bower install
+```
+
+Do a initial build
 ```ShellSession
 	gulp build
 ```
