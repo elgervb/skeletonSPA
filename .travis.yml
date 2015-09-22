@@ -4,6 +4,10 @@ node_js:
   - "0.12"
   - "4.0"
   - "4.1"
+before_install:
+  - pip install codecov
+after_success:
+  - codecov
 before_script:
   - npm install -g gulp
   - npm install
