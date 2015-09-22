@@ -7,9 +7,9 @@ node_js:
 before_script:
   - npm install -g gulp
   - npm install
-  - gulp 
   - npm install -g bower
   - bower install
+  - gulp 
   - npm install -g codecov.io
   - npm install -g istanbul
   - npm install -g cover 
