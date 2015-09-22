@@ -1,0 +1,41 @@
+{
+  "name": "skeletonSpa",
+  "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
+  "main": [
+    "src/js/app/app.js",
+    "src/styles/main.scss"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-animate": "1.4.5",
+    "angular-mocks": "1.4.5",
+    "angular-resource": "1.4.5",
+    "angular-route": "1.4.5"
+  },
+  "devDependencies": {
+  },
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "motion",
+    "physics",
+    "particles"
+  ],
+  "authors": [
+    "Elger van Boxtel <elgervb@gmail.com>"
+  ],
+  "homepage": "http://elgervanboxtel.nl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elgervb/skeletonSPA/"
+  },
+  "license": "ISC",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
