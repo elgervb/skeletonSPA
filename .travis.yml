@@ -4,17 +4,19 @@ node_js:
   - "0.12"
   - "4.0"
   - "4.1"
-before_install:
-  - npm install codecov.io --save
-after_success:
-  - istanbul cover jasmine-node --captureExceptions spec/ && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
 before_script:
   - npm install -g gulp
   - npm install
   - gulp 
   - npm install -g bower
   - bower install
+  - npm install -g codecov.io
+  - npm install -g istanbul
+  - npm install -g cover 
+  - npm install -g jasmine-node
   - gulp start &
+after_success:
+  - istanbul cover jasmine-node --captureExceptions spec/ && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
 
 script:
   - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=PhantomJS
