@@ -8,6 +8,8 @@ before_script:
   - npm install -g gulp
   - npm install
   - gulp 
+  - npm install -g bower
+  - bower install
   - gulp start &
 
 script:
