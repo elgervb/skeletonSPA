@@ -41,17 +41,13 @@ Icon
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdisk
-
-dist/*
-node_modules/*
-src/js/vendor/*
-todo.json
-TODO.md
-docs/*
-docs/index.html
-reports/*
-.sublime-gulp.cache
-npm-debug.log
-.vscode/launch.json
 *.log
+.apdisk
+.sublime-gulp.cache
+.vscode/launch.json
+npm-debug.log
+dist/
+docs/*
+node_modules/*
+reports/*
+src/js/vendor/
