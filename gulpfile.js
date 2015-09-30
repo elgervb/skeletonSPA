@@ -10,7 +10,8 @@ plumber = require('gulp-plumber'),
 rename = require('gulp-rename'),
 replace = require('gulp-replace'),
 url = require('url'),
-size = require('gulp-size');
+size = require('gulp-size'),
+reload; // browser sync reload functionality for css injection
 
 var config = require('./package.json');
 var settings = config.settings;
@@ -32,12 +33,14 @@ gulp.task('browser-sync', ['watch'], function() {
   var browserSync = require('browser-sync'),
     proxy = require('proxy-middleware'),
     port = argv.port || settings.serverport;
+    
+  reload = browserSync.reload;
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([settings.dist + '**']).on('change', function() {
-    browserSync.reload({});
-  });
-  var proxyOptions = url.parse('http://localhost:18070/redirect');
+  gulp.watch([settings.dist + '**', '!' + settings.dist + '**/*.css']).on('change', reload);
+  
+  // proxy settings for /redirect
+  var proxyOptions = url.parse('http://localhost:8080/redirect');
   proxyOptions.route = '/redirect';
 
   return browserSync({
@@ -52,6 +55,7 @@ gulp.task('browser-sync', ['watch'], function() {
     logLevel: 'info',
     open: false, // 'local', 'external', 'ui'
     port: port,
+    reloadOnRestart: true,
     scrollProportionally: true, // Sync viewports to TOP position
     scrollThrottle: 50,
     server: {
@@ -393,7 +397,8 @@ gulp.task('styles', ['styles-vendor'], function() {
   .pipe(cmq())
   .pipe(minifycss())
   .pipe(size({showFiles: true}))
-  .pipe(gulp.dest(settings.dist + 'css'));
+  .pipe(gulp.dest(settings.dist + 'css'))
+  .pipe(gulpif(typeof reload === 'function', reload({stream: true}))); // when started with browser sync, then inject css
 });
 
 
