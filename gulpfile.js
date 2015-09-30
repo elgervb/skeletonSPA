@@ -1,3 +1,4 @@
+/* global Promise */
 /* global __dirname */
 var gulp = require('gulp'),
 argv = require('yargs').argv,
@@ -375,13 +376,13 @@ gulp.task('start', ['browser-sync'], function() {});
  *
  * @see https://github.com/sass/node-sass for configuration
  */
-gulp.task('styles', ['styles-vendor'], function() {
+gulp.task('styles', ['styles-vendor'], function styles() {
   var autoprefixer = require('gulp-autoprefixer'),
   cmq = require('gulp-group-css-media-queries'),
   minifycss = require('gulp-minify-css'),
   sass = require('gulp-sass');
-
-  return gulp.src([settings.src + 'styles/**/*.scss'])
+  
+  var result =  gulp.src([settings.src + 'styles/**/*.scss'])
   .pipe(plumber())
   .pipe(sass({
     style: 'nested',
@@ -398,7 +399,15 @@ gulp.task('styles', ['styles-vendor'], function() {
   .pipe(minifycss())
   .pipe(size({showFiles: true}))
   .pipe(gulp.dest(settings.dist + 'css'))
-  .pipe(gulpif(typeof reload === 'function', reload({stream: true}))); // when started with browser sync, then inject css
+  
+   // break the flow as gulp-if results in an error
+  //.pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
+  if (typeof reload === 'function'){
+    result.pipe(reload({stream: true}));// when started with browser sync, then inject css
+  }
+  
+  return result;
+  
 });
 
 
