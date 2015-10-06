@@ -400,9 +400,9 @@ gulp.task('styles', ['styles-vendor'], function styles() {
   .pipe(size({showFiles: true}))
   .pipe(gulp.dest(settings.dist + 'css'))
   
-   // break the flow as gulp-if results in an error
-  //.pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
-  if (typeof reload === 'function'){
+  // break the flow as gulp-if results in an error
+  // .pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
+  if (typeof reload === 'function') {
     result.pipe(reload({stream: true}));// when started with browser sync, then inject css
   }
   
@@ -512,11 +512,4 @@ gulp.task('watch', function() {
   
   // Update docs
   gulp.watch('README.md', ['docs-js']);
-});
-
-gulp.task('codecov.io', function() {
-  var codecov = require('gulp-codecov.io');
-  console.log(settings.reports + '**/coverage/report-lcov/lcov.info');
-  return gulp.src(settings.reports + '/*/coverage/report-lcov/lcov.info')
-    .pipe(codecov());
 });
