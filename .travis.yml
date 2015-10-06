@@ -12,7 +12,9 @@ before_script:
   - npm install gulp-codecov.io
   - gulp 
   - gulp start &
+  - sleep 5 # give gulp some time to start
 
 script:
   - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=PhantomJS
+  - sleep 5
   - gulp test:e2e
