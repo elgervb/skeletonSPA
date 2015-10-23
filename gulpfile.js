@@ -38,7 +38,7 @@ gulp.task('browser-sync', ['watch'], function() {
   reload = browserSync.reload;
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([settings.dist + '**', '!' + settings.dist + '**/*.css']).on('change', reload);
+  gulp.watch([settings.dist + '**/*', '!' + settings.dist + '**/*.css']).on('change', reload);
   
   // proxy settings for /redirect
   var proxyOptions = url.parse('http://localhost:8080/redirect');
@@ -400,9 +400,9 @@ gulp.task('styles', ['styles-vendor'], function styles() {
   .pipe(size({showFiles: true}))
   .pipe(gulp.dest(settings.dist + 'css'))
   
-   // break the flow as gulp-if results in an error
-  //.pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
-  if (typeof reload === 'function'){
+  // break the flow as gulp-if results in an error
+  // .pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
+  if (typeof reload === 'function') {
     result.pipe(reload({stream: true}));// when started with browser sync, then inject css
   }
   
