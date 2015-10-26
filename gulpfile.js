@@ -513,10 +513,3 @@ gulp.task('watch', function() {
   // Update docs
   gulp.watch('README.md', ['docs-js']);
 });
-
-gulp.task('codecov.io', function() {
-  var codecov = require('gulp-codecov.io');
-  console.log(settings.reports + '**/coverage/report-lcov/lcov.info');
-  return gulp.src(settings.reports + '/*/coverage/report-lcov/lcov.info')
-    .pipe(codecov());
-});
