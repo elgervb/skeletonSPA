@@ -1,7 +1,8 @@
+/* global angular */
 /**
  * Declaration of the main skeleton app
  */
-var app = angular.module('skeleton', ['ngRoute'])
+angular.module('skeleton', ['ngRoute'])
 
 /**
  * Configuration: state your routes and other configuration items here

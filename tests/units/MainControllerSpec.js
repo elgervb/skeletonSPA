@@ -1,4 +1,4 @@
-/* global describe, inject it, jasmine, expect, beforeEach */
+/* global describe, module, inject it, jasmine, expect, beforeEach */
 /**
  * <h1>Tests for MainController</h1>
  */

@@ -1,4 +1,3 @@
-/*jslint node: true */
 "use strict";
 
 /**
@@ -21,7 +20,6 @@ module.exports = function(config) {
   }
   var identifier = getIdentifier();
 
-  
   config.set({
     basePath: './',
     frameworks: [ 'jasmine' ],
@@ -30,12 +28,26 @@ module.exports = function(config) {
       'dist/js/vendor/angular-mocks.js',
       'dist/js/app.min.js',
       'dist/**/*.html',
+      'node_modules/babel-polyfill/dist/polyfill.js',
       'tests/units/**/*.js',
       'dist/**/*.css'
     ],
     preprocessors: {
       './app/templates/*.html': 'ng-html2js',
-      './dist/js/app.min.js': ['coverage']
+      './dist/js/app.min.js': ['coverage'],
+      './tests/units/**/*.js': ['babel']
+    },
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'],
+        sourceMap: 'inline'
+      },
+      filename: function (file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function (file) {
+        return file.originalPath;
+      }
     },
     reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
@@ -48,7 +60,7 @@ module.exports = function(config) {
     autoWatch: true,
     autoWatchBatchDelay: 250,
     usePolling: false,
-    reportSlowerThan: 250, // report all tests that are slower than...
+    reportSlowerThan: 100, // report all tests that are slower than...
     coverageReporter: {
       dir: 'reports/'+identifier+'/coverage',
       reporters: [
@@ -73,17 +85,6 @@ module.exports = function(config) {
         base: 'Chrome',
         flags: ['--disable-web-security']
       }
-    },
-    plugins: [
-      'karma-phantomjs-launcher',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-ie-launcher',
-      'karma-opera-launcher',
-      'karma-jasmine',
-      'karma-htmlfile-reporter',
-      'karma-ng-html2js-preprocessor',
-      'karma-coverage'
-    ]
+    }
   });
 };

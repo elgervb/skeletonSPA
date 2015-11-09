@@ -226,11 +226,11 @@ gulp.task('lint-js', () => {
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
  * This will also generete sourcemaps for the minified version. Depends on: docs-js
  */
-gulp.task('scripts-app', ['docs-js'], () => {
+gulp.task('scripts-app', ['docs-js', 'lint-js'], () => {
   let babel = require('gulp-babel');
   let ngannotate = require('gulp-ng-annotate');
-  let stripDebug = require('gulp-strip-debug');
   let sourcemaps = require('gulp-sourcemaps');
+  let stripDebug = require('gulp-strip-debug');
   let uglify = require('gulp-uglify');
 
   return gulp.src(`${settings.src}js/app/**/*.js`)
