@@ -211,7 +211,9 @@ gulp.task('package', () => {
  */
 gulp.task('scripts', ['scripts-app', 'scripts-vendor', 'scripts-internal', 'scripts-tests']);
 
-
+/**
+ * Lint all application javascript
+ */
 gulp.task('lint-js', () => {
   let eslint = require('gulp-eslint');
   
@@ -224,7 +226,7 @@ gulp.task('lint-js', () => {
 
 /**
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
- * This will also generete sourcemaps for the minified version. Depends on: docs-js
+ * This will also generete sourcemaps for the minified version. Depends on: docs-js, lint-js
  */
 gulp.task('scripts-app', ['docs-js', 'lint-js'], () => {
   let babel = require('gulp-babel');
@@ -296,8 +298,7 @@ gulp.task('scripts-tests', () => {
   .pipe(eslint())
   .pipe(eslint.format())
   .pipe(eslint.failAfterError())
-  .pipe(size({title: 'Size of tests', showFiles: false}))
-  .pipe(gulp.dest(`${settings.reports}tmp`));
+  .pipe(size({title: 'Size of tests', showFiles: false}));
 });
 
 

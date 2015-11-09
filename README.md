@@ -100,9 +100,10 @@ default             | Default task. Depends on: build
 docs-js             | Create Javascript documentation in the settings.reports directory
 images              | Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
 info                | log some info about this app
+lint-js             | Lint all application javascript
 package             | Packaging all compiled resources. Due to the async nature of other tasks, this task cannot depend on build... do a build first and then package it.
 scripts             | Task to handle and deploy all javascript, application & vendor. Depends on: scripts-app, scripts-vendor
-scripts-app         | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs-js
+scripts-app         | Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder. This will also generete sourcemaps for the minified version. Depends on: docs-js, lint-js
 scripts-vendor      | Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js. Depends on: scripts-vendor-maps
 scripts-vendor-maps | Copy all vendor .js.map files to the vendor location
 start               | Task to start a server and used the live reload functionality. Depends on: server
