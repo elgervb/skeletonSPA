@@ -6,7 +6,7 @@ var app = angular.module('skeleton', ['ngRoute'])
 /**
  * Configuration: state your routes and other configuration items here
  */
-.config(function($routeProvider, $locationProvider) {
+.config(($routeProvider, $locationProvider) => {
   
   $routeProvider
     .otherwise({

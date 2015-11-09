@@ -1,37 +1,33 @@
-/* global inject */
-/* jslint node: true */
-/* global angular, describe, it, jasmine, expect, beforeEach, compile, browserTrigger */
-'use strict';
-
+/* global describe, inject it, jasmine, expect, beforeEach */
 /**
  * <h1>Tests for MainController</h1>
  */
-describe('Main Controller', function() {
+describe('Main Controller', () => {
 
-  var $scope, controller;
+  let $scope;
 
   // Get the module
-  beforeEach(function() {
+  beforeEach(() => {
     module('skeleton');
   });
 
   // inject what we need
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(($controller, $rootScope) => {
     $scope = $rootScope.$new();
-    controller = $controller('MainController', { $scope: $scope });
+    $controller('MainController', {$scope});
   }));
 
   /**
    * Test the initial scope values
    */
-  it('check the default scope', function() {
+  it('check the default scope', () => {
     expect($scope.divider).toEqual('+');
   });
 
   /**
    * Test default scope changes
    */
-  it('Change the default scope', function() {
+  it('Change the default scope', () => {
     $scope.changeDivider('-');
     expect($scope.divider).toEqual('-');
   });

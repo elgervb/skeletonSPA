@@ -1,5 +1,4 @@
-/* global Promise */
-/* global __dirname */
+/* global Promise, __dirname */
 import gulp from 'gulp';
 import yargs from 'yargs';
 import cache from 'gulp-cache';
@@ -9,7 +8,6 @@ import gutil from 'gulp-util';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import rename from 'gulp-rename';
-import replace from 'gulp-replace';
 import url from 'url';
 import size from 'gulp-size';
 import config from'./package.json'; // Read specific setting from the package file
@@ -17,15 +15,6 @@ import config from'./package.json'; // Read specific setting from the package fi
 let reload; // browser sync reload functionality for css injection
 let argv = yargs.argv;
 let settings = config.settings;
-settings.plumberConfig = () => {
-  return {errorHandler: (error) => {
-    notify.onError((error) => {
-      gutil.log(error);
-      return error.message;
-    });
-    this.emit('end');
-  }};
-};
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -39,7 +28,7 @@ gulp.task('browser-sync', ['watch'], () => {
   reload = browserSync.reload;
 
   // Watch any files in dist/*, reload on change
-  gulp.watch([settings.dist + '**/*', '!' + settings.dist + '**/*.css']).on('change', reload);
+  gulp.watch([`${settings.dist}**/*`, `!${settings.dist}**/*.css`]).on('change', reload);
   
   // proxy settings for /redirect
   let proxyOptions = url.parse('http://localhost:8080/redirect');
@@ -56,7 +45,7 @@ gulp.task('browser-sync', ['watch'], () => {
     injectChanges: true, // inject CSS changes (false force a reload)
     logLevel: 'info',
     open: false, // 'local', 'external', 'ui'
-    port: port,
+    port,
     reloadOnRestart: true,
     scrollProportionally: true, // Sync viewports to TOP position
     scrollThrottle: 50,
@@ -88,12 +77,12 @@ gulp.task('build', (cb) => {
 /**
  * Cleans the `dist` folder and other generated files
  */
-gulp.task('clean', ['clear-cache'],  (cb) => {
-  let del = require('del'),
-  vinylPaths = require('vinyl-paths');
+gulp.task('clean', ['clear-cache'], () => {
+  let del = require('del');
+  let vinylPaths = require('vinyl-paths');
   
   return gulp.src([settings.dist, settings.reports])
-  .pipe(vinylPaths(del))
+  .pipe(vinylPaths(del));
 });
 
 /**
@@ -115,8 +104,8 @@ gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index']);
  * Task for copying fonts only
  */
 gulp.task('copy-fonts', () => {
-  return gulp.src(settings.src + 'fonts/**')
-  .pipe(gulp.dest(settings.dist + 'fonts'));
+  return gulp.src(`${settings.src}fonts/**`)
+  .pipe(gulp.dest(`${settings.dist}fonts`));
 });
 
 /**
@@ -126,15 +115,15 @@ gulp.task('copy-template', () => {
   let htmlmin = require('gulp-htmlmin');
   let htmlhint = require('gulp-htmlhint');
   // copy all html && json
-  return gulp.src([settings.src + 'js/app/**/*.html', settings.src + 'js/app/**/*.json'])
+  return gulp.src([`${settings.src}js/app/**/*.html`, `${settings.src}js/app/**/*.json`])
   .pipe(htmlhint({
-    htmlhintrc: '.htmlhintrc',
+    htmlhintrc: '.htmlhintrc'
   }))
   .pipe(htmlhint.reporter())
   // html min MUST come after the html hinter
   .pipe(htmlmin({
     collapseWhitespace: false,
-    removeComments: true,
+    removeComments: true
   }))
   .pipe(cache(gulp.dest('dist/js/app')));
 });
@@ -145,10 +134,10 @@ gulp.task('copy-template', () => {
 gulp.task('copy-index', () => {
   let htmlmin = require('gulp-htmlmin');
   // copy the index.html
-  return gulp.src(settings.src + 'index.html')
+  return gulp.src(`${settings.src}index.html`)
   .pipe(htmlmin({
     collapseWhitespace: false,
-    removeComments: true,
+    removeComments: true
   }))
   .pipe(cache(gulp.dest(settings.dist)));
 });
@@ -165,12 +154,12 @@ gulp.task('default', ['build']);
  */
 gulp.task('docs-js', ['todo'], () => {
   let gulpDoxx = require('gulp-doxx');
-  let path = (settings.reports.substr(0,2) === './' ? settings.reports.substr(1) : settings.reports) + 'docs';
+  let path = `${(settings.reports.substr(0, 2) === './' ? settings.reports.substr(1) : settings.reports)}docs`;
   
-  gulp.src([settings.src + '/js/**/*.js', 'gulpfile.js', 'gulpfile.babel.js', 'README.md', settings.reports + '/TODO.md', settings.tests + '/**' ])
+  gulp.src([`${settings.src}/js/**/*.js`, 'gulpfile.js', 'gulpfile.babel.js', 'README.md', `${settings.reports}/TODO.md`, `${settings.tests}/**`])
   .pipe(gulpDoxx({
-    title: config.name + ' docs',
-    urlPrefix: 'file:///' + __dirname + path
+    title: `${config.name} docs`,
+    urlPrefix: `file:///${__dirname}${path}`
   }))
   .pipe(gulp.dest(settings.reports));
 });
@@ -181,39 +170,12 @@ gulp.task('docs-js', ['todo'], () => {
 gulp.task('images', () => {
   let imagemin = require('gulp-imagemin');
 
-  return gulp.src(settings.src + 'img/**/*')
-  .pipe(plumber(settings.plumberConfig()))
+  return gulp.src(`${settings.src}img/**/*`)
+  .pipe(plumber())
   .pipe(size({title: 'images before'}))
-  .pipe(cache(imagemin({ optimizationLevel: 5, progressivee: true, interlaced: true })))
+  .pipe(cache(imagemin({optimizationLevel: 5, progressivee: true, interlaced: true})))
   .pipe(size({title: 'images after '}))
-  .pipe(gulp.dest(settings.dist + 'img'));
-});
-
-gulp.task('list', () => {
-  let max = () => {
-    let max = 0;
-    for (let key in gulp.tasks) {
-      if (max < key.length) {
-        max = key.length;
-      }
-    }
-    return max;
-  },
-  print = (key, max) => {
-    while (key.length < max) {
-      key += ' ';
-    }
-    return key;
-  }
-
-  for (let key in gulp.tasks) {
-    let out = print(key, max()), task = gulp.tasks[key];
-    if (task.hasOwnProperty('dep') && task.dep.length > 0) {
-      out += '  dep: ' + task.dep;
-    }
-
-    console.log(out);
-  }
+  .pipe(gulp.dest(`${settings.dist}img`));
 });
 
 /**
@@ -232,11 +194,11 @@ gulp.task('info', () => {
 /**
  * Packaging all compiled resources. Due to the async nature of other tasks, this task cannot depend on build... do a build first and then package it.
  */
-gulp.task('package', (cb) => {
+gulp.task('package', () => {
   let zip = require('gulp-zip');
-  let fileName = `${config.name}-${config.version}.zip`
+  let fileName = `${config.name}-${config.version}.zip`;
 
-  return gulp.src([`${settings.dist}**`], { base: './dist' })
+  return gulp.src([`${settings.dist}**`], {base: './dist'})
     .pipe(zip(fileName))
     .pipe(gulp.dest('dist'));
 });
@@ -265,21 +227,23 @@ gulp.task('lint-js', () => {
  * This will also generete sourcemaps for the minified version. Depends on: docs-js
  */
 gulp.task('scripts-app', ['docs-js'], () => {
-  let ngannotate = require('gulp-ng-annotate'),
-  stripDebug = require('gulp-strip-debug'),
-  sourcemaps = require('gulp-sourcemaps'),
-  uglify = require('gulp-uglify');
+  let babel = require('gulp-babel');
+  let ngannotate = require('gulp-ng-annotate');
+  let stripDebug = require('gulp-strip-debug');
+  let sourcemaps = require('gulp-sourcemaps');
+  let uglify = require('gulp-uglify');
 
   return gulp.src(`${settings.src}js/app/**/*.js`)
   .pipe(plumber())
+  .pipe(sourcemaps.init())
+  .pipe(babel())
   .pipe(ngannotate({gulpWarnings: false}))
   .pipe(concat('app.js'))
   .pipe(gulp.dest(`${settings.dist}js`))
-  
+
   // make minified
   .pipe(rename({suffix: '.min'}))
   .pipe(gulpif(!argv.dev, stripDebug()))
-  .pipe(sourcemaps.init())
   .pipe(gulpif(!argv.dev, uglify()))
   .pipe(sourcemaps.write('./'))
   .pipe(size({showFiles: true}))
@@ -287,7 +251,8 @@ gulp.task('scripts-app', ['docs-js'], () => {
 });
 
 /**
- * Task to handle all vendor specific javascript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
+ * Task to handle all vendor specific javascript. All vendor javascript will be copied to the dist directory. 
+ * Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', ['scripts-vendor-maps'], () => {
   let flatten = require('gulp-flatten');
@@ -457,7 +422,7 @@ gulp.task('test:watch', (done) => {
 gulp.task('todo', () => {
   let todo = require('gulp-todo');
   gulp.src([`${settings.src}js/app/**/*.js`, `${settings.src}styles/app/**/*.scss`])
-  .pipe(plumber(settings.plumberConfig()))
+  .pipe(plumber())
   .pipe(todo())
   .pipe(gulp.dest(settings.reports)) // output todo.md as markdown
   .pipe(todo.reporter('json', {fileName: 'todo.json'}))
@@ -482,7 +447,7 @@ gulp.task('watch', () => {
   gulp.watch(`${settings.src}styles/**/*.scss`, ['styles']);
 
   // Watch app .js files
-  gulp.watch(`${settings.src}'js/app/**/*.js`, ['scripts-app']);
+  gulp.watch(`${settings.src}js/app/**/*.js`, ['scripts-app']);
 
   // Watch vendor .js files
   gulp.watch(`${settings.src}js/vendor/**/*.js`, ['scripts-vendor']);

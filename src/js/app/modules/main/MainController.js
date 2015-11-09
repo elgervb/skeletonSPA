@@ -1,16 +1,16 @@
-/* global app */
+/* global angular */
 /**
  * Main controller
  */
-angular.module('skeleton').controller('MainController', ['$scope', function($scope) {
+angular.module('skeleton').controller('MainController', ($scope) => {
 
   $scope.divider = '+';
   
   /**
    * Change the divider between Gulp and AngularJS
    */
-  $scope.changeDivider = function(divider) {
+  $scope.changeDivider = (divider) => {
     $scope.divider = divider;
   };
 
-}]);
+});

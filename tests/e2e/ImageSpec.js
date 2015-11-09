@@ -1,19 +1,17 @@
-/* global expect */
-/* global browser */
-/* global it */
-/* global describe */
-/* global element */
-describe('main page', function() {
+/* global browser, expect, by, it, describe, element*/
+describe('main page', () => {
   
-  it('should contain 2 images', function() {
+  it('should contain 2 images', () => {
+    let images;
+    
     browser.get('http://localhost:4000');
 
-    var images = element.all(by.css('img'));
+    images = element.all(by.css('img'));
     expect(images.count()).toEqual(2);
   });
   
-  it ('should contain a divider', function() {
-    var divider = element.all(by.css('.ng-plus-gulp'));
+  it('should contain a divider', () => {
+    let divider = element.all(by.css('.ng-plus-gulp'));
     
     /* 
      * Pause the browser here. 
