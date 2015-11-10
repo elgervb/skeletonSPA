@@ -26,6 +26,7 @@ module.exports = function(config) {
     files: [
       'dist/js/vendor.js',
       'dist/js/vendor/angular-mocks.js',
+      'dist/js/templates.js',
       'dist/js/app.min.js',
       'dist/**/*.html',
       'node_modules/babel-polyfill/dist/polyfill.js',
