@@ -114,6 +114,8 @@ gulp.task('copy-fonts', () => {
 gulp.task('copy-template', () => {
   let htmlmin = require('gulp-htmlmin');
   let htmlhint = require('gulp-htmlhint');
+  let tplCache = require('gulp-angular-templatecache');
+  
   // copy all html && json
   return gulp.src([`${settings.src}js/app/**/*.html`, `${settings.src}js/app/**/*.json`])
   .pipe(htmlhint({
@@ -125,7 +127,8 @@ gulp.task('copy-template', () => {
     collapseWhitespace: false,
     removeComments: true
   }))
-  .pipe(cache(gulp.dest('dist/js/app')));
+  .pipe(tplCache({standalone: true}))
+  .pipe(cache(gulp.dest('dist/js')));
 });
 
 /**

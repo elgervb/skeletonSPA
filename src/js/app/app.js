@@ -2,7 +2,7 @@
 /**
  * Declaration of the main skeleton app
  */
-angular.module('skeleton', ['ngRoute'])
+angular.module('skeleton', ['ngRoute', 'templates'])
 
 /**
  * Configuration: state your routes and other configuration items here
@@ -12,7 +12,7 @@ angular.module('skeleton', ['ngRoute'])
   $routeProvider
     .otherwise({
       controller: 'MainController',
-      templateUrl: '/js/app/modules/main/main.html'
+      templateUrl: 'modules/main/main.html'
     });
 
   $locationProvider.html5Mode('true');
