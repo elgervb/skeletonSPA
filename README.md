@@ -9,6 +9,7 @@ skeletonSPA
 
 
 Skeleton for a Single Page Application using Angular &amp; Gulp
+Exapmple is located here: http://elgervanboxtel.nl/labs/skeletonSPA
 
 This project supplies a basic setup for working with Gulp (http://gulpjs.com/) and AngularJS (https://angularjs.org/).
 
@@ -20,7 +21,7 @@ BTW: if you plan on working with another library then AngularJS, just replace it
 install node (http://nodejs.org/) <br/>
 clone or download this repository
   
-Open a console at the project root and install all node-modules (Note that on windows it could be that you are required to do this in administrator mode): 
+Open a console at the project root and install all node-modules : 
 
 ```ShellSession
 	npm install
