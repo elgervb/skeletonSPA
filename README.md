@@ -11,22 +11,22 @@ skeletonSPA
 Skeleton for a Single Page Application using Angular &amp; Gulp
 Exapmple is located here: http://elgervanboxtel.nl/labs/skeletonSPA
 
-This project supplies a basic setup for working with Gulp (http://gulpjs.com/) and AngularJS (https://angularjs.org/).
+This project supplies a basic setup for building single page applications with Gulp (http://gulpjs.com/), using AngularJS (https://angularjs.org/).
 
-BTW: if you plan on working with another library then AngularJS, just replace it with your own ;-)
+BTW: if you plan on working with another library then AngularJS, just replace it with your own ;-) The fulpfile.js will need some small changes.
 
 
 ### installation ###
 
-install node (http://nodejs.org/) <br/>
-clone or download this repository
+* install node (http://nodejs.org/) <br/>
+* clone or download this repository
   
-Open a console at the project root and install all node-modules : 
+Open a console at the project root and install all node-modules by executing following commands: 
 
 ```ShellSession
 	npm install
 ```
-Install Gulp globally
+Install gulp globally
 ```ShellSession
 	npm install -g gulp
 ```
@@ -51,7 +51,7 @@ This will do minification on all images, compile Sass, minify javascript and cre
 ### Run ###
 There are actually 2 ways to run the skeleton
 
-* copy it to a existing webserver
+* copy it in a existing webserver
 * run with browser-sync (http://www.browsersync.io/)
 ```ShellSession
 	gulp start
@@ -150,8 +150,6 @@ To run all unit test, simply run:
 To watch file changes and run tests accordingly:
 
     gulp test:watch
-  
-(`gulp watch` must be enabled, as all tests are ran agains the `dist` directory).
 
 ## End to end tests (E2E)
 
