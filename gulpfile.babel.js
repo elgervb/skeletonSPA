@@ -129,7 +129,7 @@ gulp.task('copy-template', () => {
     removeComments: true
   }))
   .pipe(tplCache({standalone: true}))
-  .pipe(cache(gulp.dest('dist/js')));
+  .pipe(gulp.dest('dist/js'));
 });
 
 /**
