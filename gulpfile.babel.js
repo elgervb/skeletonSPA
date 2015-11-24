@@ -118,6 +118,7 @@ gulp.task('copy-template', () => {
   
   // copy all html && json
   return gulp.src([`${settings.src}js/app/**/*.html`, `${settings.src}js/app/**/*.json`])
+  .pipe(plumber())
   .pipe(htmlhint({
     htmlhintrc: '.htmlhintrc'
   }))
