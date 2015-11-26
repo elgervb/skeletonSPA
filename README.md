@@ -122,7 +122,7 @@ Optionally run gulp with the following arguments
 
 Name                | Description
 --------------------|--------------------
---dev               | start the app in dev-mode. This way console logging will not be stripped and javascripts will not be minified to make debugging easier
+--dev               | start the app in dev-mode. This way console logging will not be stripped and javascripts will not be minified to make debugging easier. Sourcemaps will also be included for javascripts and Sass.
 --port={{int}}      | start the server on port {{port}}
 
 

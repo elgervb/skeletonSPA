@@ -331,27 +331,30 @@ gulp.task('start', ['browser-sync']);
  *
  * @see https://github.com/sass/node-sass for configuration
  */
-gulp.task('styles', ['styles-vendor'], () => {
+gulp.task('styles', ['styles-vendor', 'styles-copy-sass'], () => {
   let autoprefixer = require('gulp-autoprefixer');
   let cmq = require('gulp-group-css-media-queries');
   let minifycss = require('gulp-minify-css');
   let sass = require('gulp-sass');
+  let sourcemaps = require('gulp-sourcemaps');
   
   let result = gulp.src([`${settings.src}styles/**/*.scss`])
   .pipe(plumber())
+  .pipe(gulpif(argv.dev, sourcemaps.init()))
   .pipe(sass({
     style: 'nested',
     precision: 5,
     sourceComments: argv.dev ? true : false
   }))
+  .pipe(rename({
+    basename: "styles",
+  }))
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-  .pipe(cmq())
-  .pipe(gulp.dest(`${settings.dist}css`))
-
+  .pipe(gulpif(argv.dev, sourcemaps.write('./', {sourceRoot: '/css/sass'})))
+  .pipe(gulpif(!argv.dev, cmq())) // only combine media queries when not generating source maps, as this breaks them
+  .pipe(gulpif(!argv.dev, minifycss()))
   .pipe(size({showFiles: true}))
-  .pipe(rename({suffix: '.min'}))
-  .pipe(minifycss())
-  .pipe(size({showFiles: true}))
+  
   .pipe(gulp.dest(`${settings.dist}css`));
   
   // break the flow as gulp-if results in an error
@@ -361,9 +364,16 @@ gulp.task('styles', ['styles-vendor'], () => {
   }
   
   return result;
-  
 });
 
+/**
+ * Copy all Sass sources when we need them for source maps 
+ */
+gulp.task('styles-copy-sass', () => {
+  let sources = argv.dev ? `${settings.src}styles/**/*.scss` : '';
+  return gulp.src(sources)
+  .pipe(gulp.dest(`${settings.dist}css/sass`));
+});
 
 /**
  * Task to handle all vendor specific styles. All vendor styles will be copied to the dist/css directory. 
