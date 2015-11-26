@@ -350,7 +350,6 @@ gulp.task('styles', ['styles-vendor'], () => {
 
   .pipe(size({showFiles: true}))
   .pipe(rename({suffix: '.min'}))
-  .pipe(cmq())
   .pipe(minifycss())
   .pipe(size({showFiles: true}))
   .pipe(gulp.dest(`${settings.dist}css`));
