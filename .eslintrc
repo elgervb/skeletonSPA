@@ -142,7 +142,7 @@
   "no-undef": 2, // disallow use of undeclared variables unless mentioned in a /*global */ block
   "no-undef-init": 2, // disallow use of undefined when initializing variables
   "no-undefined": 2, // disallow use of undefined variable (off by default)
-  "no-unused-vars": 2, // disallow declaration of variables that are not used in the code
+  "no-unused-vars": 1, // disallow declaration of variables that are not used in the code
   "no-use-before-define": 2, // disallow use of variables before they are defined
 
   //
@@ -190,7 +190,7 @@
   "space-infix-ops": 1, // require spaces around operators
   "space-return-throw-case": 1, // require a space after return, throw, and case
   "space-unary-ops": [1, {"words": true, "nonwords": false}], // Require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
-  "spaced-comment": [2, "always"], // require or disallow a space immediately following the // in a line comment (off by default)
+  "spaced-comment": [1, "always"], // require or disallow a space immediately following the // in a line comment (off by default)
   "wrap-regex": 0, // require regex literals to be wrapped in parentheses (off by default)
   "array-bracket-spacing": [1, "never"],
   "computed-property-spacing": [1, "never"],
