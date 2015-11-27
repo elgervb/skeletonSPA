@@ -239,7 +239,7 @@ gulp.task('scripts-app', ['docs-js', 'lint-js'], () => {
   let stripDebug = require('gulp-strip-debug');
   let uglify = require('gulp-uglify');
 
-  return gulp.src(`${settings.src}js/app/**/*.js`)
+  return gulp.src(settings.jsSources)
   .pipe(plumber())
   .pipe(sourcemaps.init())
   .pipe(babel())
