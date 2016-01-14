@@ -6,6 +6,7 @@ skeletonSPA
 [![Dependency Status](https://david-dm.org/elgervb/skeletonSPA.svg)](https://david-dm.org/elgervb/skeletonSPA)
 [![devDependency Status](https://david-dm.org/elgervb/skeletonSPA/dev-status.svg)](https://david-dm.org/elgervb/skeletonSPA#info=devDependencies)
 [![codecov.io](http://codecov.io/github/elgervb/skeletonSPA/coverage.svg?branch=master)](http://codecov.io/github/elgervb/skeletonSPA?branch=master)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/elgervb/skeletonspa/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 
 Skeleton for a Single Page Application using Angular &amp; Gulp
@@ -191,5 +192,5 @@ The following project structure is required:
 ```
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/elgervb/skeletonspa/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 
