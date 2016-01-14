@@ -189,3 +189,7 @@ The following project structure is required:
      - vendor
  - reports
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/elgervb/skeletonspa/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
