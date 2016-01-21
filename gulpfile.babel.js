@@ -1,4 +1,4 @@
-/* global Promise, __dirname */
+/* global __dirname */
 import gulp from 'gulp';
 import yargs from 'yargs';
 import cache from 'gulp-cache';
@@ -346,9 +346,7 @@ gulp.task('styles', ['styles-vendor', 'styles-copy-sass'], () => {
     precision: 5,
     sourceComments: argv.dev ? true : false
   }))
-  .pipe(rename({
-    basename: "styles",
-  }))
+  .pipe(rename({basename: 'styles'}))
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
   .pipe(gulpif(argv.dev, sourcemaps.write('./', {sourceRoot: '/css/sass'})))
   .pipe(gulpif(!argv.dev, cmq())) // only combine media queries when not generating source maps, as this breaks them
