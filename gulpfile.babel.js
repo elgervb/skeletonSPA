@@ -346,6 +346,7 @@ gulp.task('styles', ['styles-vendor', 'styles-copy-sass'], () => {
     precision: 5,
     sourceComments: argv.dev ? true : false
   }))
+  .on('error', sass.logError)
   .pipe(rename({basename: 'styles'}))
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
   .pipe(gulpif(argv.dev, sourcemaps.write('./', {sourceRoot: '/css/sass'})))
