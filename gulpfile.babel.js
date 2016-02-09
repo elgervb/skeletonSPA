@@ -241,17 +241,13 @@ gulp.task('scripts-app', ['docs-js', 'lint-js'], () => {
 
   return gulp.src(settings.jsSources)
   .pipe(plumber())
-  .pipe(sourcemaps.init())
+  .pipe(gulpif(argv.dev, sourcemaps.init()))
   .pipe(babel())
   .pipe(ngannotate({gulpWarnings: false}))
   .pipe(concat('app.js'))
-  .pipe(gulp.dest(`${settings.dist}js`))
-
-  // make minified
-  .pipe(rename({suffix: '.min'}))
   .pipe(gulpif(!argv.dev, stripDebug()))
   .pipe(gulpif(!argv.dev, uglify()))
-  .pipe(sourcemaps.write('./'))
+  .pipe(gulpif(argv.dev, sourcemaps.write('./')))
   .pipe(size({showFiles: true}))
   .pipe(gulp.dest(`${settings.dist}js`));
 });
