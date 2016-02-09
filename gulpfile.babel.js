@@ -7,7 +7,6 @@ import gulpif from 'gulp-if';
 import gutil from 'gulp-util';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
-import rename from 'gulp-rename';
 import url from 'url';
 import size from 'gulp-size';
 import config from'./package.json'; // Read specific setting from the package file
