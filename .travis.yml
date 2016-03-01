@@ -9,7 +9,7 @@ before_script:
   - npm install -g bower
   - bower install
   - gulp 
-  - gulp start
+  - gulp start &
 
 script:
   - gulp test
