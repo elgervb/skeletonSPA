@@ -9,7 +9,7 @@ import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import url from 'url';
 import size from 'gulp-size';
-import config from'./package.json'; // Read specific setting from the package file
+import config from './package.json'; // Read specific setting from the package file
 
 let reload; // browser sync reload functionality for css injection
 let argv = yargs.argv;
