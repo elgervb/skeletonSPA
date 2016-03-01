@@ -8,10 +8,8 @@ before_script:
   - npm install -g gulp
   - npm install -g bower
   - bower install
-  - npm install gulp-codecov.io
   - gulp 
-  - gulp start &
-  - sleep 5 # give gulp some time to start
+  - gulp start
 
 script:
   - gulp test
