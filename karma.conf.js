@@ -52,11 +52,23 @@ module.exports = function(config) {
     },
     reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
-    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
+    browsers: [ 'Chrome' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
         outputFile: 'reports/'+identifier+'/units.html',
         suite: 'unit'
     },
+    plugins: [
+      'karma-babel-preprocessor',
+      'karma-chrome-launcher',
+      'karma-coverage',
+      'karma-firefox-launcher',
+      'karma-htmlfile-reporter',
+      'karma-ie-launcher',
+      'karma-jasmine',
+      'karma-ng-html2js-preprocessor',
+      'karma-opera-launcher',
+      'karma-phantomjs-launcher', 
+    ],
     exclude: [],
     autoWatch: true,
     autoWatchBatchDelay: 250,
