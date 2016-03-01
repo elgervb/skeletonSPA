@@ -27,7 +27,7 @@ module.exports = function(config) {
       'dist/js/vendor.js',
       'dist/js/vendor/angular-mocks.js',
       'dist/js/templates.js',
-      'dist/js/app.min.js',
+      'dist/js/app.js',
       'dist/**/*.html',
       'node_modules/babel-polyfill/dist/polyfill.js',
       'tests/units/**/*.js',
@@ -35,7 +35,7 @@ module.exports = function(config) {
     ],
     preprocessors: {
       './app/templates/*.html': 'ng-html2js',
-      './dist/js/app.min.js': ['coverage'],
+      './dist/js/app.js': ['coverage'],
       './tests/units/**/*.js': ['babel']
     },
     babelPreprocessor: {
