@@ -9,7 +9,7 @@ skeletonSPA
 
 
 Skeleton for a Single Page Application using Angular &amp; Gulp
-Exapmple is located here: http://elgervanboxtel.nl/labs/skeletonSPA
+Example is located here: http://elgervanboxtel.nl/labs/skeletonSPA
 
 This project supplies a basic setup for building single page applications with Gulp (http://gulpjs.com/), using AngularJS (https://angularjs.org/).
 
@@ -40,6 +40,9 @@ Install third party dependencies with bower
 ```ShellSession
 	bower install
 ```
+
+Note: sometimes the git:// protocol has been blocked. In that case execute the following in your console:
+`git config --global url."https://".insteadOf git://`
 
 Do a initial build
 ```ShellSession
