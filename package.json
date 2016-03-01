@@ -89,7 +89,6 @@
     "karma-phantomjs-launcher": "0.2.0",
     "phantomjs": "^1.9.17",
     "proxy-middleware": "0.14.0",
-    "q": "2.0.3",
     "run-sequence": "1.1.2",
     "vinyl-paths": "^2.0.0",
     "yargs": "^4.2.0"
