@@ -1,8 +1,10 @@
-require('babel-register');
+
 
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  
+  onPrepare: function () {
+      require("babel-register");
+  },
   
   /**
    * Run in PhantomJS
@@ -42,9 +44,9 @@ exports.config = {
   // }, {
   //   browserName: 'chrome'
   // }]
-  framework: 'jasmine',
+  // framework: 'jasmine',
   // Options to be passed to Jasmine.
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
-  }
+  // jasmineNodeOpts: {
+  //   defaultTimeoutInterval: 30000
+  // }
 };
