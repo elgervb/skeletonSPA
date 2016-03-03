@@ -52,7 +52,7 @@ module.exports = function(config) {
     },
     reporters: [ 'progress', 'html', 'coverage' ],
     colors: true,
-    browsers: [ 'Chrome' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
+    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
         outputFile: 'reports/'+identifier+'/units.html',
         suite: 'unit'
