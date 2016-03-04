@@ -11,7 +11,6 @@ import url from 'url';
 import size from 'gulp-size';
 import config from './package.json'; // Read specific setting from the package file
 
-let reload; // browser sync reload functionality for css injection
 let argv = yargs.argv;
 let settings = config.settings;
 
@@ -20,20 +19,26 @@ let settings = config.settings;
  * Depends on: watch
  */
 gulp.task('browser-sync', ['watch'], () => {
-  let browserSync = require('browser-sync');
+  let browserSync = require('browser-sync').create();
   let proxy = require('proxy-middleware');
   let port = argv.port || settings.serverport;
-    
-  reload = browserSync.reload;
 
-  // Watch any files in dist/*, reload on change
-  gulp.watch([`${settings.dist}**/*`, `!${settings.dist}**/*.css`]).on('change', reload);
-  
   // proxy settings for /redirect
   let proxyOptions = url.parse('http://localhost:8080/redirect');
   proxyOptions.route = '/redirect';
+  
+  // watch any files in dist/*, reload on change
+  gulp.watch([`${settings.dist}**/*`, `!${settings.dist}**/*.css`]).on('change', () => {
+    browserSync.reload();
+  });
+  // inject css changes
+  browserSync.watch([`${settings.dist}**/*.css`], (event, file) => {
+    if (event === 'change') {
+      browserSync.reload(file);
+    }
+  });
 
-  return browserSync({
+  browserSync.init({
     browser: ['google chrome'],
     ghostMode: {
       clicks: true,
@@ -333,7 +338,7 @@ gulp.task('styles', ['styles-vendor', 'styles-copy-sass'], () => {
   let sass = require('gulp-sass');
   let sourcemaps = require('gulp-sourcemaps');
   
-  let result = gulp.src([`${settings.src}styles/**/*.scss`])
+  return gulp.src([`${settings.src}styles/**/*.scss`])
   .pipe(plumber())
   .pipe(gulpif(argv.dev, sourcemaps.init()))
   .pipe(sass({
@@ -349,14 +354,6 @@ gulp.task('styles', ['styles-vendor', 'styles-copy-sass'], () => {
   .pipe(size({showFiles: true}))  
   
   .pipe(gulp.dest(`${settings.dist}css`));
-  
-  // break the flow as gulp-if results in an error
-  // .pipe(gulpif(typeof reload === 'function', function() { return reload({stream: true})})) // when started with browser sync, then inject css
-  if (typeof reload === 'function') {
-    result.pipe(reload({stream: true}));// when started with browser sync, then inject css
-  }
-  
-  return result;
 });
 
 /**
