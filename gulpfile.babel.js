@@ -42,40 +42,26 @@ gulp.task('test:e2e', task('test-e2e'));
 gulp.task('test:watch', task('test-watch'));
 gulp.task('todo', task('todo'));
 
-/**
- * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, templates, scripts or images.
- */
 gulp.task('watch', () => {
-
   let settings = config.settings;
-  
   // watch index.html
   gulp.watch(`${settings.src}index.html`, ['copy-index']);
-
   // watch html files
   gulp.watch(`${settings.src}**/*.html`, ['copy-template']);
-
   // watch fonts
   gulp.watch(`${settings.src}fonts/**`, ['copy-fonts']);
-
   // Watch .scss files
   gulp.watch(`${settings.src}styles/**/*.scss`, ['styles']);
-
   // Watch app .js files
   gulp.watch(`${settings.src}js/app/**/*.js`, ['scripts-app']);
-
   // Watch vendor .js files
   gulp.watch(`${settings.src}js/vendor/**/*.js`, ['scripts-vendor']);
-
   // Watch image files
   gulp.watch(`${settings.src}img/**/*`, ['images']);
-  
   // Watch internal files
   gulp.watch(['gulpfile.js', 'gulpfile.babel.js'], ['scripts-internal']);
-  
   // Watch test files
   gulp.watch(`${settings.tests}**/*.js`, ['scripts-tests']);
-  
   // Update docs
   gulp.watch('README.md', ['docs-js']);
 });
