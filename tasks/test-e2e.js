@@ -8,7 +8,7 @@ module.exports = function (gulp, plugins, settings) {
  
     gulp.src(['./tests/e2e/*.js'])
     .pipe(angularProtractor({
-      configFile: './../protractor.config.js',
+      configFile: 'protractor.config.js',
       args: ['--baseUrl', `http://localhost:${settings.serverport}`],
       autoStartStopServer: true,
       debug: false
