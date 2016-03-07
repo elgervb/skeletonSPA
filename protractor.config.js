@@ -5,7 +5,7 @@ exports.config = {
   onPrepare: function () {
       require("babel-register")({presets: ["es2015"]})
   },
-  
+  chromeOnly: true,
   /**
    * Run in PhantomJS
    */
