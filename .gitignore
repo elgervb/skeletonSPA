@@ -51,3 +51,4 @@ docs/*
 node_modules/*
 reports/*
 src/js/vendor/
+bower_components

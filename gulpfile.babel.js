@@ -55,7 +55,7 @@ gulp.task('watch', () => {
   // Watch app .js files
   gulp.watch(`${settings.src}js/app/**/*.js`, ['scripts-app']);
   // Watch vendor .js files
-  gulp.watch(`${settings.src}js/vendor/**/*.js`, ['scripts-vendor']);
+  gulp.watch('bower_components/**/*.js', ['scripts-vendor']);
   // Watch image files
   gulp.watch(`${settings.src}img/**/*`, ['images']);
   // Watch internal files
