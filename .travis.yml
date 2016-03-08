@@ -9,6 +9,8 @@ env:
 before_script:
   - npm install -g gulp
   - npm install -g bower
+  - npm install -g protractor
+  - webdriver-manager update
   - bower install
   - gulp 
   - gulp start &
