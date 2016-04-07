@@ -1,5 +1,5 @@
 {
-  "name": "skeletonSPA",
+  "name": "skeletonspa",
   "version": "1.0.0",
   "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
   "main": "gulpfile.js",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "gulp": "node node_modules/gulp/bin/gulp.js",
-    "start": "npm run gulp start",
+    "start": "gulp && gulp start",
     "test": "npm run gulp test && npm run gulp test:e2e"
   },
   "repository": {
