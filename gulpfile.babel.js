@@ -23,6 +23,7 @@ gulp.task('copy-template', task('copy-template'));
 gulp.task('copy-index', task('copy-index'));
 gulp.task('default', ['build']);
 gulp.task('docs-js', task('docs-js'));
+gulp.task('icon-font', task('icon-font'));
 gulp.task('images', task('images'));
 gulp.task('info', task('info'));
 gulp.task('package', ['build'], task('package'));
