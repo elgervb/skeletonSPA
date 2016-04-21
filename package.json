@@ -12,7 +12,7 @@
   "scripts": {
     "gulp": "node node_modules/gulp/bin/gulp.js",
     "start": "gulp && gulp start",
-    "test": "npm run gulp test && npm run gulp test:e2e"
+    "test": "npm run gulp test"
   },
   "repository": {
     "type": "git",
@@ -88,6 +88,7 @@
     "karma-ng-html2js-preprocessor": "*",
     "karma-opera-launcher": "0.3.0",
     "karma-phantomjs-launcher": "1.0.0",
+    "karma-spec-reporter": "0.0.26",
     "phantomjs-prebuilt": "^2.1.4",
     "proxy-middleware": "0.15.0",
     "run-sequence": "^1.1.5",

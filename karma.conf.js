@@ -50,7 +50,7 @@ module.exports = function(config) {
         return file.originalPath;
       }
     },
-    reporters: [ 'progress', 'html', 'coverage' ],
+    reporters: [ 'spec', 'html', 'coverage' ],
     colors: true,
     browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
     htmlReporter: {
@@ -67,7 +67,8 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-ng-html2js-preprocessor',
       'karma-opera-launcher',
-      'karma-phantomjs-launcher', 
+      'karma-phantomjs-launcher',
+      'karma-spec-reporter'
     ],
     exclude: [],
     autoWatch: true,
