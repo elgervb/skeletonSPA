@@ -1,5 +1,5 @@
 {
-  "name": "skeletonSpa",
+  "name": "skeletonspa",
   "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
   "main": [
     "src/js/app/app.js",
