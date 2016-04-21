@@ -2,9 +2,6 @@
 
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  onPrepare: function () {
-      require("babel-register")({presets: ["es2015"]})
-  },
   chromeOnly: true,
   /**
    * Run in PhantomJS
@@ -44,9 +41,21 @@ exports.config = {
   // }, {
   //   browserName: 'chrome'
   // }]
-  // framework: 'jasmine',
+  framework: 'jasmine',
   // Options to be passed to Jasmine.
-  // jasmineNodeOpts: {
-  //   defaultTimeoutInterval: 30000
-  // }
+  jasmineNodeOpts: {
+    showColors: true,
+    isVerbose: true,
+    realtimeFailure: true,
+    includeStackTrace: true,
+    defaultTimeoutInterval: 30000,
+    print: function() {} // Remove protractor dot reporter
+  },
+  onPrepare: function() {
+    require("babel-register")({presets: ["es2015"]})
+    
+    // add jasmine spec reporter
+    var SpecReporter = require('jasmine-spec-reporter');
+    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
+   }
 };
