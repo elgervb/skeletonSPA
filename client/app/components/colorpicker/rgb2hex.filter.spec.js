@@ -23,4 +23,15 @@ describe('rgb2hex filter unit tests', () => {
     expect(result).to.equal('#000000');
   });
   
+  it('should log on wrong value', () => {
+    let err;
+    try {
+      filter('color');
+    } catch (e) {
+      err = e;
+    }
+    
+    expect(err).to.be.a.instanceOf(Error);
+  });
+  
 });
