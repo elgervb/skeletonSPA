@@ -1,4 +1,5 @@
 module.exports = function(config) {
+var path = require('path');
   config.set({
     // base path used to resolve all patterns
     basePath: '',
@@ -14,6 +15,7 @@ module.exports = function(config) {
     exclude: [],
 
     plugins: [
+      require('karma-coverage'),
       require("karma-chai"),
       require("karma-chrome-launcher"),
       require("karma-mocha"),
@@ -27,8 +29,38 @@ module.exports = function(config) {
     preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
 
     webpack: {
+      babel: {
+          presets: ['es2015']
+      },
+      isparta: {
+          embedSource: true,
+          noAutoWrap: true,
+          babel: {
+              presets: ['es2015']
+          }
+      },
       devtool: 'inline-source-map',
       module: {
+        preLoaders: [
+          // transpile all files except testing sources with babel as usual
+          {
+              test: /\.js$/,
+              exclude: [
+                  path.resolve('client'),
+                  path.resolve('node_modules/')
+              ],
+              loader: 'babel'
+          },
+          // transpile and instrument only testing sources with babel-istanbul
+          {
+              test: /\.js$/,
+              include: path.resolve('client'),
+              loader: 'babel-istanbul',
+              query: {
+                  cacheDirectory: true
+              }
+          }
+        ],
         loaders: [
           { test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel' },
           { test: /\.html/, loader: 'raw' },
@@ -65,7 +97,7 @@ module.exports = function(config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
 
     // web server port
     port: 9876,
@@ -85,6 +117,25 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 
     // if true, Karma runs tests once and exits
-    singleRun: true
+    singleRun: true,
+    coverageReporter: {
+      dir: 'reports/coverage',
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        // { type: 'lcov', subdir: 'report-lcov' },
+        // // reporters supporting the `file` property, use `subdir` to directly 
+        // // output them in the `dir` directory 
+        // { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+        // { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+        // { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+        // { type: 'text', subdir: '.', file: 'text.txt' },
+        // { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+        { type: 'text'},
+        { type: 'text-summary'},
+      ],
+      instrumenterOptions: {
+        istanbul: { noCompact: true }
+      }
+    },
   });
 };
