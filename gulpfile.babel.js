@@ -17,12 +17,7 @@ gulp.task('build', (cb) => {
 gulp.task('clean', ['clear-cache'], task('clean'));
 gulp.task('clear-cache', task('clear-cache'));
 gulp.task('component', task('component'));
-gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index']);
-gulp.task('copy-fonts', task('copy-fonts'));
-gulp.task('copy-template', task('copy-template'));
-gulp.task('copy-index', task('copy-index'));
 gulp.task('default', ['watch']);
-gulp.task('docs-js', task('docs-js'));
 gulp.task('icon-font', task('icon-font'));
 gulp.task('images', task('images'));
 gulp.task('info', task('info'));
