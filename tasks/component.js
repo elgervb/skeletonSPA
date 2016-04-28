@@ -1,5 +1,7 @@
 import gutil from 'gulp-util';
+import template from 'gulp-template';
 import path from 'path';
+import rename from 'gulp-rename';
 import yargs from 'yargs';
 
 // use webpack.config.js to build modules
@@ -16,9 +18,9 @@ module.exports = (gulp, settings) => {
     }
     
     const parentPath = yargs.argv.parent || '';
-    const destPath = path.join(resolveToComponents(), parentPath, name);
+    const destPath = path.join(settings.src, 'app/components', parentPath, name);
     
-    return gulp.src(path.join(settings.src, 'generator', 'component/**/*.**'))
+    return gulp.src(path.join('generator', 'component/**/*.**'))
       .pipe(template({
         name: name,
         upCaseName: cap(name)
