@@ -1,0 +1,28 @@
+.colorpicker {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  label {
+    display: inline-block;
+    min-width: 4em;
+  }
+
+  .preview {
+    height: 0;
+    margin: 0 1rem;
+    padding: 3em;
+    width: 0;
+  }
+  
+  .values {
+    p {
+      margin: .3rem;
+    }
+  }
+}

@@ -1,104 +1,68 @@
-"use strict";
-
-/**
- * Karma config file
- * 
- * http://karma-runner.github.io/0.8/config/configuration-file.html
- */
 module.exports = function(config) {
-
-  function getIdentifier(){
-    var d = new Date(),
-    day = d.getDate(),
-    month = d.getMonth()+1,
-    year = d.getFullYear(),
-    hours = d.getHours(),
-    minutes = d.getMinutes(),
-    seconds = d.getSeconds(),
-    ms = d.getMilliseconds();
-    return ""+year+(month<9?"0"+month:month)+(day<9?"0"+day:day)+"-"+(hours<9?"0"+hours:hours)+(minutes<9?"0"+minutes:minutes)+"-"+(seconds<9?"0"+seconds:seconds)+ms;
-  }
-  var identifier = getIdentifier();
-
   config.set({
-    basePath: './',
-    frameworks: [ 'jasmine' ],
-    files: [
-      'dist/js/vendor.js',
-      'dist/js/vendor/angular-mocks.js',
-      'dist/js/templates.js',
-      'dist/js/app.js',
-      'dist/**/*.html',
-      'node_modules/babel-polyfill/dist/polyfill.js',
-      'tests/units/**/*.js',
-      'dist/**/*.css'
-    ],
-    preprocessors: {
-      './app/templates/*.html': 'ng-html2js',
-      './dist/js/app.js': ['coverage'],
-      './tests/units/**/*.js': ['babel']
-    },
-    babelPreprocessor: {
-      options: {
-        presets: ['es2015'],
-        sourceMap: 'inline'
-      },
-      filename: function (file) {
-        return file.originalPath.replace(/\.js$/, '.es5.js');
-      },
-      sourceFileName: function (file) {
-        return file.originalPath;
-      }
-    },
-    reporters: [ 'spec', 'html', 'coverage' ],
-    colors: true,
-    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
-    htmlReporter: {
-        outputFile: 'reports/'+identifier+'/units.html',
-        suite: 'unit'
-    },
-    plugins: [
-      'karma-babel-preprocessor',
-      'karma-chrome-launcher',
-      'karma-coverage',
-      'karma-firefox-launcher',
-      'karma-htmlfile-reporter',
-      'karma-ie-launcher',
-      'karma-jasmine',
-      'karma-ng-html2js-preprocessor',
-      'karma-opera-launcher',
-      'karma-phantomjs-launcher',
-      'karma-spec-reporter'
-    ],
+    // base path used to resolve all patterns
+    basePath: '',
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['mocha', 'chai'],
+
+    // list of files/patterns to load in the browser
+    files: [{ pattern: 'spec.bundle.js', watched: false }],
+
+    // files to exclude
     exclude: [],
-    autoWatch: true,
-    autoWatchBatchDelay: 250,
-    usePolling: false,
-    reportSlowerThan: 100, // report all tests that are slower than...
-    coverageReporter: {
-      dir: 'reports/'+identifier+'/coverage',
-      reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' },
-        // reporters supporting the `file` property, use `subdir` to directly 
-        // output them in the `dir` directory 
-        { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
-        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
-        { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
-        { type: 'text', subdir: '.', file: 'text.txt' },
-        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
-        { type: 'text'},
-        { type: 'text-summary'},
-      ],
-      instrumenterOptions: {
-        istanbul: { noCompact: true }
+
+    plugins: [
+      require("karma-chai"),
+      require("karma-chrome-launcher"),
+      require("karma-mocha"),
+      require("karma-mocha-reporter"),
+      require("karma-sourcemap-loader"),
+      require("karma-webpack")
+    ],
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
+
+    webpack: {
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [
+          { test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel' },
+          { test: /\.html/, loader: 'raw' },
+          { test: /\.scss$/, loader: 'style!css!sass' },
+          { test: /\.css$/, loader: 'style!css' }
+        ]
       }
     },
-    customLaunchers: {
-      Crome_without_security: {
-        base: 'Chrome',
-        flags: ['--disable-web-security']
-      }
-    }
+
+    webpackServer: {
+      noInfo: true // prevent console spamming when running in Karma!
+    },
+
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['mocha'],
+
+    // web server port
+    port: 9876,
+
+    // enable colors in the output
+    colors: true,
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+    // toggle whether to watch files and rerun tests upon incurring changes
+    autoWatch: false,
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome'],
+
+    // if true, Karma runs tests once and exits
+    singleRun: true
   });
 };
