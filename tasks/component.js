@@ -1,5 +1,6 @@
 import gutil from 'gulp-util';
 import path from 'path';
+import yargs from 'yargs';
 
 // use webpack.config.js to build modules
 module.exports = (gulp, settings) => {
