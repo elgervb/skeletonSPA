@@ -14,8 +14,7 @@ gulp.task('build', (cb) => {
   let runSequence = require('run-sequence');
   runSequence('clean', ['info', 'styles', 'scripts', 'images', 'copy'], 'todo', cb);
 });
-gulp.task('clean', ['clear-cache'], task('clean'));
-gulp.task('clear-cache', task('clear-cache'));
+gulp.task('clean', task('clean'));
 gulp.task('component', task('component'));
 gulp.task('default', ['watch']);
 gulp.task('iconfont', task('icon-font'));
