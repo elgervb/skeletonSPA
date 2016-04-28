@@ -2,8 +2,8 @@ import gutil from 'gulp-util';
 import path from 'path';
 
 // use webpack.config.js to build modules
-module.exports = function (gulp, settings) {
-  return function (cb) {
+module.exports = (gulp, settings) => {
+  return (cb) => {
     const cap = (val) => {
       return val.charAt(0).toUpperCase() + val.slice(1);
     };
