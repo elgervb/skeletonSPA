@@ -4,7 +4,7 @@
   </div>
   
   <div ng-if="$ctrl.inProgress()" class="game" style="background-color: {{$ctrl.color.guess | hexcolor}}">
-    <button class="btn btn-large" ng-click="$ctrl.reset()">reset game</button>
+    <button class="btn btn-large" ng-click="$ctrl.reset()">reset game {{$ctrl.progress | time}}</button>
     <colorpicker init="$ctrl.color.init | hexcolor" on-update=""></colorpicker>
   </div>
 
