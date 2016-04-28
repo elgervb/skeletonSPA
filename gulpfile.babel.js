@@ -18,7 +18,7 @@ gulp.task('clean', ['clear-cache'], task('clean'));
 gulp.task('clear-cache', task('clear-cache'));
 gulp.task('component', task('component'));
 gulp.task('default', ['watch']);
-gulp.task('icon-font', task('icon-font'));
+gulp.task('iconfont', task('icon-font'));
 gulp.task('images', task('images'));
 gulp.task('info', task('info'));
 gulp.task('lint-js', task('lint-js'));
