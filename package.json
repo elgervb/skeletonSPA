@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "lint": "eslint . --ext .js --cache || true",
+    "start": "gulp start",
     "test": "karma start",
     "teste2e": "protractor protractor.config.js --baseUrl http://localhost:4000 --specs=tests/e2e/**/*.js --stackTrace",
     "webdriver": "webdriver-manager start"
