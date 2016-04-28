@@ -1,3 +1,10 @@
-<div class="game" style="background-color: #{{$ctrl.guessColor}}">
-  <colorpicker init="$ctrl.randInitColor" on-update=""></colorpicker>
-</div>
+  
+  <div ng-if="!$ctrl.inProgress()">
+      <button class="btn btn-large" ng-click="$ctrl.start()">new game</button>
+  </div>
+  
+  <div ng-if="$ctrl.inProgress()" class="game" style="background-color: {{$ctrl.color.guess | hexcolor}}">
+    <button class="btn btn-large" ng-click="$ctrl.reset()">reset game</button>
+    <colorpicker init="$ctrl.color.init | hexcolor" on-update=""></colorpicker>
+  </div>
+

@@ -1,16 +1,22 @@
 class GameController {
-  constructor() {
+  constructor(gameService) {
+    'ngInject';
+    this.service = gameService;
+    
     this.name = 'game';
-    this.guessColor = this.randomColor();
-    this.randInitColor = `#${this.randomColor()}`;
   }
   
-  /**
-   * Generates a new random color
-   * @returns {number} a six figure hex color code
-   */
-  randomColor() {
-    return Math.floor(Math.random()*0xFFFFFF>>0).toString(16);
+  inProgress() {
+    return this.service.inProgress;
+  }
+  
+  start() {
+    this.service.start();
+    this.color = this.service.color;
+  }
+  
+  reset() {
+    this.service.reset();
   }
 }
 

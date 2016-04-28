@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import gameComponent from './game.component';
+import gameService from './game.service';
 
 import ColorPicker from '../colorpicker/colorpicker';
 
@@ -9,6 +10,7 @@ let gameModule = angular.module('game', [
   ColorPicker.name
 ])
 
-.component('game', gameComponent);
+.component('game', gameComponent)
+.service('gameService', gameService);
 
 export default gameModule;
