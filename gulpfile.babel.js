@@ -27,13 +27,13 @@ gulp.task('icon-font', task('icon-font'));
 gulp.task('images', task('images'));
 gulp.task('info', task('info'));
 gulp.task('lint-js', task('lint-js'));
-gulp.task('start', ['browser-sync']);
+gulp.task('start', task('start'));
 gulp.task('test', task('test'));
 gulp.task('test:e2e', task('test-e2e'));
 gulp.task('test:watch', task('test-watch'));
 gulp.task('todo', task('todo'));
 gulp.task('watch', ['start']);
-
+gulp.task('webpack', task('webpack'));
 
 
 
@@ -49,7 +49,7 @@ import gutil    from 'gulp-util';
 import serve    from 'browser-sync';
 import del      from 'del';
 import webpackDevMiddelware from 'webpack-dev-middleware';
-import webpachHotMiddelware from 'webpack-hot-middleware';
+import webpackHotMiddelware from 'webpack-hot-middleware';
 import colorsSupported      from 'supports-color';
 import historyApiFallback   from 'connect-history-api-fallback';
 
@@ -78,7 +78,7 @@ let paths = {
   dest: path.join(__dirname, 'dist')
 };
 
-gulp.task('serve', () => {
+gulp.task('serve__', () => {
   const config = require('./webpack.dev.config');
   config.entry.app = [
     // this modules required to make HRM working
@@ -104,37 +104,13 @@ gulp.task('serve', () => {
         },
         publicPath: config.output.publicPath
       }),
-      webpachHotMiddelware(compiler)
+      webpackHotMiddelware(compiler)
     ]
   });
 });
 
-gulp.task('component', () => {
-  const cap = (val) => {
-    return val.charAt(0).toUpperCase() + val.slice(1);
-  };
-  const name = yargs.argv.name;
-  if (!name) {
-     gutil.log(gutil.colors.red('please supply a name for the component using the --name param, eg: '));
-     gutil.log(gutil.colors.cyan('\tgulp --name=componentname'));
-     return;
-  }
-  
-  const parentPath = yargs.argv.parent || '';
-  const destPath = path.join(resolveToComponents(), parentPath, name);
-  
-  return gulp.src(paths.blankTemplates)
-    .pipe(template({
-      name: name,
-      upCaseName: cap(name)
-    }))
-    .pipe(rename((path) => {
-      path.basename = path.basename.replace('temp', name);
-    }))
-    .pipe(gulp.dest(destPath));
-});
 
-gulp.task('clean', (cb) => {
+gulp.task('clean__', (cb) => {
   del([paths.dest]).then(function (paths) {
     gutil.log("[clean]", paths);
     cb();

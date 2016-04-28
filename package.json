@@ -29,7 +29,8 @@
     "email": "elgervb@gmail.com"
   },
   "settings": {
-    "src": "./src/",
+    "src": "./client/",
+    "entry": "./client/app/app.js",
     "serverport": 4000
   },
   "license": "ISC",
