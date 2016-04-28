@@ -1,13 +1,50 @@
 'use strict';
 
-import gulp     from 'gulp';
+/* global __dirname */
+import gulp from 'gulp';
+import config from './package.json'; // Read specific setting from the package file
+import yargs from 'yargs';
+
+config.settings.argv = yargs.argv;
+let task = (name) => {
+  return require(`./tasks/${name}`)(gulp, config.settings);
+};
+
+gulp.task('build', (cb) => {
+  let runSequence = require('run-sequence');
+  runSequence('clean', ['info', 'styles', 'scripts', 'images', 'copy'], 'todo', cb);
+});
+gulp.task('clean', ['clear-cache'], task('clean'));
+gulp.task('clear-cache', task('clear-cache'));
+gulp.task('component', task('component'));
+gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index']);
+gulp.task('copy-fonts', task('copy-fonts'));
+gulp.task('copy-template', task('copy-template'));
+gulp.task('copy-index', task('copy-index'));
+gulp.task('default', ['watch']);
+gulp.task('docs-js', task('docs-js'));
+gulp.task('icon-font', task('icon-font'));
+gulp.task('images', task('images'));
+gulp.task('info', task('info'));
+gulp.task('lint-js', task('lint-js'));
+gulp.task('start', ['browser-sync']);
+gulp.task('test', task('test'));
+gulp.task('test:e2e', task('test-e2e'));
+gulp.task('test:watch', task('test-watch'));
+gulp.task('todo', task('todo'));
+gulp.task('watch', ['start']);
+
+
+
+
+
+/** OLD stuff */
 import webpack  from 'webpack';
 import path     from 'path';
 import sync     from 'run-sequence';
 import rename   from 'gulp-rename';
 import template from 'gulp-template';
 import fs       from 'fs';
-import yargs    from 'yargs';
 import gutil    from 'gulp-util';
 import serve    from 'browser-sync';
 import del      from 'del';
@@ -41,26 +78,6 @@ let paths = {
   dest: path.join(__dirname, 'dist')
 };
 
-// use webpack.config.js to build modules
-gulp.task('webpack', ['clean'], (cb) => {
-  const config = require('./webpack.dist.config');
-  config.entry.app = paths.entry;
-
-  webpack(config, (err, stats) => {
-    if(err)  {
-      throw new gutil.PluginError("webpack", err);
-    }
-
-    gutil.log("[webpack]", stats.toString({
-      colors: colorsSupported,
-      chunks: false,
-      errorDetails: true
-    }));
-
-    cb();
-  });
-});
-
 gulp.task('serve', () => {
   const config = require('./webpack.dev.config');
   config.entry.app = [
@@ -91,8 +108,6 @@ gulp.task('serve', () => {
     ]
   });
 });
-
-gulp.task('watch', ['serve']);
 
 gulp.task('component', () => {
   const cap = (val) => {
@@ -126,4 +141,3 @@ gulp.task('clean', (cb) => {
   })
 });
 
-gulp.task('default', ['watch']);

@@ -30,12 +30,6 @@
   },
   "settings": {
     "src": "./src/",
-    "jsSources": [
-      "./src/js/app/**/*.js"
-    ],
-    "dist": "./dist/",
-    "reports": "./reports/",
-    "tests": "./tests/",
     "serverport": 4000
   },
   "license": "ISC",
