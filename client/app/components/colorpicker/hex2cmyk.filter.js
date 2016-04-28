@@ -25,7 +25,6 @@ class Hex2Cmyk {
     r = RGB.r / 255;
     g = RGB.g / 255;
     b = RGB.b / 255;
-    //debugger;
     divider = (1 - result.k) || 1;
     
     result.k = Math.min(1 - r, 1 - g, 1 - b);
