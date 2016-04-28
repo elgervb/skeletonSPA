@@ -13,8 +13,30 @@ module.exports = {
        {test: /\.js$/, exclude: [/generator/, /node_modules/], loader: 'ng-annotate!babel'},
        {test: /\.html$/, loader: 'raw'},
        {test: /\.scss$/, loader: 'style!css!sass'},
-       {test: /\.css$/, loader: 'style!css'}
-    ]
+       {test: /\.css$/, loader: 'style!css'},
+       {test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack'
+        ]
+       }
+    ],
+    imageWebpackLoader: {
+      pngquant: {
+        quality: "65-90",
+        speed: 4
+      },
+      svgo: {
+        plugins: [
+          {
+            removeViewBox: false
+          },
+          {
+            removeEmptyAttrs: false
+          }
+        ]
+      }
+    }
   },
   plugins: [
     // Injects bundles in your index.html instead of wiring all manually.
