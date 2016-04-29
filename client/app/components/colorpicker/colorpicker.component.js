@@ -5,7 +5,7 @@ import './colorpicker.scss';
 let colorpickerComponent = {
   bindings: {
     init: '<?',
-    onUpdate: '&?'
+    onUpdate: '=?'
   },
   template,
   controller

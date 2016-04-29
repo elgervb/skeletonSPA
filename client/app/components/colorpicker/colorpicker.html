@@ -4,16 +4,17 @@
     
     <div class="field">
       <label>red</label>
-      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.red" />
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.red" ng-change="$ctrl.onUpdate($ctrl.color)" />
     </div>
     <div class="field">
       <label>green</label>
-      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.green" />
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.green" ng-change="$ctrl.onUpdate($ctrl.color)" />
     </div>
     <div class="field">
       <label>blue</label>
-      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.blue" />
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.blue" ng-change="$ctrl.onUpdate($ctrl.color)" />
     </div>
+    {{$ctrl.onUpdate}}
     
   </div>
   

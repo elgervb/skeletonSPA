@@ -1,5 +1,5 @@
 class GameController {
-  constructor($interval, gameService) {
+  constructor($interval, $scope, gameService) {
     'ngInject';
     this.name = 'game';
     
@@ -10,6 +10,11 @@ class GameController {
     this.inProgress = false;
     this.color = {};
     this.startTime = -1;
+    this.playerWon = false;
+  }
+  
+  update(color) {
+    console.log(color);
   }
   
   progress() {
@@ -22,6 +27,15 @@ class GameController {
    */
   randomColor() {
     return ('000000' + (Math.random()*0xFFFFFF<<0).toString(16)).slice(-6);
+  }
+  
+  hasWon() {
+    if (this.color.guess && this.color.init) {
+      this.playerWon = this.color.guess === this.color.init;
+      if (this.playerWon && this.timer){
+        this.$interval.cancel(this.timer);
+      }
+    }
   }
   
   start() {
