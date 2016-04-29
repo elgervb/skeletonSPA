@@ -4,25 +4,12 @@ import ColorpickerComponent from './colorpicker.component';
 import ColorpickerTemplate from './colorpicker.html';
 
 describe('Colorpicker', () => {
-  let $rootScope, makeController;
+  let $rootScope;
 
   beforeEach(window.module(ColorpickerModule.name));
-  beforeEach(inject((_$rootScope_) => {
-    $rootScope = _$rootScope_;
-    makeController = () => {
-      return new ColorpickerController();
-    };
-  }));
 
   describe('Module', () => {
     // top-level specs: i.e., routes, injection, naming
-  });
-
-  describe('Controller', () => {
-    // it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-    //   let controller = makeController();
-    //   expect(controller).to.have.property('name');
-    // });
   });
 
   describe('Template', () => {
