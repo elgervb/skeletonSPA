@@ -30,8 +30,8 @@ class GameController {
   }
   
   hasWon() {
-    if (this.color.guess && this.color.init) {
-      this.playerWon = this.color.guess === this.color.init;
+    if (this.color.toMatch && this.color.init) {
+      this.playerWon = this.color.toMatch === this.color.init;
       if (this.playerWon && this.timer){
         this.$interval.cancel(this.timer);
       }
@@ -39,18 +39,23 @@ class GameController {
   }
   
   start() {
-    this.color.guess = this.randomColor();
+    this.color.toMatch = this.randomColor();
     this.color.init = this.randomColor();
+    this.color.guessed = this.color.init;
     
     this.inProgress = true;
     this.startTime = new Date().getTime();
     
+    this.startTimer();
+  }
+  
+  startTimer() {
     let interval = 100;
     this.$interval(() => {this.progression = this.progress()}, interval);
-  } 
+  }
   
   reset() {
-    delete this.color.guess;
+    delete this.color.toMatch;
     delete this.color.init;
     this.inProgress = false;
     

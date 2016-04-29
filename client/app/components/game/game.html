@@ -3,13 +3,13 @@
       <button class="btn btn-large" ng-click="$ctrl.start()">new game</button>
   </div>
   
-  <div ng-if="$ctrl.inProgress" class="game" style="background-color: {{$ctrl.color.guess | hexcolor}}">
+  <div ng-if="$ctrl.inProgress" class="game" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
     <button class="btn btn-large" ng-click="$ctrl.reset()">reset game </button>
     <div class="timer">{{$ctrl.progression | time}}</div>
     <colorpicker init="$ctrl.color.init | hexcolor" on-update="$ctrl.update"></colorpicker>
   </div>
 </section>
 
-<section ng-show="$ctrl.playerWon" class="win overlay slideIn" style="background-color: {{$ctrl.color.guess | hexcolor}}">
+<section ng-show="$ctrl.playerWon" class="win overlay slideIn" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
     <div class="timer">{{$ctrl.progression | time}}</div>
 </section>
