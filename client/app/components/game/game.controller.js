@@ -1,10 +1,11 @@
 class GameController {
-  constructor($interval, $scope, gameService) {
+  constructor($interval, $scope, $filter, gameService) {
     'ngInject';
     this.name = 'game';
     
     this.service = gameService;
     this.$interval = $interval;
+    this.hex2rgbFilter = $filter('rgb2hex');
     
     this.progression = 0;
     this.inProgress = false;
@@ -13,8 +14,8 @@ class GameController {
     this.playerWon = false;
   }
   
-  update(color) {
-    console.log(color);
+  update(guessColor) {
+    this.color.guessed = this.hex2rgbFilter(guessColor);
   }
   
   progress() {
@@ -26,13 +27,13 @@ class GameController {
    * @returns {number} a six figure hex color code
    */
   randomColor() {
-    return ('000000' + (Math.random()*0xFFFFFF<<0).toString(16)).slice(-6);
+    return (`000000${(Math.random() * 0xFFFFFF << 0).toString(16)}`).slice(-6);
   }
   
   hasWon() {
     if (this.color.toMatch && this.color.init) {
       this.playerWon = this.color.toMatch === this.color.init;
-      if (this.playerWon && this.timer){
+      if (this.playerWon && this.timer) {
         this.$interval.cancel(this.timer);
       }
     }
@@ -51,7 +52,9 @@ class GameController {
   
   startTimer() {
     let interval = 100;
-    this.$interval(() => {this.progression = this.progress()}, interval);
+    this.$interval(() => {
+      this.progression = this.progress();
+    }, interval);
   }
   
   reset() {
@@ -59,7 +62,7 @@ class GameController {
     delete this.color.init;
     this.inProgress = false;
     
-    if (this.timer){
+    if (this.timer) {
       this.$interval.cancel(this.timer);
     }
   }

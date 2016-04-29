@@ -17,16 +17,14 @@ class TimeFilter {
     }
     
     if (nr >= 3600) {
-      format = 'h:mm:ss.S'
+      format = 'h:mm:ss.S';
     } else if (nr >= 60) {
-       format = 'm:ss.S'
+      format = 'm:ss.S';
     } else {
       format = 's.S';
     }
-    return Moment.utc(Moment.duration(nr*1000).asMilliseconds()).format(format);
+    return Moment.utc(Moment.duration(nr * 1000).asMilliseconds()).format(format);
   }
-  
-  
   
   static factory() {
     'ngInject';
