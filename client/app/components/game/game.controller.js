@@ -6,20 +6,25 @@ class GameController {
     this.service = gameService;
     this.$interval = $interval;
     this.hex2rgbFilter = $filter('rgb2hex');
+    debugger;
     
     this.progression = 0;
     this.inProgress = false;
     this.color = {};
     this.startTime = -1;
-    this.playerWon = false;
-  }
-  
-  update(guessColor) {
-    this.color.guessed = this.hex2rgbFilter(guessColor);
+    this.gameEnded = false;
   }
   
   progress() {
     return ((new Date().getTime() - this.startTime) / 1000).toFixed(1);
+  }
+  
+  update(guessColor) {
+    debugger;
+    this.color.guessed = this.hex2rgbFilter(guessColor);
+    
+    this.gameEnded = true;
+    this.$interval.cancel(this.timer);
   }
   
   /**
@@ -28,15 +33,6 @@ class GameController {
    */
   randomColor() {
     return (`000000${(Math.random() * 0xFFFFFF << 0).toString(16)}`).slice(-6);
-  }
-  
-  hasWon() {
-    if (this.color.toMatch && this.color.init) {
-      this.playerWon = this.color.toMatch === this.color.init;
-      if (this.playerWon && this.timer) {
-        this.$interval.cancel(this.timer);
-      }
-    }
   }
   
   start() {
@@ -61,6 +57,7 @@ class GameController {
     delete this.color.toMatch;
     delete this.color.init;
     this.inProgress = false;
+    this.gameEnded = true;
     
     if (this.timer) {
       this.$interval.cancel(this.timer);

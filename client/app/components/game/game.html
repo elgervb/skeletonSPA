@@ -6,10 +6,10 @@
   <div ng-if="$ctrl.inProgress" class="game" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
     <button class="btn btn-large" ng-click="$ctrl.reset()">reset game </button>
     <div class="timer">{{$ctrl.progression | time}}</div>
-    <colorpicker init="$ctrl.color.init | hexcolor" on-update="$ctrl.update"></colorpicker>
+    <colorpicker init="$ctrl.color.init | hexcolor" on-update="$ctrl.updateCallback"></colorpicker>
   </div>
 </section>
 
-<section ng-show="$ctrl.playerWon" class="win overlay slideIn" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
+<section ng-show="$ctrl.gameEnded" class="win overlay slideIn" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
     <div class="timer">{{$ctrl.progression | time}}</div>
 </section>
