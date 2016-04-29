@@ -6,7 +6,7 @@ var path = require('path');
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai-spies', 'chai' ],
 
     // list of files/patterns to load in the browser
     files: [{ pattern: 'spec.bundle.js', watched: false }],
@@ -16,12 +16,13 @@ var path = require('path');
 
     plugins: [
       require('karma-coverage'),
-      require("karma-chai"),
-      require("karma-chrome-launcher"),
-      require("karma-mocha"),
-      require("karma-mocha-reporter"),
-      require("karma-sourcemap-loader"),
-      require("karma-webpack")
+      require('karma-chai'),
+      require('karma-chai-spies'),
+      require('karma-chrome-launcher'),
+      require('karma-mocha'),
+      require('karma-mocha-reporter'),
+      require('karma-sourcemap-loader'),
+      require('karma-webpack')
     ],
 
     // preprocess matching files before serving them to the browser
@@ -75,7 +76,7 @@ var path = require('path');
         ],
         imageWebpackLoader: {
           pngquant: {
-            quality: "65-90",
+            quality: '65-90',
             speed: 4
           },
           svgo: {
@@ -130,7 +131,7 @@ var path = require('path');
         // { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
         // { type: 'text', subdir: '.', file: 'text.txt' },
         // { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
-        { type: 'text'},
+        // { type: 'text'},
         { type: 'text-summary'},
       ],
       instrumenterOptions: {

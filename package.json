@@ -68,6 +68,7 @@
     "image-webpack-loader": "^1.8.0",
     "karma": "^0.13.9",
     "karma-chai": "^0.1.0",
+    "karma-chai-spies": "^0.1.4",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.5.5",
     "karma-mocha": "^0.2.0",
