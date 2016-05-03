@@ -1,14 +1,11 @@
 class GameController {
-  constructor($interval, $state, $scope, $filter, timerService) {
+  constructor($state, $filter, timerService) {
     'ngInject';
     this.name = 'game';
     
     this.timer = timerService;
-    this.$interval = $interval;
-    this.$scope = $scope;
     this.$state = $state;
     this.hex2rgbFilter = $filter('rgb2hex');
-    
     this.progression = 0;
     this.color = {};
     
@@ -39,8 +36,8 @@ class GameController {
   }
   
   giveUp() {
-    delete this.color.toMatch;
-    delete this.color.init;
+    // delete this.color.toMatch;
+    // delete this.color.init;
     this.timer.stop();
     
     this.$state.go('game.overview');
