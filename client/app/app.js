@@ -8,6 +8,26 @@ angular.module('app', [
   Game.name
 ])
 
+.config(($stateProvider, $urlRouterProvider) => {
+  'ngInject';
+  
+  $urlRouterProvider.otherwise('/');
+  
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: '/app/components/game/home.html'
+    })
+    .state('game', {
+      url: '/game',
+      template: '<game></game>'
+    })
+    .state('game.overview', {
+      url: '/overview',
+      templateUrl: '/app/components/game/overview.html'
+    });
+})
+
 .config(($locationProvider) => {
   'ngInject';
   
