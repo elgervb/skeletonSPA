@@ -1,10 +1,7 @@
-<section class="game-in-progress">
-    
   <div class="game" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
     <a class="btn btn-large" ng-click="$ctrl.giveUp()"> Give up </a>
     <div class="timer">{{$ctrl.progression | time}}</div>
     <colorpicker init="$ctrl.color.init | hexcolor" on-update="$ctrl.updateCallback"></colorpicker>
   </div>
-</section>
 
 <div ui-view></div>

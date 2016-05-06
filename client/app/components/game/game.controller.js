@@ -36,8 +36,6 @@ class GameController {
   }
   
   giveUp() {
-    // delete this.color.toMatch;
-    // delete this.color.init;
     this.timer.stop();
     
     this.$state.go('game.overview');
