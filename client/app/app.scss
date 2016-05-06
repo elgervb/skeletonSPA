@@ -1,3 +1,44 @@
 html, body, .app, .full-height {
   height: 100%;
 }
+
+.home {
+  animation: colormorph 10s infinite;
+  background-color: #2bbf69;
+  color: #fff;
+  height: 100vh;
+  text-align: center;
+  padding-top: 10rem;
+  
+  .title {
+    font-size: 5em;
+  }
+  .subtitle {
+    font-size: 2em;
+  }
+  
+  .buttons {
+    margin-top: 3rem;
+  }
+  
+  .btn-ghost, a.btn-ghost {
+    &.btn-white {
+      color: #ffffff;
+      &:hover, &:focus {
+        background-color: #ffffff;
+        border-color: #ffffff;
+        color: #444;
+      }
+    }
+  }
+}
+
+
+@keyframes colormorph {
+  0%   {background: #2bbf69;}
+  20%  {background: #e67e22;}
+  40%  {background: #c0392b;}
+  60%  {background: #8e44ad;}
+  80% {background: #3498db;}
+  100% {background: #2bbf69;}
+}
