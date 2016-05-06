@@ -1,7 +1,7 @@
-  <div class="game" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
-    <a class="btn btn-large" ng-click="$ctrl.giveUp()"> Give up </a>
+  <div class="game" style="background-color: {{$ctrl.color | rgbcolor}}"> 
+    <a class="btn btn-large" ng-click="$ctrl.stop()"> Give up </a>
     <div class="timer">{{$ctrl.progression | time}}</div>
-    <colorpicker init="$ctrl.color.init | hexcolor" on-update="$ctrl.updateCallback"></colorpicker>
+    <colorpicker color="$ctrl.guessColor" on-update="$ctrl.update()"></colorpicker>
   </div>
 
 <div ui-view></div>

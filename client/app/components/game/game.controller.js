@@ -7,35 +7,40 @@ class GameController {
     this.$state = $state;
     this.hex2rgbFilter = $filter('rgb2hex');
     this.progression = 0;
-    this.color = {};
-    
     this.start();
   }
   
-  update(guessColor) {
-    this.color.guessed = this.hex2rgbFilter(guessColor);
-    this.timer.stop();
+  update() {
+    if (this.hasWon()) {
+      this.stop();
+    }
+  }
+  
+  hasWon() {
+    return parseInt(this.color.red, 10) === parseInt(this.guessColor.red, 10) &&
+      parseInt(this.color.green, 10) === parseInt(this.guessColor.green, 10) &&
+      parseInt(this.color.blue, 10) === parseInt(this.guessColor.blue, 10);
   }
   
   /**
-   * Generates a new random color
-   * @returns {number} a six figure hex color code
+   * Generates a new random rgb color
+   * @returns {number} the rgb color
    */
   randomColor() {
-    return (`000000${(Math.random() * 0xFFFFFF << 0).toString(16)}`).slice(-6);
+    let generator = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    return {red: generator(0, 255), green: generator(0, 255), blue: generator(0, 255)};
   }
   
   start() {
-    this.color.toMatch = this.randomColor();
-    this.color.init = this.randomColor();
-    this.color.guessed = this.color.init;
+    this.guessColor = this.randomColor();
+    this.color = this.randomColor();
     
     this.timer.start((time) => {
       this.progression = time;
     });
   }
   
-  giveUp() {
+  stop() {
     this.timer.stop();
     
     this.$state.go('game.overview');

@@ -4,8 +4,8 @@ import './colorpicker.scss';
 
 let colorpickerComponent = {
   bindings: {
-    init: '<?',
-    onUpdate: '=?'
+    color: '<', // hex color
+    onUpdate: '&?'
   },
   template,
   controller
