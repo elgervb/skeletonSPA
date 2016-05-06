@@ -17,10 +17,9 @@ class GameController {
   }
   
   hasWon() {
-    let actual= parseInt(this.color.red, 10) + parseInt(this.color.green, 10) + parseInt(this.color.blue, 10);
+    let actual = parseInt(this.color.red, 10) + parseInt(this.color.green, 10) + parseInt(this.color.blue, 10);
     let guess = parseInt(this.guessColor.red, 10) + parseInt(this.guessColor.green, 10) + parseInt(this.guessColor.blue, 10);
-    console.log(((guess / actual) * 100) - 100);
-    return Math.abs(((guess / actual) * 100) - 100) < 25;
+    return Math.abs(((guess / actual) * 100) - 100) < 10;
   }
   
   /**
