@@ -19,7 +19,7 @@ angular.module('app', [
       templateUrl: '/app/components/game/home.html'
     })
     .state('game', {
-      url: '/game',
+      url: '/game/:level',
       template: '<game></game>'
     })
     .state('game.overview', {

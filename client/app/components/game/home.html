@@ -1,3 +1,11 @@
+
+<h1> Game of colors </h1>
+
+<h2>Guess the color the quickest</h2>
+
 <div ng-if="!$ctrl.inProgress">
-    <a class="btn btn-large" ui-sref="game"">new game</a>
+  <a class="btn btn-large" ui-sref="game({level: 'easy'})"">easy</a>
+  <a class="btn btn-large" ui-sref="game({level: 'medium'})"">medium</a>
+  <a class="btn btn-large" ui-sref="game({level: 'hard'})"">hard</a>
+  <a class="btn btn-large" ui-sref="game({level: 'impossible'})"">impossible</a>
 </div>

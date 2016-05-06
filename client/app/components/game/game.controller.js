@@ -1,5 +1,5 @@
 class GameController {
-  constructor($state, $filter, timerService) {
+  constructor($state, $filter, $stateParams, timerService) {
     'ngInject';
     this.name = 'game';
     
@@ -7,19 +7,35 @@ class GameController {
     this.$state = $state;
     this.hex2rgbFilter = $filter('rgb2hex');
     this.progression = 0;
+    
+    switch ($stateParams.level) {
+    case 'easy': this.tolerance = 15; break;
+    case 'hard': this.tolerance = 5; break;
+    case 'impossible': this.tolerance = 1; break;
+    default: this.tolerance = 10; 
+    }
     this.start();
   }
   
   update() {
-    if (this.hasWon()) {
+    if (this.diff() <= this.tolerance) {
       this.stop();
     }
   }
   
-  hasWon() {
-    let actual = parseInt(this.color.red, 10) + parseInt(this.color.green, 10) + parseInt(this.color.blue, 10);
-    let guess = parseInt(this.guessColor.red, 10) + parseInt(this.guessColor.green, 10) + parseInt(this.guessColor.blue, 10);
-    return Math.abs(((guess / actual) * 100) - 100) < 10;
+  diff() {
+    let diffs = {
+      red: Math.floor(Math.abs(((this.guessColor.red / this.color.red) * 100) - 100)),
+      green: Math.floor(Math.abs(((this.guessColor.green / this.color.green) * 100) - 100)),
+      blue: Math.floor(Math.abs(((this.guessColor.blue / this.color.blue) * 100) - 100))
+    };
+    
+    let max = Math.max(diffs.red, diffs.green, diffs.blue);
+    if (max > this.tolerance) {
+      return max;
+    }
+    
+    return (diffs.red + diffs.green + diffs.blue) / 3;
   }
   
   /**
