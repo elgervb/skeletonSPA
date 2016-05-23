@@ -1,7 +1,21 @@
   <div class="game" style="background-color: {{$ctrl.color | rgbcolor}}"> 
     <div class="timer">{{$ctrl.progression | time}} </div>
     <colorpicker color="$ctrl.guessColor" on-update="$ctrl.update()"></colorpicker>
-    <a class="btn-white btn-large btn-ghost" ng-click="$ctrl.stop()"> Give up </a>
+    <a class="btn-white btn-large btn-ghost" ng-click="$ctrl.lost()"> Give up </a>
   </div>
 
-<div ui-view></div>
+
+  <section class="overlay slideIn" ng-if="$ctrl.gameEnd" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
+    <div class="overview">
+      <h1 class="title"> You <i ng-if="$ctrl.hasWon">Won</i><i ng-if="!$ctrl.hasWon">Lost</i>! </h1>
+      
+      <h2 class="">it took you: </h2>
+      
+      <div class="timer">{{$ctrl.progression | time}} seconds</div>
+      
+      
+      <div class="buttons">
+        <a ui-sref="home" class="btn-white btn-large btn-ghost"> new game </a>
+      </div>
+    </div>
+  </section>

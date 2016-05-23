@@ -1,10 +1,9 @@
 class GameController {
-  constructor($state, $filter, $stateParams, timerService) {
+  constructor($filter, $stateParams, timerService) {
     'ngInject';
     this.name = 'game';
     
     this.timer = timerService;
-    this.$state = $state;
     this.hex2rgbFilter = $filter('rgb2hex');
     this.progression = 0;
     
@@ -19,7 +18,7 @@ class GameController {
   
   update() {
     if (this.diff() <= this.tolerance) {
-      this.stop();
+      this.stop(true);
     }
   }
   
@@ -56,10 +55,15 @@ class GameController {
     });
   }
   
-  stop() {
+  lost() {
+    this.stop(false);
+  }
+  
+  stop(hasWon) {
     this.timer.stop();
     
-    this.$state.go('game.overview');
+    this.gameEnd = true;
+    this.hasWon = hasWon;
   }
 }
 

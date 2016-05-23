@@ -21,10 +21,6 @@ angular.module('app', [
     .state('game', {
       url: '/game/:level',
       template: '<game></game>'
-    })
-    .state('game.overview', {
-      url: '/overview',
-      templateUrl: '/app/components/game/overview.html'
     });
 })
 
