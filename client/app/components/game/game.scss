@@ -22,6 +22,19 @@
   }
 }
 
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .timer {
+    margin-bottom: 10vh;
+  }
+  .colorpicker {
+    margin-bottom: 10vh;
+  }
+}
+
 .overview {
   color: #fff;
   left: 50%;
