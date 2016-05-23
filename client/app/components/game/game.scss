@@ -2,14 +2,6 @@
   height: 100%;
 }
 
-.timer {
-  color: #fff;
-  font-size: 4em;
-  margin: 0 auto;
-  text-align: center;
-  width: 320px;
-}
-
 .home {
   animation: colormorph 30s infinite;
   background-color: #2bbf69;
@@ -28,17 +20,35 @@
   .buttons {
     margin-top: 3rem;
   }
+}
+
+.overview {
+  color: #fff;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
   
-  .btn-ghost, a.btn-ghost {
-    &.btn-white {
-      color: #ffffff;
-      &:hover, &:focus {
-        background-color: #ffffff;
-        border-color: #ffffff;
-        color: #444;
-      }
-    }
+  h1 {
+    font-size: 4em;
   }
+  h2 {
+    font-size: 2.2em;
+    margin-bottom: 1.5rem;
+  }
+  .timer {
+    font-size: 2em;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.timer {
+  color: #fff;
+  font-size: 4em;
+  margin: 0 auto;
+  text-align: center;
+  width: 320px;
 }
 
 
