@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import AppComponent from './app.component';
 import Game from './components/game/game';
+import homeTemplate from './components/game/home.html';
 
 angular.module('app', [
   uiRouter,
@@ -16,7 +17,7 @@ angular.module('app', [
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: '/app/components/game/home.html'
+      template: homeTemplate
     })
     .state('game', {
       url: '/game/:level',
