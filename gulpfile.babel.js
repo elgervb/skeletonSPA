@@ -22,6 +22,7 @@ gulp.task('images', task('images'));
 gulp.task('info', task('info'));
 gulp.task('lint-js', task('lint-js'));
 gulp.task('start', task('start'));
+gulp.task('start-dist', ['webpack'], task('start-dist'));
 gulp.task('test', task('test'));
 gulp.task('test:e2e', task('test-e2e'));
 gulp.task('test:watch', task('test-watch'));
