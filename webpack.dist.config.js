@@ -10,6 +10,8 @@ config.output = {
 };
 
 config.plugins = config.plugins.concat([
+  // Only emit files when there are no errors
+  new webpack.NoErrorsPlugin(),
 
   // Reduces bundles total size
   new webpack.optimize.UglifyJsPlugin({
