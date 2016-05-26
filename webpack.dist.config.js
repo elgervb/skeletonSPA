@@ -4,7 +4,7 @@ const config = require('./webpack.config');
 const settings = require('./package.json').settings;
 
 config.output = {
-  filename: '[name].bundle.js',
+  filename: '[name].[hash].js',
   publicPath: '',
   path: path.resolve(__dirname, settings.dist)
 };
