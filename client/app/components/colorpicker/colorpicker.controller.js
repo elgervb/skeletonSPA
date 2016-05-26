@@ -1,12 +1,7 @@
 class ColorpickerController {
   /* @ngInject */
-  constructor($scope) {
+  constructor() {
     this.name = 'colorpicker';
-    this.$scope = $scope;
-  }
-  
-  $onInit() {
-    //
   }
 }
 
