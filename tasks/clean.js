@@ -5,7 +5,7 @@ import vinylPaths from 'vinyl-paths';
  */
 module.exports = (gulp, settings) => {
     return () => {
-      return gulp.src([settings.dist])
+      return gulp.src([settings.dist, settings.reports])
       .pipe(vinylPaths(del));
     };
 };
