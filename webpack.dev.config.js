@@ -8,6 +8,8 @@ config.output = {
   path: path.resolve(__dirname, 'client')
 };
 
+config.devtool = 'inline-source-map';
+
 config.plugins = config.plugins.concat([
 
   // Adds webpack HMR support. It act's like livereload,
