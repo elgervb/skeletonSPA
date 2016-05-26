@@ -28,4 +28,4 @@ gulp.task('test:e2e', task('test-e2e'));
 gulp.task('test:watch', task('test-watch'));
 gulp.task('todo', task('todo'));
 gulp.task('watch', ['start']);
-gulp.task('webpack', task('webpack'));
+gulp.task('webpack', ['clean'], task('webpack'));
