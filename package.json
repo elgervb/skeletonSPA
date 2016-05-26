@@ -33,6 +33,7 @@
     "src": "./client/",
     "entry": "./client/app/app.js",
     "dist": "./dist",
+    "reports": "./reports",
     "serverport": 4000
   },
   "license": "ISC",
