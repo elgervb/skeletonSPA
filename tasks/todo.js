@@ -10,7 +10,7 @@ import todo from 'gulp-todo';
  */
 module.exports = function (gulp, settings) {
   return function () {
-    gulp.src([`${settings.src}js/app/**/*.js`, `${settings.src}styles/app/**/*.scss`])
+    gulp.src([`${settings.src}js/client/**/*.js`, `${settings.src}tasks/**`, `${settings.src}js/client/**/*.scss`])
     .pipe(plumber())
     .pipe(todo())
     .pipe(gulp.dest(settings.reports)) // output todo.md as markdown

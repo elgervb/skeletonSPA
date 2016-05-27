@@ -1,4 +1,3 @@
-// use webpack.config.js to build modules
 import webpack from 'webpack';
 import webpackDevMiddelware from 'webpack-dev-middleware';
 import webpackHotMiddelware from 'webpack-hot-middleware';
@@ -6,6 +5,14 @@ import historyApiFallback from 'connect-history-api-fallback';
 import bs from 'browser-sync';
 import colorsSupported from 'supports-color';
 
+/**
+ * Start a browser sync server with auto reload
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
+ */
 module.exports = function (gulp, settings) {
   return function (cb) {
     const config = require('../webpack.dev.config');

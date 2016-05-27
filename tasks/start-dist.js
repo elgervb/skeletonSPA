@@ -1,7 +1,12 @@
 import url from 'url';
 import browserSync from 'browser-sync';
 /**
- * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
+ * Start a browser sync server with auto reload against the dist (production) folder
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
 module.exports = (gulp, settings) => {
     return () => {

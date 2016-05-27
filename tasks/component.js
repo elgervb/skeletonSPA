@@ -4,7 +4,14 @@ import path from 'path';
 import rename from 'gulp-rename';
 import yargs from 'yargs';
 
-// use webpack.config.js to build modules
+/**
+ * Create a new component. params: --name={componentname} --parent={parent component}
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
+ */
 module.exports = (gulp, settings) => {
   return (cb) => {
     const cap = (val) => {

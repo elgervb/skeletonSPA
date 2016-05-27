@@ -4,6 +4,11 @@ import rename from 'gulp-rename';
 import imagemin from 'gulp-imagemin';
 /**
  * Create an icon font from all images located in /src/font-icons
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
 module.exports = (gulp, settings) => {
     return () => {

@@ -1,11 +1,15 @@
+import eslint from 'gulp-eslint';
+import plumber from 'gulp-plumber';
 /**
  * Lint all application javascript
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
-module.exports = function (gulp, plugins, settings) {
+module.exports = function (gulp,  settings) {
   return function () {
-    let eslint = plugins.eslint;
-    let plumber = plugins.plumber;
-
     return gulp.src(`${settings.src}js/app/**/*.js`)
     .pipe(plumber())
     .pipe(eslint())

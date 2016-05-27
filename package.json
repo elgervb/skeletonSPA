@@ -59,6 +59,7 @@
     "fs-walk": "0.0.1",
     "gulp": "^3.9.0",
     "gulp-consolidate": "^0.2.0",
+    "gulp-eslint": "^2.0.0",
     "gulp-iconfont": "^6.0.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-plumber": "^1.1.0",

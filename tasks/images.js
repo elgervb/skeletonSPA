@@ -2,7 +2,12 @@ import imagemin from 'gulp-imagemin';
 import plumber from 'gulp-plumber';
 import size from 'gulp-size';
 /**
- * Task to optimize and deploy all images found in folder `src/img/**`.
+ * Task to optimize and deploy all images found in folder `client/img/**`
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
 module.exports = function (gulp, settings) {
   return function () {
