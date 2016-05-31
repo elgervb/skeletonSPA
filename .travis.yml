@@ -16,8 +16,9 @@ before_script:
   - npm install -g gulp
   - npm install -g bower
   - npm install -g protractor
+  - webdriver-manager update
   - npm run webdriver &
-  - npm start
+  - npm start &
 
 script:
   - npm run lint
