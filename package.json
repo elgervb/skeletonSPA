@@ -10,7 +10,7 @@
     "skeleton"
   ],
   "scripts": {
-    "lint": "eslint . --ext .js --cache || true",
+    "lint": "eslint client/ tasks/ ./  --ext .js --cache || true",
     "start": "gulp start",
     "test": "karma start",
     "test-watch": "karma start --auto-watch --no-single-run",
