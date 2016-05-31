@@ -6,7 +6,7 @@ var path = require('path');
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai-spies', 'chai' ],
+    frameworks: ['mocha', 'chai' ],
 
     // list of files/patterns to load in the browser
     files: [{ pattern: 'spec.bundle.js', watched: false }],
@@ -17,7 +17,6 @@ var path = require('path');
     plugins: [
       require('karma-coverage'),
       require('karma-chai'),
-      require('karma-chai-spies'),
       require('karma-chrome-launcher'),
       require('karma-mocha'),
       require('karma-mocha-reporter'),
