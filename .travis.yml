@@ -16,11 +16,11 @@ before_script:
   - npm install -g gulp
   - npm install -g bower
   - npm install -g protractor
-  - webdriver-manager update
+  - npm webdriver
   - bower install
-  - gulp 
-  - gulp start &
+  - npm start
 
 script:
-  - gulp test
-  - gulp test:e2e
+  - npm lint
+  - npm test
+  - npm teste2e
