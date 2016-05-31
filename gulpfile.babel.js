@@ -1,6 +1,4 @@
 'use strict';
-
-/* global __dirname */
 import gulp from 'gulp';
 import config from './package.json'; // Read specific setting from the package file
 import yargs from 'yargs';

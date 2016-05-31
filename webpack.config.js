@@ -10,16 +10,16 @@ module.exports = {
       {test: /\.js?$/, loaders: ['eslint-loader'], exclude: [/generator/, /node_modules/]}
     ],
     loaders: [
-       {test: /\.js$/, exclude: [/generator/, /node_modules/], loader: 'ng-annotate!babel'},
-       {test: /\.html$/, loader: 'raw'},
-       {test: /\.scss$/, loader: 'style!css!sass'},
-       {test: /\.css$/, loader: 'style!css'},
-       {test: /\.(jpe?g|png|gif|svg)$/i,
+      {test: /\.js$/, exclude: [/generator/, /node_modules/], loader: 'ng-annotate!babel'},
+      {test: /\.html$/, loader: 'raw'},
+      {test: /\.scss$/, loader: 'style!css!sass'},
+      {test: /\.css$/, loader: 'style!css'},
+      {test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack'
+         'file?hash=sha512&digest=hex&name=[hash].[ext]',
+         'image-webpack'
         ]
-       }
+      }
     ],
     imageWebpackLoader: {
       pngquant: {
