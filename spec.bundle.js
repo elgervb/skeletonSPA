@@ -25,3 +25,11 @@ let context = require.context('./client/app', true, /\.js/);
 // loop and require those spec files here.
 context.keys().forEach(context);
 
+describe('global setup', () => {
+  
+  it('should have angular', () => expect(angular).to.be.ok);
+  
+  it('should have angular-mocks', () => expect(mocks).to.be.ok);
+  
+  it('should have context', () => expect(context).to.be.ok);
+});
