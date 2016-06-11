@@ -1,12 +1,16 @@
+import plumber from 'gulp-plumber';
+import todo from 'gulp-todo';
 /**
  * Output TODO's & FIXME's in markdown and json file as well
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
-module.exports = function (gulp, plugins, settings) {
+module.exports = function (gulp, settings) {
   return function () {
-    let plumber = plugins.plumber;
-    let todo = plugins.todo;
-         
-    gulp.src([`${settings.src}js/app/**/*.js`, `${settings.src}styles/app/**/*.scss`])
+    gulp.src([`${settings.src}js/client/**/*.js`, `${settings.src}tasks/**`, `${settings.src}js/client/**/*.scss`])
     .pipe(plumber())
     .pipe(todo())
     .pipe(gulp.dest(settings.reports)) // output todo.md as markdown

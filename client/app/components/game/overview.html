@@ -1,0 +1,14 @@
+<section class="overlay slideIn" style="background-color: {{$ctrl.color.toMatch | hexcolor}}">
+  <div class="overview">
+    <h1 class="title"> You Won! </h1>
+    
+    <h2 class="">it took you: </h2>
+    
+    <div class="timer">{{$ctrl.progression | time}} seconds</div>
+    
+    
+    <div class="buttons">
+      <a ui-sref="home" class="btn-white btn-large btn-ghost"> new game </a>
+    </div>
+  </div>
+</section>

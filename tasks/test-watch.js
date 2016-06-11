@@ -1,11 +1,18 @@
+import karma from 'karma';
 /**
  * Run rests and keep watching changes for files
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
-module.exports = function (gulp, plugins, settings) {
+module.exports = function (gulp, settings) {
   return function (done) {
-    let Server = plugins.karma.Server;
-    new Server({
-      configFile: `${__dirname}/../karma.conf.js`
+    new karma.Server({
+      configFile: `${__dirname}/../karma.conf.js`,
+      singleRun: false,
+      autoWatch: true
     }, done).start();
   };
 };

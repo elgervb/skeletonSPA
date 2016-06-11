@@ -1,0 +1,28 @@
+<div class="colorpicker">
+  
+  <div class="controls">
+    
+    <div class="field">
+      <label>red</label>
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.red" ng-change="$ctrl.onUpdate($ctrl.color)" />
+    </div>
+    <div class="field">
+      <label>green</label>
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.green" ng-change="$ctrl.onUpdate($ctrl.color)" />
+    </div>
+    <div class="field">
+      <label>blue</label>
+      <input type="range" min="0" max="255" step="1" ng-model="$ctrl.color.blue" ng-change="$ctrl.onUpdate($ctrl.color)" />
+    </div>
+    
+  </div>
+  
+  <div class="preview" style="background-color: {{$ctrl.color | rgb2hex}}"></div>
+  <div class="values">
+    <p>hex: {{$ctrl.color | rgb2hex}} </p>
+    <p>rgb: {{$ctrl.color | rgb2hex | hex2rgb}}</p> 
+    <p>cmyk: {{$ctrl.color | rgb2hex | hex2cmyk}}</p> 
+    <p>hsl: {{$ctrl.color | rgb2hex | hex2hsl}}</p> 
+  </div>
+    
+</div>

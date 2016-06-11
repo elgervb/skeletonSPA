@@ -1,104 +1,147 @@
-"use strict";
-
-/**
- * Karma config file
- * 
- * http://karma-runner.github.io/0.8/config/configuration-file.html
- */
+'use strict';
 module.exports = function(config) {
-
-  function getIdentifier(){
-    var d = new Date(),
-    day = d.getDate(),
-    month = d.getMonth()+1,
-    year = d.getFullYear(),
-    hours = d.getHours(),
-    minutes = d.getMinutes(),
-    seconds = d.getSeconds(),
-    ms = d.getMilliseconds();
-    return ""+year+(month<9?"0"+month:month)+(day<9?"0"+day:day)+"-"+(hours<9?"0"+hours:hours)+(minutes<9?"0"+minutes:minutes)+"-"+(seconds<9?"0"+seconds:seconds)+ms;
-  }
-  var identifier = getIdentifier();
+  let path = require('path');
 
   config.set({
-    basePath: './',
-    frameworks: [ 'jasmine' ],
-    files: [
-      'dist/js/vendor.js',
-      'dist/js/vendor/angular-mocks.js',
-      'dist/js/templates.js',
-      'dist/js/app.js',
-      'dist/**/*.html',
-      'node_modules/babel-polyfill/dist/polyfill.js',
-      'tests/units/**/*.js',
-      'dist/**/*.css'
+    // base path used to resolve all patterns
+    basePath: '',
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['mocha', 'chai'],
+
+    // list of files/patterns to load in the browser
+    files: [{pattern: 'spec.bundle.js', watched: false}],
+
+    // files to exclude
+    exclude: [],
+
+    plugins: [
+      require('karma-coverage'),
+      require('karma-chai'),
+      require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-ie-launcher'),
+      require('karma-opera-launcher'),
+      require('karma-phantomjs-launcher'),
+      require('karma-mocha'),
+      require('karma-mocha-reporter'),
+      require('karma-sourcemap-loader'),
+      require('karma-webpack')
     ],
-    preprocessors: {
-      './app/templates/*.html': 'ng-html2js',
-      './dist/js/app.js': ['coverage'],
-      './tests/units/**/*.js': ['babel']
-    },
-    babelPreprocessor: {
-      options: {
-        presets: ['es2015'],
-        sourceMap: 'inline'
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
+
+    webpack: {
+      babel: {
+          presets: ['es2015']
       },
-      filename: function (file) {
-        return file.originalPath.replace(/\.js$/, '.es5.js');
+      isparta: {
+        embedSource: true,
+        noAutoWrap: true,
+        babel: {
+          presets: ['es2015']
+        }
       },
-      sourceFileName: function (file) {
-        return file.originalPath;
+      devtool: 'inline-source-map',
+      module: {
+        preLoaders: [
+          // transpile all files except testing sources with babel as usual
+          {
+            test: /\.js$/,
+            exclude: [
+              path.resolve('client'),
+              path.resolve('node_modules/')
+            ],
+            loader: 'babel'
+          },
+          // transpile and instrument only testing sources with babel-istanbul
+          {
+            test: /\.js$/,
+            include: path.resolve('client'),
+            loader: 'babel-istanbul',
+            query: {
+              cacheDirectory: true
+            }
+          }
+        ],
+        loaders: [
+          {test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
+          {test: /\.html/, loader: 'raw'},
+          {test: /\.scss$/, loader: 'style!css!sass'},
+          {test: /\.css$/, loader: 'style!css'},
+          {test: /\.(jpe?g|png|gif|svg)$/i,
+            loaders: [
+              'file?hash=sha512&digest=hex&name=[hash].[ext]',
+              'image-webpack'
+            ]
+          }
+        ],
+        imageWebpackLoader: {
+          pngquant: {
+            quality: '65-90',
+            speed: 4
+          },
+          svgo: {
+            plugins: [
+              {
+                removeViewBox: false
+              },
+              {
+                removeEmptyAttrs: false
+              }
+            ]
+          }
+        }
       }
     },
-    reporters: [ 'spec', 'html', 'coverage' ],
-    colors: true,
-    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
-    htmlReporter: {
-        outputFile: 'reports/'+identifier+'/units.html',
-        suite: 'unit'
+
+    webpackServer: {
+      noInfo: true // prevent console spamming when running in Karma!
     },
-    plugins: [
-      'karma-babel-preprocessor',
-      'karma-chrome-launcher',
-      'karma-coverage',
-      'karma-firefox-launcher',
-      'karma-htmlfile-reporter',
-      'karma-ie-launcher',
-      'karma-jasmine',
-      'karma-ng-html2js-preprocessor',
-      'karma-opera-launcher',
-      'karma-phantomjs-launcher',
-      'karma-spec-reporter'
-    ],
-    exclude: [],
-    autoWatch: true,
-    autoWatchBatchDelay: 250,
-    usePolling: false,
-    reportSlowerThan: 100, // report all tests that are slower than...
+
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['mocha', 'coverage'],
+
+    // web server port
+    port: 9876,
+
+    // enable colors in the output
+    colors: true,
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+    // toggle whether to watch files and re-run tests upon incurring changes
+    autoWatch: false,
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
+
+    // if true, Karma runs tests once and exits
+    singleRun: true,
     coverageReporter: {
-      dir: 'reports/'+identifier+'/coverage',
+      dir: 'reports/coverage',
       reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' },
-        // reporters supporting the `file` property, use `subdir` to directly 
-        // output them in the `dir` directory 
-        { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
-        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
-        { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
-        { type: 'text', subdir: '.', file: 'text.txt' },
-        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
-        { type: 'text'},
-        { type: 'text-summary'},
+        {type: 'html', subdir: 'report-html'},
+        // { type: 'lcov', subdir: 'report-lcov' },
+        // // reporters supporting the `file` property, use `subdir` to directly 
+        // // output them in the `dir` directory 
+        // { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+        // { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+        // { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+        // { type: 'text', subdir: '.', file: 'text.txt' },
+        // { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+        // { type: 'text'},
+        {type: 'text-summary'},
       ],
       instrumenterOptions: {
-        istanbul: { noCompact: true }
+        istanbul: {noCompact: true}
       }
     },
-    customLaunchers: {
-      Crome_without_security: {
-        base: 'Chrome',
-        flags: ['--disable-web-security']
-      }
-    }
   });
 };

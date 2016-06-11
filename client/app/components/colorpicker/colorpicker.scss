@@ -1,0 +1,34 @@
+.colorpicker {
+  align-items: center;
+  background: transparent url(color.png) no-repeat top right;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  text-shadow: 1px 1px rgba(0,0,0,.3);
+  
+  
+  label {
+    display: inline-block;
+    width: 4em;
+  }
+  
+  input[type=range] {
+    appearance: none;
+    border: none;
+    width: 12em;
+  }
+
+  .preview {
+    height: 0;
+    margin: 0 1rem;
+    padding: 3em;
+    width: 0;
+  }
+  
+  .values {
+    p {
+      margin: .3rem;
+      padding: 0;
+    }
+  }
+}

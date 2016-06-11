@@ -1,15 +1,21 @@
 /**
  * Run End to End (e2e) tests with Protractor
+ * 
+ * @param {function} gulp gulp
+ * @param {object} settings application settings
+ * 
+ * @return {function} the gulp pipe
  */
 module.exports = function (gulp, plugins, settings) {
   return function () {
     let angularProtractor = plugins.angularProtractor;
     let gutil = plugins.gutil;
+    let port = settings.argv.port || settings.serverport;
  
     gulp.src(['./tests/e2e/*.js'])
     .pipe(angularProtractor({
       configFile: 'protractor.config.js',
-      args: ['--baseUrl', `http://localhost:${settings.serverport}`],
+      args: ['--baseUrl', `http://localhost:${port}`],
       autoStartStopServer: true,
       debug: false
     }))
