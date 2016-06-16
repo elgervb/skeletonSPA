@@ -22,4 +22,4 @@ before_script:
 script:
   - npm run lint
   - npm test
-  - npm run teste2e
+#  - npm run teste2e
