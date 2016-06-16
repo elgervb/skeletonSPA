@@ -14,7 +14,6 @@ addons:
       - g++-4.8
 before_script:
   - npm install -g gulp
-  - npm install -g bower
   - npm install -g protractor
   - webdriver-manager update
   - npm run webdriver &
