@@ -7,7 +7,7 @@ exports.config = {
    * Run in PhantomJS
    */
   capabilities: {
-    'browserName': 'phantomjs',
+    browserName: 'phantomjs',
     /* 
     * Can be used to specify the phantomjs binary path.
     * This can generally be ommitted if you installed phantomjs globally.
@@ -49,13 +49,13 @@ exports.config = {
     realtimeFailure: true,
     includeStackTrace: true,
     defaultTimeoutInterval: 30000,
-    print: function() {} // Remove protractor dot reporter
+    print: () => {} // Remove protractor dot reporter
   },
-  onPrepare: function() {
-    require("babel-register")({presets: ["es2015"]})
+  onPrepare: () => {
+    require('babel-register')({presets: ['es2015']});
     
     // add jasmine spec reporter
-    var SpecReporter = require('jasmine-spec-reporter');
+    let SpecReporter = require('jasmine-spec-reporter');
     jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
-   }
+  }
 };

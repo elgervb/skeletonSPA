@@ -32,11 +32,11 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
+    preprocessors: {'spec.bundle.js': ['webpack', 'sourcemap']},
 
     webpack: {
       babel: {
-          presets: ['es2015']
+        presets: ['es2015']
       },
       isparta: {
         embedSource: true,
@@ -120,7 +120,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [ 'PhantomJS' ], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
+    browsers: ['PhantomJS'], // 'Chrome', 'Crome_without_security', 'Firefox', 'IE', 'Opera', 'PhantomJS'
 
     // if true, Karma runs tests once and exits
     singleRun: true,
@@ -137,11 +137,11 @@ module.exports = function(config) {
         // { type: 'text', subdir: '.', file: 'text.txt' },
         // { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
         // { type: 'text'},
-        {type: 'text-summary'},
+        {type: 'text-summary'}
       ],
       instrumenterOptions: {
         istanbul: {noCompact: true}
       }
-    },
+    }
   });
 };
