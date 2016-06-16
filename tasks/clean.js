@@ -9,8 +9,8 @@ import vinylPaths from 'vinyl-paths';
  * @return {function} the gulp pipe
  */
 module.exports = (gulp, settings) => {
-    return () => {
-      return gulp.src([settings.dist, settings.reports])
-      .pipe(vinylPaths(del));
-    };
+  return () => {
+    return gulp.src([settings.dist, settings.reports])
+    .pipe(vinylPaths(del));
+  };
 };

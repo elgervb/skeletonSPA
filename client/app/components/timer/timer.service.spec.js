@@ -1,8 +1,9 @@
-import TimerModule from './timer'
+/* global module, describe, it, expect, beforeEach, inject */
+import TimerModule from './timer';
 import service from './timer.service';
 
 describe('Timer', () => {
-  let $rootScope, service;
+  let $rootScope;
 
   beforeEach(window.module(TimerModule.name));
   

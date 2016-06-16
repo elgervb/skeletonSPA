@@ -7,7 +7,7 @@ import karma from 'karma';
  * 
  * @return {function} the gulp pipe
  */
-module.exports = function (gulp, settings) {
+module.exports = function () {
   return function (done) {
     new karma.Server({
       configFile: `${__dirname}/../karma.conf.js`,

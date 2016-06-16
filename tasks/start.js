@@ -14,7 +14,7 @@ import colorsSupported from 'supports-color';
  * @return {function} the gulp pipe
  */
 module.exports = function (gulp, settings) {
-  return function (cb) {
+  return function () {
     const config = require('../webpack.dev.config');
     config.entry.app = [
       // this modules required to make HRM working
@@ -24,7 +24,7 @@ module.exports = function (gulp, settings) {
       settings.entry
     ];
 
-    var compiler = webpack(config);
+    let compiler = webpack(config);
 
     bs({
       port: settings.argv.port || settings.serverport || 4000,

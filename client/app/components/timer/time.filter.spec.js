@@ -1,4 +1,4 @@
-/* global module, describe, it, expect, beforeEach, inject */
+/* global module, describe, it, expect, beforeEach */
 'use strict';
 
 import factory from './time.filter.js';

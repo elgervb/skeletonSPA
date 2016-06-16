@@ -8,9 +8,9 @@ import plumber from 'gulp-plumber';
  * 
  * @return {function} the gulp pipe
  */
-module.exports = function (gulp,  settings) {
+module.exports = function (gulp, settings) {
   return function () {
-    return gulp.src(`${settings.src}js/app/**/*.js`)
+    return gulp.src(`${settings.src}js/client/**/*.js`)
     .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())

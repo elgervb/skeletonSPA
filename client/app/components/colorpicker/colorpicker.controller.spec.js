@@ -1,4 +1,5 @@
-import ColorpickerModule from './colorpicker'
+/* global module, describe, it, expect, beforeEach, inject */
+import ColorpickerModule from './colorpicker';
 import ColorpickerController from './colorpicker.controller';
 
 describe('Colorpicker', () => {

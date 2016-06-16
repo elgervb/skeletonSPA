@@ -4,7 +4,6 @@ import ColorpickerComponent from './colorpicker.component';
 import ColorpickerTemplate from './colorpicker.html';
 
 describe('Colorpicker', () => {
-  let $rootScope;
 
   beforeEach(window.module(ColorpickerModule.name));
 
@@ -21,19 +20,19 @@ describe('Colorpicker', () => {
   });
 
   describe('Component', () => {
-      // component/directive specs
-      let component = ColorpickerComponent;
+    // component/directive specs
+    let component = ColorpickerComponent;
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(ColorpickerTemplate);
-      });
+    it('includes the intended template',() => {
+      expect(component.template).to.equal(ColorpickerTemplate);
+    });
 
-      // it('uses `controllerAs` syntax', () => {
-      //   expect(component).to.have.property('controllerAs');
-      // });
+    // it('uses `controllerAs` syntax', () => {
+    //   expect(component).to.have.property('controllerAs');
+    // });
 
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(ColorpickerController);
-      });
+    it('invokes the right controller', () => {
+      expect(component.controller).to.equal(ColorpickerController);
+    });
   });
 });

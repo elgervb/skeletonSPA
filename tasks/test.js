@@ -7,11 +7,13 @@ import karma from 'karma';
  * 
  * @return {function} the gulp pipe
  */
-module.exports = (gulp, settings) => {
+module.exports = () => {
   return function (done) {
     new karma.Server({
       configFile: `${__dirname}/../karma.conf.js`,
       singleRun: true
-    }, () => {done();}).start();
+    }, () => {
+      done();
+    }).start();
   };
 };
