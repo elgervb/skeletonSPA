@@ -7,7 +7,16 @@ module.exports = {
   entry: {},
   module: {
     preLoaders: [
-      {test: /\.js?$/, loaders: ['eslint-loader'], exclude: [/generator/, /node_modules/]}
+      {
+          test: /\.js?$/, 
+          loaders: ['eslint-loader'], 
+          exclude: [/generator/, /node_modules/]
+      },
+      {
+        test: /\.html/, 
+        loader: 'htmlhint', 
+        exclude: [/generator/, /node_modules/]
+      }
     ],
     loaders: [
       {test: /\.js$/, exclude: [/generator/, /node_modules/], loader: 'ng-annotate!babel'},
@@ -37,6 +46,9 @@ module.exports = {
         ]
       }
     }
+  },
+  htmlhint: {
+    configFile: '.htmlhintrc'
   },
   plugins: [
     // Injects bundles in your index.html instead of wiring all manually.

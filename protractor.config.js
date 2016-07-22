@@ -1,4 +1,4 @@
-
+'use strict';
 
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -55,7 +55,7 @@ exports.config = {
     require('babel-register')({presets: ['es2015']});
     
     // add jasmine spec reporter
-    let SpecReporter = require('jasmine-spec-reporter');
+    const SpecReporter = require('jasmine-spec-reporter');
     jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
   }
 };
